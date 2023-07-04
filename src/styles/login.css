@@ -53,6 +53,7 @@
     color: #fff;
     font-weight: bolder;
     border-radius: 0.3em;
+    padding: 0.8em 1.3em;
 }
 
 .login-method-separator {
@@ -110,13 +111,16 @@
 
 .bottom-form-link ul {
     text-decoration: none;
-    color: #0052cc;
     font-weight: 300;
     display: flex;
     justify-content: center;
     gap: 25px;
     align-items: flex-start;
     padding: 0;
+}
+
+.bottom-form-link li {
+    color: #0052cc;
 }
 
 .bottom-form-link ul li::marker {

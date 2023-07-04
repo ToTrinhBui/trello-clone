@@ -14,7 +14,7 @@ export default function Navbar() {
             </ul>
             <div className="link-account">
                 <Link to='/login'><div className="link-to-login">Log in</div></Link>
-                <div className="link-to-sign-up">Get Trello for free</div>
+                <Link to='/register' className="link-to-sign-up">Get Trello for free</Link>
             </div>
         </div>
     )
