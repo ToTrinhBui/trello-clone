@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from '@react-oauth/google';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import FacebookLogin, { RenderProps } from 'react-facebook-login/dist/facebook-login-render-props';
+import axios from "axios";
 
-import '../styles/index.css'
+import '../styles/index.css';
 import '../styles/login.css';
 
 export default function Login() {
@@ -11,60 +12,53 @@ export default function Login() {
         email: "",
         password: "",
     });
-    const [response, setResponse] = useState<Record<string, any>>({});
 
     const navigate = useNavigate();
+
+    const [response, setResponse] = useState<Record<string, any>>({});
 
     const responseFacebook = (response: any) => {
         // Handle the response here
         console.log(response);
     };
-    const login = useGoogleLogin({
+
+    const loginGoogle = useGoogleLogin({
         onSuccess: tokenResponse => {
             // console.log(tokenResponse);
             setResponse(tokenResponse);
+            if (response.access_token) {
+                fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`, {
+                    headers: {
+                        Authorization: `Bearer ${response.access_token}`,
+                        Accept: 'application/json'
+                    }
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+                        // Handle the retrieved user information as needed
+                        navigate('/');
+                    })
+                    .catch((err) => console.log(err));
+            }
         },
         onError: (error) => console.log('Login Failed:', error)
     });
 
-    useEffect(() => {
-        if (response.access_token) {
-            fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`, {
-                headers: {
-                    Authorization: `Bearer ${response.access_token}`,
-                    Accept: 'application/json'
-                }
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    // Handle the retrieved user information as needed
-                    navigate('/');
-                })
-                .catch((err) => console.log(err));
-        }
-    }, [response, navigate]);
-
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        fetch(`http://localhost:3001/user?email=${user.email}`)
-            .then(response => {
-                return response.json();
-            }).then((response) => {
-                if (Object.keys(response).length === 0) {
-                    console.log('Not found user')
-                } else {
-                    if (response?.[0].password === user.password) {
-                        navigate('/');
-                        console.log('Login success.')
-                    } else {
-                        console.log('Wrong password.')
-                    }
-                }
 
+        // Send login request to the server
+        axios.post('http://localhost:3001/users/login', {
+            user
+        })
+            .then((response) => {
+                console.log(response);
+                console.log(response.data.accessToken); // Access token received from the server
+                navigate(`/user/${response.data.id}/broads`)
             })
-            .catch(error => {
-                console.error(error + " Login failed");
+            .catch((error) => {
+                console.error(error);
             });
     };
 
@@ -75,6 +69,7 @@ export default function Login() {
             [name]: value
         }));
     };
+
     return (
         <div className="login">
             <div>
@@ -92,16 +87,16 @@ export default function Login() {
                     </form>
                     <div className="login-method-separator">HOẶC</div>
 
-                    <div className="oauth-button btn" onClick={() => login()}>
+                    <div className="oauth-button btn" onClick={() => loginGoogle()}>
                         <img alt="google-icon" src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/8215f6659adc202403198fef903a447e/sign-in-with-google.svg" />
                         <span className="label">Tiếp tục với Google</span>
                     </div>
                     <FacebookLogin
                         appId="1279814009407610"
-                        autoLoad={true}
                         fields="name,email,picture"
+                        // autoLoad
                         callback={responseFacebook}
-                        render={renderProps => (
+                        render={(renderProps: RenderProps) => (
                             <div className="oauth-button btn" onClick={renderProps.onClick}>
                                 <svg style={{ "color": "#0052cc" }} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-facebook" viewBox="0 0 16 16">
                                     <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" fill="blue"></path>

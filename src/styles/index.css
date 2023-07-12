@@ -23,11 +23,30 @@ code {
 
 input {
   display: block;
-  margin: 0 0 1.2em;
+  outline: none;
+  border: none;
 }
 
 a {
   text-decoration: none;
+}
+
+button {
+  border: none;
+  align-items: center;
+  cursor: pointer;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.left {
+  margin-right: auto;
+}
+
+.flex {
+  display: flex;
 }
 
 /* NotFound */
@@ -75,7 +94,7 @@ a {
   font-weight: 500;
 }
 
-.logo {
+.navbar .logo {
   height: 26px;
   padding: 0 40px;
 }
@@ -88,7 +107,7 @@ a {
   gap: 25px;
 }
 
-.link-account{
+.link-account {
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -96,15 +115,274 @@ a {
   font-size: 1.2rem;
 }
 
-.link-account .link-to-login{
+.link-account .link-to-login {
   padding: 0 20px;
 }
 
-.link-account .link-to-sign-up{
+.link-account .link-to-sign-up {
   padding: 0 20px;
   background-color: rgb(0, 101, 255);
   color: rgb(255, 255, 255);
   height: 100%;
   display: flex;
   align-items: center;
+}
+
+/* NavbarUser */
+.navbar-user {
+  transition: 300ms;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: hsla(218, 54%, 19.6%, 0.16);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  max-height: 48px;
+  padding: 8px;
+  color: var(--nav-color, #FFFFFF);
+}
+
+.navbar-user .logo-user {
+  width: 75px;
+  height: 16px;
+  padding: 8px 0px;
+  margin: 0;
+  opacity: 1;
+  filter: var(--filter-logo, hue-rotate(179deg));
+}
+
+.navbar-user .logo-user::before {
+  content: '';
+  background-image: url(https://trello.com/assets/d947df93bc055849898e.gif);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar-user .logo-outer {
+  padding: 0px 10px;
+}
+
+.navbar-user .left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 15px;
+}
+
+.navbar-user .option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-user .space,
+.navbar-user .more,
+.navbar-user .recently {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 10px;
+}
+
+.navbar-user .space:hover,
+.navbar-user .more:hover,
+.navbar-user .recently:hover,
+.navbar-user .logo-outer:hover {
+  background-color: rgba(151, 151, 151, 0.3);
+  border-radius: 3px;
+}
+
+.navbar-user .option svg {
+  height: 16px;
+  width: 16px;
+  line-height: 16px;
+  color: #42526E;
+  margin-left: 4px;
+}
+
+.navbar-user .option span {
+  font-size: 14px;
+}
+
+.navbar-user button {
+  background: #0c66e4;
+  color: #FFFFFF;
+  margin: 0;
+  font-weight: 400;
+  padding: 0 12px;
+  border-radius: 3px;
+  height: 32px;
+  line-height: 32px;
+  margin: 0 4px 0 0;
+}
+
+.navbar-user button:hover {
+  background-color: #0055cc;
+}
+
+.navbar-user .right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-user .search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  width: 100%;
+  padding: 0px 12px 0px 8px;
+  box-sizing: border-box;
+  outline: none;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 20px;
+  border: 1.5px solid #e6e6e6;
+  box-shadow: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  background-color: var(--ds-background-input-hovered, #f7f8f9);
+}
+
+.navbar-user .search svg {
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  pointer-events: none;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--icon-primary-color, #626f86);
+  fill: var(--icon-secondary-color, #ffffff);
+  vertical-align: bottom;
+}
+
+.navbar-user .search input {
+  margin-bottom: revert;
+  transition: revert;
+  border-width: 1px;
+  box-shadow: none;
+  background-color: var(--ds-background-input-hovered, #f7f8f9);
+}
+
+.navbar-user .avatar {
+  width: 35px;
+  height: 35px;
+  line-height: 24px;
+  background-image: url(https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/6e51afadf71d3d08f7f2dc8577e9d848/30.png);
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.navbar-user .right svg {
+  height: 20px;
+  width: 20px;
+}
+
+.navbar-user .right .search-icon path {
+  fill: #626f86;
+}
+
+.navbar-user .svg-icon path {
+  fill: var(--svg-fill, #ffffff);
+}
+
+.navbar-user .container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-user .container:hover .circle {
+  position: absolute;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(151, 151, 151, 0.3);
+  height: 30px;
+  width: 30px;
+}
+
+/* Sidebar */
+.sidebar {
+  flex: 1;
+  border-right: 0.5px solid rgba(230, 227, 227, 0.603);
+  min-height: 100vh;
+  max-width: 259px;
+  background-color: #00000077;
+  color: #FFFFFF;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.sidebar .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.sidebar .title .logo {
+  display: block;
+  height: 32px;
+  width: 32px;
+  background: linear-gradient(#6E5DC6, #0C66E4);
+  border-radius: 3px;
+  text-align: center;
+}
+
+.sidebar .title h1 {
+  font-size: 20px;
+}
+
+.sidebar .part,
+.sidebar .tables {
+  padding: 10px 0 0 0;
+}
+
+.sidebar .part::after {
+  display: block;
+  content: '';
+  height: 1px;
+  width: 100%;
+  background: rgba(230, 227, 227, 0.603);
+  margin: 10px 0 0 0;
+}
+
+.sidebar p,
+.sidebar h5 {
+  font-size: 14px;
+}
+
+.sidebar .option,
+.sidebar h5 {
+  display: flex;
+  align-items: center;
+  padding: 5px 5px 5px 20px;
+  gap: 5px;
+}
+
+.sidebar .option:hover {
+  /* background: hsla(0, 0%, 100%, 0.16); */
+  background-color: rgba(151, 151, 151, 0.3);
+}
+
+.sidebar .option svg {
+  height: 20px;
+  width: 20px;
+  color: var(--svg-color, whitesmoke);
 }

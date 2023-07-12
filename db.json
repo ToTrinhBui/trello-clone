@@ -1,14 +1,12 @@
 {
-  "user": [
+  "users": [
     {
-      "id": 1,
-      "email": "abc@gmail.com",
-      "password": "12345"
-    },
-    {
-      "email": "totrinh@gmail.com",
-      "password": "12345",
-      "id": 2
+      "user": {
+        "email": "totrinh@gmail.com",
+        "password": "12345"
+      },
+      "accessToken": "8dd73dd20fdf0f86ab14d9fb9d3057005b394c55179e986e3ae9932f2aafc08b2c4095a77591bc17d0410d75eb7f5adf90a458ad2ba26ea1e25e8a26bec2e236",
+      "id": 1
     }
   ]
 }
