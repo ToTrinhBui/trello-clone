@@ -1,0 +1,4 @@
+/* Kanban */
+.kanban {
+    min-width: calc(100% - 265px);
+}

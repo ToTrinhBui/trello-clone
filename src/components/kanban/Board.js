@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { columnsFromBackend } from './KanbanData';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -35,9 +35,21 @@ const Title = styled.span`
   min-height: 20px;
 `;
 
-const Kanban = () => {
-    const [columns, setColumns] = useState(columnsFromBackend);
+// interface BoardProps {
+//     item: {
+//         [key: string]: any;
+//         title: string;
+//         items: any[];
+//     };
+// }
 
+const Board = (props) => {
+    const [columns, setColumns] = useState('');
+    useEffect(() => {
+        setColumns(props.data.columns);
+        // setColumns(columnsFromBackend)
+    }, [props.data]);
+    console.log(columns)
     const onDragEnd = (result, columns, setColumns) => {
         if (!result.destination) return;
         const { source, destination } = result;
@@ -74,33 +86,39 @@ const Kanban = () => {
         }
     };
     return (
-        <DragDropContext
-            onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
-        >
-            <Container>
-                <TaskColumnStyles>
-                    {Object.entries(columns).map(([columnId, column], index) => {
-                        return (
-                            <Droppable key={columnId} droppableId={columnId}>
-                                {(provided, snapshot) => (
-                                    <TaskList
-                                        ref={provided.innerRef}
-                                        {...provided.droppableProps}
-                                    >
-                                        <Title>{column.title}</Title>
-                                        {column.items.map((item, index) => (
-                                            <TaskCard key={item} item={item} index={index} />
-                                        ))}
-                                        {provided.placeholder}
-                                    </TaskList>
-                                )}
-                            </Droppable>
-                        );
-                    })}
-                </TaskColumnStyles>
-            </Container>
-        </DragDropContext>
+        <>
+            {props ? (
+
+                <DragDropContext
+                    onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+                >
+                    <Container>
+                        <TaskColumnStyles>
+                            {Object.entries(columns)?.map(([columnId, column], index) => {
+                                return (
+                                    <Droppable key={columnId} droppableId={columnId}>
+                                        {(provided, snapshot) => (
+                                            <TaskList
+                                                ref={provided.innerRef}
+                                                {...provided.droppableProps}
+                                            >
+                                                <Title>{column.title}</Title>
+                                                {column.items?.map((item, index) => (
+                                                    <TaskCard key={item} item={item} index={index} />
+                                                ))}
+                                                {provided.placeholder}
+                                            </TaskList>
+                                        )}
+                                    </Droppable>
+                                );
+                            })}
+                        </TaskColumnStyles>
+                    </Container>
+                </DragDropContext>
+            ) :
+                <div>Loading</div>}
+        </>
     );
 };
 
-export default Kanban;
+export default Board;

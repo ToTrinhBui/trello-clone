@@ -8,5 +8,49 @@
       "accessToken": "8dd73dd20fdf0f86ab14d9fb9d3057005b394c55179e986e3ae9932f2aafc08b2c4095a77591bc17d0410d75eb7f5adf90a458ad2ba26ea1e25e8a26bec2e236",
       "id": 1
     }
+  ],
+  "boards": [
+    {
+      "id": "1",
+      "user_id": "1",
+      "name": "Board 1",
+      "columns": {
+        "column1": {
+          "title": "To Do"
+        },
+        "column2": {
+          "title": "In Progress"
+        },
+        "column3": {
+          "title": "Done"
+        }
+      },
+      "tasks": [
+        {
+          "id": "1",
+          "Task": "Kanban",
+          "Due_Date": "25-May-2020",
+          "status": "To Do"
+        },
+        {
+          "id": "2",
+          "Task": "Table",
+          "Due_Date": "26-May-2020",
+          "status": "To Do"
+        },
+        {
+          "id": "3",
+          "Task": "Login/Logout",
+          "Due_Date": "27-May-2020",
+          "status": "Done"
+        },
+        {
+          "id": "4",
+          "Task": "Light/Dark mode",
+          "Due_Date": "23-Aug-2020",
+          "status": "Done"
+        }
+      ]
+    }
   ]
 }
