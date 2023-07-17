@@ -1,4 +1,119 @@
 /* Kanban */
 .kanban {
-    min-width: calc(100% - 265px);
+    width: calc(100% - 265px);
+}
+
+/* AddColumn */
+.add-column {
+    height: 20px;
+    padding-right: 20px;
+}
+
+.add-column-inner{
+    width: 250px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ffffff3d;
+    border-radius: 12px;
+    padding: 15px 15px;
+    color: rgb(230, 230, 230);
+}
+
+.add-column span {
+    font-size: 25px;
+    line-height: 0%;
+}
+
+.add-column p {
+    font-size: 14.5px;
+}
+
+.add-column:hover {
+    background-color: #ffffff1f;
+}
+
+/* Board */
+.add-task {
+    padding: 8px 8px;
+    margin: 10px 0px;
+    border-radius: 5px;
+}
+
+.add-task:hover {
+    background-color: #4242421f;
+}
+
+.add-task-inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    color: lightslategray;
+}
+
+.add-task span {
+    font-size: 25px;
+    line-height: 0%;
+}
+
+.add-task p {
+    font-size: 14.5px;
+}
+
+/* Dialog */
+.dialog-container {
+    padding: 20px;
+    width: 300px;
+    color: dimgray;
+}
+
+.dialog-container .input-part {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.dialog-container h4 {
+    font-size: 15px;
+}
+
+.dialog-container .input-part label {
+    font-size: 14px;
+}
+
+.dialog-container .submit button {
+    background: #0c66e4;
+    color: #FFFFFF;
+    margin: 0;
+    font-weight: 400;
+    padding: 0 12px;
+    border-radius: 3px;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 4px 0 0;
+}
+
+.dialog-container .submit button:hover {
+    background-color: #0055cc;
+}
+
+.dialog-container .submit {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.dialog-container .submit .close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    border-radius: 3px;
+}
+
+.dialog-container .submit .close:hover {
+    background-color: #72727254;
 }

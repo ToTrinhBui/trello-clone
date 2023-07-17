@@ -9,7 +9,7 @@ import "../styles/index.css";
 import "../styles/kanban.css";
 
 interface Column {
-    title: string;
+    id: string;
     items: Task[];
 }
 
@@ -32,41 +32,52 @@ interface NewData {
         [key: string]: Column;
     }
 }
+
 export default function Kanban() {
     const [data, setData] = useState<NewData>({
         columns: {}
     });
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     async function fetchData() {
         try {
             const response = await axios.get('http://localhost:3001/boards?user_id=1');
             const newData = addTaskToColumns(response.data?.[0]);
             setData(newData);
-
+            // console.log(newData)
         } catch (error) {
             console.error(error);
         }
     }
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-    
     function addTaskToColumns(data: Data): NewData {
         const newData: NewData = {
             columns: { ...data.columns },
         };
+
         for (const task of data.tasks) {
-            const matchingColumn = Object.values(newData.columns).find(
-                (column) => column.title === task.status
+            const matchingColumnKey = Object.keys(newData.columns).find(
+                (columnKey) => columnKey === task.status
             );
-            if (matchingColumn) {
+            if (matchingColumnKey) {
+                const matchingColumn = newData.columns[matchingColumnKey];
                 matchingColumn.items = matchingColumn.items || [];
                 matchingColumn.items.push(task);
             }
         }
+
+        // Add empty arrays to columns with no matching tasks
+        Object.values(newData.columns).forEach((column) => {
+            if (!column.items || column.items.length === 0) {
+                column.items = [];
+            }
+        });
         return newData;
     }
+    
 
     return (
         <div style={{ "background": "url(https://images.unsplash.com/photo-1688367785310-c8c013548288?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80)" }}
@@ -76,7 +87,7 @@ export default function Kanban() {
                 <Sidebar />
                 <div className="kanban">
                     <Heading />
-                    <Board data={data} />
+                    <Board data={data} refresh={fetchData}/>
                 </div>
             </div>
         </div>

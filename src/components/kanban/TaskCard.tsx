@@ -39,7 +39,7 @@ font-size: 15px;
 const TaskCard: React.FC<TaskCardProps> = ({ item, index }) => {
     return (
         <Draggable key={item.id} draggableId={item.id} index={index}>
-            {(provided) => (
+            {(provided, snapshot) => (
                 <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -50,10 +50,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ item, index }) => {
                         <div className="secondary-details">
                             <p>
                                 <span>
-                                    {new Date(item.Due_Date).toLocaleDateString('en-us', {
-                                        month: 'short',
-                                        day: '2-digit',
-                                    })}
+                                    {new Date(item.Due_Date).toLocaleDateString("en-GB")}
                                 </span>
                             </p>
                         </div>

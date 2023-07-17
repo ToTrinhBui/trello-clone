@@ -17,8 +17,8 @@ function App() {
           <Route path='/login' element={<Login/>} />
           <Route path='/register' element={<Register/>} />
           <Route path='/user/:id/boards' element={<Dashboard/>}/>
-          <Route path='/user/:id/table/:boardName' element={<Table/>}/>
-          <Route path='/user/:id/kanban/:boardName' element={<Kanban/>}/>
+          <Route path='/user/:id/table/:boardID' element={<Table/>}/>
+          <Route path='/user/:id/kanban/:boardID' element={<Kanban/>}/>
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

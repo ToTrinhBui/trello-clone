@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { columnsFromBackend } from './KanbanData';
+import axios from 'axios';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import TaskCard from './TaskCard';
+import AddTask from './AddTask';
+import { useParams } from 'react-router-dom';
+import AddColumn from './AddColumn';
 
 const Container = styled.div`
   display: flex;
+  overflow-x : scroll;
 `;
 
 const TaskList = styled.div`
@@ -16,14 +20,13 @@ const TaskList = styled.div`
   min-width: 250px;
   border-radius: 12px;
   padding: 15px 15px;
-  margin-right: 45px;
 `;
 
 const TaskColumnStyles = styled.div`
   margin: 20px;
   display: flex;
+  gap: 20px;
   width: 100%;
-  min-height: 80px;
 `;
 
 const Title = styled.span`
@@ -35,21 +38,31 @@ const Title = styled.span`
   min-height: 20px;
 `;
 
-// interface BoardProps {
-//     item: {
-//         [key: string]: any;
-//         title: string;
-//         items: any[];
-//     };
-// }
-
 const Board = (props) => {
     const [columns, setColumns] = useState('');
+    const { boardID } = useParams();
+
     useEffect(() => {
         setColumns(props.data.columns);
         // setColumns(columnsFromBackend)
     }, [props.data]);
-    console.log(columns)
+
+    const updateTaskStatus = async (taskId, newStatus, updatedColumns) => {
+        try {
+            const response = await axios.put(`http://localhost:3001/task/update`, {
+                board_id: boardID,
+                task_id: taskId,
+                status: newStatus,
+            });
+            const updatedTask = response.data;
+            console.log('Task updated successfully:', updatedTask);
+            props.refresh();
+            setColumns(updatedColumns);
+        } catch (error) {
+            console.error('Error updating task:', error);
+        }
+    };
+
     const onDragEnd = (result, columns, setColumns) => {
         if (!result.destination) return;
         const { source, destination } = result;
@@ -60,7 +73,7 @@ const Board = (props) => {
             const destItems = [...destColumn.items];
             const [removed] = sourceItems.splice(source.index, 1);
             destItems.splice(destination.index, 0, removed);
-            setColumns({
+            const updatedColumns = {
                 ...columns,
                 [source.droppableId]: {
                     ...sourceColumn,
@@ -70,25 +83,28 @@ const Board = (props) => {
                     ...destColumn,
                     items: destItems,
                 },
-            });
+            };
+            setColumns(updatedColumns); // Update the columns state before calling updateTaskStatus
+            updateTaskStatus(removed.id, destination.droppableId, updatedColumns);
         } else {
             const column = columns[source.droppableId];
             const copiedItems = [...column.items];
             const [removed] = copiedItems.splice(source.index, 1);
             copiedItems.splice(destination.index, 0, removed);
-            setColumns({
+            const updatedColumns = {
                 ...columns,
                 [source.droppableId]: {
                     ...column,
                     items: copiedItems,
                 },
-            });
+            };
+            setColumns(updatedColumns);
+            // updateTaskStatus(removed.id, source.droppableId);
         }
     };
     return (
         <>
             {props ? (
-
                 <DragDropContext
                     onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
                 >
@@ -96,7 +112,7 @@ const Board = (props) => {
                         <TaskColumnStyles>
                             {Object.entries(columns)?.map(([columnId, column], index) => {
                                 return (
-                                    <Droppable key={columnId} droppableId={columnId}>
+                                    <Droppable key={index} droppableId={columnId}>
                                         {(provided, snapshot) => (
                                             <TaskList
                                                 ref={provided.innerRef}
@@ -104,14 +120,16 @@ const Board = (props) => {
                                             >
                                                 <Title>{column.title}</Title>
                                                 {column.items?.map((item, index) => (
-                                                    <TaskCard key={item} item={item} index={index} />
+                                                    <TaskCard key={index} item={item} index={index} />
                                                 ))}
                                                 {provided.placeholder}
-                                            </TaskList>
+                                                <AddTask statusID={columnId} refresh={props.refresh} />
+                                            </TaskList >
                                         )}
                                     </Droppable>
                                 );
                             })}
+                            <AddColumn refresh={props.refresh} />
                         </TaskColumnStyles>
                     </Container>
                 </DragDropContext>

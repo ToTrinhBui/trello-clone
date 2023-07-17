@@ -319,10 +319,9 @@ button {
 
 /* Sidebar */
 .sidebar {
-  flex: 1;
   border-right: 0.5px solid rgba(230, 227, 227, 0.603);
   min-height: 100vh;
-  max-width: 259px;
+  width: 259px;
   background-color: #00000077;
   color: #FFFFFF;
   -webkit-backdrop-filter: blur(10px);
