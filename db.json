@@ -39,13 +39,13 @@
           "id": "2",
           "Task": "Table",
           "Due_Date": "26-May-2020",
-          "status": "c8833484-00df-4511-bf24-1f8ce5efbb93"
+          "status": "column1"
         },
         {
           "id": "3",
           "Task": "Login/Logout",
           "Due_Date": "27-May-2020",
-          "status": "column1"
+          "status": "column2"
         },
         {
           "id": "4",
@@ -57,31 +57,31 @@
           "id": "5",
           "Task": "Testing",
           "Due_Date": "2023-07-27",
-          "status": "column2"
+          "status": "column3"
         },
         {
           "id": "8453dc36-d8ce-44e9-9878-753e60c911ad",
           "Task": "API",
           "Due_Date": "2023-07-27",
-          "status": "6f14ecf5-d5b0-43b3-99f7-9219484c2ac9"
+          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba"
         },
         {
           "id": "8669cd10-1662-4ec0-b2d6-d8266a05d284",
           "Task": "UI",
           "Due_Date": "2023-07-06",
-          "status": "column1"
+          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba"
         },
         {
           "id": "hfsfsjdhfjd",
           "Task": "test mode",
           "Due_Date": "2023-07-27",
-          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba"
+          "status": "column3"
         },
         {
           "id": "b07c4547-8967-441d-91fe-7b687f85eb1c",
           "Task": "Navbar",
           "Due_Date": "2023-07-04",
-          "status": "column3"
+          "status": "column1"
         }
       ]
     },

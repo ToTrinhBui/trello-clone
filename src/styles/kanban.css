@@ -5,11 +5,11 @@
 
 /* AddColumn */
 .add-column {
-    height: 20px;
+    height: 50px;
     padding-right: 20px;
 }
 
-.add-column-inner{
+.add-column-inner {
     width: 250px;
     display: flex;
     align-items: center;
@@ -29,14 +29,14 @@
     font-size: 14.5px;
 }
 
-.add-column:hover {
+.add-column-inner:hover {
     background-color: #ffffff1f;
 }
 
 /* Board */
 .add-task {
     padding: 8px 8px;
-    margin: 10px 0px;
+    margin: 10px 0px 0px 0px;
     border-radius: 5px;
 }
 
@@ -116,4 +116,25 @@
 
 .dialog-container .submit .close:hover {
     background-color: #72727254;
+}
+
+/* Board */
+.board {
+    overflow-x: auto;
+    min-height: calc(100vh - 105px);
+}
+
+.board::-webkit-scrollbar {
+    width: 10px;
+}
+
+.board::-webkit-scrollbar-track {
+    background-color: #66666666;
+    border-radius: 50px;
+}
+
+.board::-webkit-scrollbar-thumb {
+    border: 5px solid transparent;
+    background-color: #e9e9e98f;
+    border-radius: 50px;
 }

@@ -3,63 +3,73 @@ import axios from "axios";
 import NavbarUser from "../components/NavbarUser";
 import Heading from "../components/Heading";
 import Sidebar from "../components/Sidebar";
-
 import "../styles/index.css";
 import "../styles/table.css";
+import BoardTable from "../components/table/BoardTable";
 
-// import { data } from "../components/kanban/KanbanData";
+interface Task {
+    id: string;
+    Task: string;
+    Due_Date: string;
+    status: string;
+}
+
+interface Data {
+    columns: Columns;
+    tasks: Task[];
+}
+
+interface Columns {
+    [key: string]: {
+        title: string;
+    };
+}
 
 export default function Table() {
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<Data>({
+        columns: {},
+        tasks: [],
+    });
 
     useEffect(() => {
         fetchData();
-    }, [])
+    }, []);
 
     async function fetchData() {
         try {
-            const response = await axios.get('http://localhost:3001/boards?user_id=1');
-            setData(response.data?.[0].tasks);
+            const response = await axios.get("http://localhost:3001/boards?user_id=1");
+            const data_db: Data = {
+                columns: { ...response.data?.[0].columns },
+                tasks: [...response.data?.[0].tasks],
+            };
+            const newData = replaceStatusIdByStatusName(data_db);
+            setData(newData);
         } catch (error) {
             console.error(error);
         }
     }
 
+    function replaceStatusIdByStatusName(data: Data): Data {
+        const newData: Data = {
+            columns: { ...data.columns },
+            tasks: data.tasks.map((task) => ({
+                ...task,
+                status: data.columns[task.status]?.title || task.status,
+            })),
+        };
+        return newData;
+    }
+
     return (
-        <div style={{ "background": "url(https://images.unsplash.com/photo-1688367785310-c8c013548288?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80)" }}
-        >
+        <div style={{ background: "#9933ff" }}>
             <NavbarUser />
             <div className="flex">
                 <Sidebar />
                 <div className="table">
                     <Heading />
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Task</th>
-                                <th>Due to</th>
-                                <th>Task</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data.map(item => (
-                                <tr key={item.id}>
-                                    <td>{item.id}</td>
-                                    <td>{item.task}</td>
-                                    <td>
-                                        {new Date(item.Due_Date).toLocaleDateString('en-us', {
-                                            month: 'short',
-                                            day: '2-digit',
-                                        })}
-                                    </td>
-                                    <td>{item.status}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <BoardTable data={data} refresh={fetchData}/>
                 </div>
             </div>
         </div>
-    )
+    );
 }

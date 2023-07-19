@@ -3,27 +3,61 @@
     min-width: calc(100% - 265px);
 }
 
-.table table {
-    width: 90%;
+/* BoardTable */
+.board-table table {
+    width: 100%;
     border-collapse: collapse;
     text-align: left;
-    margin: 20px 50px;
-    color: #fff;
+    color: #172b4d;
+    position: relative;
 }
 
-.table table tr:hover {
-    background: rgba(151, 151, 151, 0.5);
+.board-table-inner {
+    margin: 15px 15px;
+    background-color: whitesmoke;
+    border-radius: 3px;
+    padding: 15px 15px;
 }
 
-.table table th {
-    font-size: 18px;
-    border-bottom: 1px solid lightgray;
+.board-table table th {
+    font-size: 14px;
+    color: #172b4d98;
+    padding: 0px 0px 10px 0;
+}
+
+.board-table table td {
     padding: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-.table table td {
-    border-bottom: 1px solid lightgray;
-    padding: 6px 0;
-    font-size: 15px;
-    font-weight: 500;
+.board-table tr {
+    border-bottom: 1.5px solid lightgray;
+}
+
+.board-table tr:hover {
+    border-bottom: 1.5px solid #1e7cff;
+}
+
+/* AddTaskTable */
+
+.line-add {
+    position: absolute;
+    z-index: 1;
+    width: 70px;
+    height: 35px;
+}
+
+.add {
+    border-radius: 5px;
+    background-color: #d4e9ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    width: 28px;
+    position: absolute;
+    z-index: 100;
+    margin-top: 16px;
+    margin-left: -10px;
 }

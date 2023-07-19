@@ -9,7 +9,6 @@ import AddColumn from './AddColumn';
 
 const Container = styled.div`
   display: flex;
-  overflow-x : scroll;
 `;
 
 const TaskList = styled.div`
@@ -105,34 +104,36 @@ const Board = (props) => {
     return (
         <>
             {props ? (
-                <DragDropContext
-                    onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
-                >
-                    <Container>
-                        <TaskColumnStyles>
-                            {Object.entries(columns)?.map(([columnId, column], index) => {
-                                return (
-                                    <Droppable key={index} droppableId={columnId}>
-                                        {(provided, snapshot) => (
-                                            <TaskList
-                                                ref={provided.innerRef}
-                                                {...provided.droppableProps}
-                                            >
-                                                <Title>{column.title}</Title>
-                                                {column.items?.map((item, index) => (
-                                                    <TaskCard key={index} item={item} index={index} />
-                                                ))}
-                                                {provided.placeholder}
-                                                <AddTask statusID={columnId} refresh={props.refresh} />
-                                            </TaskList >
-                                        )}
-                                    </Droppable>
-                                );
-                            })}
-                            <AddColumn refresh={props.refresh} />
-                        </TaskColumnStyles>
-                    </Container>
-                </DragDropContext>
+                <div className='board'>
+                    <DragDropContext
+                        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+                    >
+                        <Container>
+                            <TaskColumnStyles>
+                                {Object.entries(columns)?.map(([columnId, column], index) => {
+                                    return (
+                                        <Droppable key={index} droppableId={columnId}>
+                                            {(provided, snapshot) => (
+                                                <TaskList
+                                                    ref={provided.innerRef}
+                                                    {...provided.droppableProps}
+                                                >
+                                                    <Title>{column.title}</Title>
+                                                    {column.items?.map((item, index) => (
+                                                        <TaskCard key={index} item={item} index={index} />
+                                                    ))}
+                                                    {provided.placeholder}
+                                                    <AddTask statusID={columnId} refresh={props.refresh} />
+                                                </TaskList >
+                                            )}
+                                        </Droppable>
+                                    );
+                                })}
+                                <AddColumn refresh={props.refresh} />
+                            </TaskColumnStyles>
+                        </Container>
+                    </DragDropContext>
+                </div>
             ) :
                 <div>Loading</div>}
         </>

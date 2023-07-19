@@ -140,6 +140,7 @@ button {
   overflow: hidden;
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
+  background-color: #7070706e;
   max-height: 48px;
   padding: 8px;
   color: var(--nav-color, #FFFFFF);
@@ -320,7 +321,7 @@ button {
 /* Sidebar */
 .sidebar {
   border-right: 0.5px solid rgba(230, 227, 227, 0.603);
-  min-height: 100vh;
+  height: calc(100vh - 48px);
   width: 259px;
   background-color: #00000077;
   color: #FFFFFF;
