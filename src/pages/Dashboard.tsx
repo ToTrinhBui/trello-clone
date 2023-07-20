@@ -1,5 +1,6 @@
 // Dashbroad component
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import NavbarUser from "../components/NavbarUser";
 import Sidebar from "../components/Sidebar";
@@ -7,12 +8,18 @@ import Sidebar from "../components/Sidebar";
 import '../styles/index.css';
 import '../styles/dashboard.css';
 import Boards from "../components/dashboard/Boards";
+import Title from "../components/dashboard/Title";
+
+interface Board {
+    id: string,
+    name: string,
+}
 
 export default function Dashbroad() {
     const sidebarStyles: React.CSSProperties & { "--color": string } = {
         backgroundColor: "#fff",
         color: '#172B4D',
-        "--color": "#172B4D",
+        "--color": "#626f86",
     };
 
     const navbarStyles: React.CSSProperties & { "--nav-color": string; "--filter-logo": string; "--svg-fill": string } = {
@@ -22,15 +29,23 @@ export default function Dashbroad() {
         "--svg-fill": '#626f86',
     };
 
-    const [boards, setBoards] = useState('');
+    const [data, setData] = useState<Board[]>([]);
+    const { id } = useParams<{ id?: string }>();
+
+    useEffect(() => {
+        fetchBoards();
+    }, [])
 
     async function fetchBoards() {
         try {
-            const response = await axios.get('http://localhost:3001/boards?user_id=1');
+            const response = await axios.get(`http://localhost:3001/boards?user_id=${id}`);
+            console.log(response.data);
+            setData(response.data);
         } catch (error) {
             console.error(error);
         }
     }
+
     return (
         <>
             <div>
@@ -39,7 +54,8 @@ export default function Dashbroad() {
                     <Sidebar style={sidebarStyles} />
                     <div className="dashboard">
                         <div className="dashboard-inner">
-                            <Boards />
+                            <Title />
+                            <Boards props={data} refresh={fetchBoards}/>
                         </div>
                     </div>
                 </div>

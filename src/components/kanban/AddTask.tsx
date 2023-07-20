@@ -38,12 +38,12 @@ const AddTask : React.FC<AddTaskProps> = ({ statusID, refresh }) => {
                 Due_Date: DueDate,
                 status: statusID,
             });
-            const updatedTask = response.data;
-            console.log('Task updated successfully:', updatedTask);
+            const addedTask = response.data;
+            console.log('Task added successfully:', addedTask);
             setDue_Date('');
             setTask('');
         } catch (error) {
-            console.error('Error updating task:', error);
+            console.error('Error adding task:', error);
         }
     }
 

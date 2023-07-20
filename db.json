@@ -39,7 +39,7 @@
           "id": "2",
           "Task": "Table",
           "Due_Date": "26-May-2020",
-          "status": "column1"
+          "status": "column3"
         },
         {
           "id": "3",
@@ -51,13 +51,13 @@
           "id": "4",
           "Task": "Light/Dark mode",
           "Due_Date": "23-Aug-2020",
-          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba"
+          "status": "column3"
         },
         {
           "id": "5",
           "Task": "Testing",
           "Due_Date": "2023-07-27",
-          "status": "column2"
+          "status": "column1"
         },
         {
           "id": "8453dc36-d8ce-44e9-9878-753e60c911ad",
@@ -75,7 +75,7 @@
           "id": "hfsfsjdhfjd",
           "Task": "test mode",
           "Due_Date": "2023-07-27",
-          "status": "column3"
+          "status": "column1"
         },
         {
           "id": "b07c4547-8967-441d-91fe-7b687f85eb1c",
@@ -105,27 +105,62 @@
           "id": "1",
           "Task": "Kanban",
           "Due_Date": "25-May-2020",
-          "status": "Done"
+          "status": "column3"
         },
         {
           "id": "2",
           "Task": "Table",
           "Due_Date": "26-May-2020",
-          "status": "Done"
+          "status": "column3"
         },
         {
           "id": "3",
           "Task": "Login/Logout",
           "Due_Date": "27-May-2020",
-          "status": "Done"
+          "status": "column2"
         },
         {
           "id": "4",
           "Task": "Light/Dark mode",
           "Due_Date": "23-Aug-2020",
-          "status": "Done"
+          "status": "column1"
         }
       ]
+    },
+    {
+      "user_id": "2",
+      "name": "New board",
+      "columns": {},
+      "tasks": [],
+      "id": "FH-BoIx"
+    },
+    {
+      "user_id": "1",
+      "name": "New board",
+      "columns": {
+        "581cea68-3cb4-4e74-9519-a355ceae64c1": {
+          "title": "New column"
+        },
+        "c37614eb-a98a-47a1-90a8-19fff8b906c0": {
+          "title": "New column"
+        }
+      },
+      "tasks": [
+        {
+          "id": "8707edf6-40c7-4adb-99d4-9aefd8a4ba69",
+          "Task": "Học bài",
+          "Due_Date": "2023-07-04",
+          "status": "581cea68-3cb4-4e74-9519-a355ceae64c1"
+        }
+      ],
+      "id": "zCDM1rZ"
+    },
+    {
+      "user_id": "1",
+      "name": "New board",
+      "columns": {},
+      "tasks": [],
+      "id": "MU_w5xM"
     }
   ]
 }

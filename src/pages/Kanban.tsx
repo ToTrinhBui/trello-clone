@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 import NavbarUser from "../components/NavbarUser";
 import Heading from "../components/Heading";
 import Board from "../components/kanban/Board";
@@ -37,6 +38,8 @@ export default function Kanban() {
     const [data, setData] = useState<NewData>({
         columns: {}
     });
+    const { boardID } = useParams();
+    const [nameBoard, setNameBoard ]= useState<string>('Name board');
 
     useEffect(() => {
         fetchData();
@@ -44,10 +47,10 @@ export default function Kanban() {
 
     async function fetchData() {
         try {
-            const response = await axios.get('http://localhost:3001/boards?user_id=1');
+            const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
             const newData = addTaskToColumns(response.data?.[0]);
             setData(newData);
-            // console.log(newData)
+            setNameBoard(response.data?.[0].name); 
         } catch (error) {
             console.error(error);
         }
@@ -86,7 +89,7 @@ export default function Kanban() {
             <div className="flex">
                 <Sidebar />
                 <div className="kanban">
-                    <Heading />
+                    <Heading title={nameBoard}/>
                     <Board data={data} refresh={fetchData}/>
                 </div>
             </div>

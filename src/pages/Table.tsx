@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 import NavbarUser from "../components/NavbarUser";
 import Heading from "../components/Heading";
 import Sidebar from "../components/Sidebar";
@@ -30,6 +31,8 @@ export default function Table() {
         columns: {},
         tasks: [],
     });
+    const { boardID } = useParams();
+    const [nameBoard, setNameBoard ]= useState<string>('Name board');
 
     useEffect(() => {
         fetchData();
@@ -37,13 +40,14 @@ export default function Table() {
 
     async function fetchData() {
         try {
-            const response = await axios.get("http://localhost:3001/boards?user_id=1");
+            const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
             const data_db: Data = {
                 columns: { ...response.data?.[0].columns },
                 tasks: [...response.data?.[0].tasks],
             };
             const newData = replaceStatusIdByStatusName(data_db);
             setData(newData);
+            setNameBoard(response.data?.[0].name); 
         } catch (error) {
             console.error(error);
         }
@@ -66,7 +70,7 @@ export default function Table() {
             <div className="flex">
                 <Sidebar />
                 <div className="table">
-                    <Heading />
+                    <Heading title={nameBoard}/>
                     <BoardTable data={data} refresh={fetchData}/>
                 </div>
             </div>

@@ -347,7 +347,6 @@ button {
 
 .sidebar .title {
   display: flex;
-  justify-content: center;
   align-items: center;
   padding: 10px;
 }
@@ -363,6 +362,7 @@ button {
 
 .sidebar .title h1 {
   font-size: 20px;
+  color: #FFFFFF;
 }
 
 .sidebar .part,
@@ -379,21 +379,25 @@ button {
   margin: 10px 0 0 0;
 }
 
+.sidebar h5 {
+  font-weight: 600;
+  margin: 8px 8px 8px 15px;
+}
+
 .sidebar p,
 .sidebar h5 {
   font-size: 14px;
 }
 
 .sidebar .option {
-  color:var(--color, #FFFFFF);
+  color: var(--color, #FFFFFF);
 }
 
-.sidebar .option,
-.sidebar h5 {
+.sidebar .option {
   display: flex;
   align-items: center;
-  padding: 5px 5px 5px 20px;
-  gap: 5px;
+  padding: 8px 8px 8px 20px;
+  gap: 10px;
 }
 
 .sidebar .option:hover {
@@ -402,8 +406,8 @@ button {
 }
 
 .sidebar .option svg {
-  height: 20px;
-  width: 20px;
+  height: 16px;
+  width: 16px;
   color: var(--color, whitesmoke);
 }
 
@@ -440,9 +444,8 @@ button {
 }
 
 .heading .change-mode {
-  margin: 0;
   font-weight: 300;
-  padding: 0 12px;
+  padding: 0 10px;
   border-radius: 3px;
   height: 32px;
   line-height: 32px;
@@ -464,4 +467,8 @@ button {
 
 .heading .change-mode:hover {
   background-color: white;
+}
+
+.share {
+  margin-right: auto;
 }
