@@ -49,6 +49,22 @@ button {
   display: flex;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #27272798;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 5px solid transparent;
+  background-color: #e9e9e98f;
+  border-radius: 50px;
+}
+
 /* NotFound */
 .not-found {
   display: block;
@@ -140,7 +156,7 @@ button {
   overflow: hidden;
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
-  background-color: #7070706e;
+  background-color: hsla(0, 0%, 27%, 0.521);
   max-height: 48px;
   padding: 8px;
   color: var(--nav-color, #FFFFFF);
@@ -320,7 +336,7 @@ button {
 
 /* Sidebar */
 .sidebar {
-  border-right: 0.5px solid rgba(230, 227, 227, 0.603);
+  border-right: 0.5px solid hsla(218, 54%, 19.6%, 0.16);
   height: calc(100vh - 48px);
   width: 259px;
   background-color: #00000077;
@@ -359,13 +375,17 @@ button {
   content: '';
   height: 1px;
   width: 100%;
-  background: rgba(230, 227, 227, 0.603);
+  background: hsla(218, 54%, 19.6%, 0.16);
   margin: 10px 0 0 0;
 }
 
 .sidebar p,
 .sidebar h5 {
   font-size: 14px;
+}
+
+.sidebar .option {
+  color:var(--color, #FFFFFF);
 }
 
 .sidebar .option,
@@ -384,7 +404,7 @@ button {
 .sidebar .option svg {
   height: 20px;
   width: 20px;
-  color: var(--svg-color, whitesmoke);
+  color: var(--color, whitesmoke);
 }
 
 /* Heading */
@@ -395,7 +415,7 @@ button {
   flex-direction: row;
   flex-wrap: wrap;
   flex-grow: 1;
-  gap: 4px;
+  gap: 10px;
   width: calc(100% - 23px);
   align-items: center;
   padding: 12px 10px 12px 16px;
@@ -416,4 +436,32 @@ button {
   height: 100%;
   padding: 0 10px;
   color: #fff;
+  margin: 0px 40px 0px 0px;
+}
+
+.heading .change-mode {
+  margin: 0;
+  font-weight: 300;
+  padding: 0 12px;
+  border-radius: 3px;
+  height: 32px;
+  line-height: 32px;
+  margin: 0 4px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: #DFE1E6;
+  color: #172B4D;
+}
+
+.heading .change-mode svg {
+  height: 16px;
+  width: 16px;
+  line-height: 16px;
+  fill: #172B4D;
+}
+
+.heading .change-mode:hover {
+  background-color: white;
 }

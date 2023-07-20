@@ -4,19 +4,25 @@
 }
 
 /* BoardTable */
+.board-table {
+    margin: 15px 15px;
+}
+
 .board-table table {
     width: 100%;
+    position: sticky;
+    top: 0;
     border-collapse: collapse;
     text-align: left;
     color: #172b4d;
-    position: relative;
 }
 
 .board-table-inner {
-    margin: 15px 15px;
     background-color: whitesmoke;
     border-radius: 3px;
     padding: 15px 15px;
+    overflow-y: auto;
+    max-height: calc(100vh - 165px);
 }
 
 .board-table table th {

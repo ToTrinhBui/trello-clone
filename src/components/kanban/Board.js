@@ -12,13 +12,14 @@ const Container = styled.div`
 `;
 
 const TaskList = styled.div`
-  max-height: 100%;
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   background: #f1f2f4;
   min-width: 250px;
   border-radius: 12px;
-  padding: 15px 15px;
+  padding: 10px 10px;
 `;
 
 const TaskColumnStyles = styled.div`

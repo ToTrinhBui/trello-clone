@@ -18,13 +18,14 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: flex-start;
-padding: 0 15px;
-min-height: 50px;
+padding: 0 10px;
+min-height: 45px;
 border-radius: 8px;
-max-width: 220px;
+max-width: 230px;
 background: white;
-margin-top: 15px;
-font-size: 15px;
+margin-top: 10px;
+font-size: 13px;
+box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
 .secondary-details {
   display: flex;

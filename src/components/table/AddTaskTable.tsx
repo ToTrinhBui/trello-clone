@@ -20,7 +20,7 @@ const AddTaskTable: React.FC<AddTaskTableProps> = ({ id, refresh, columns }) => 
     const { boardID } = useParams<{ boardID?: string }>();
     const [Task, setTask] = useState<string>('');
     const [Due_Date, setDue_Date] = useState<string>('');
-    const [status, setStatus] = useState<string>('');
+    const [status, setStatus] = useState<string>(Object.keys(columns)[0]);
     const [open, setOpen] = useState(false);
 
     const toggleDropdown = (taskId: string) => {
@@ -46,10 +46,12 @@ const AddTaskTable: React.FC<AddTaskTableProps> = ({ id, refresh, columns }) => 
         setOpen(false);
         refresh();
     };
+
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         setStatus(value);
     };
+
     const addNewTask = async (taskName: string, DueDate: string, statusID: string) => {
         try {
             const response = await axios.post(`http://localhost:3001/task/add`, {
@@ -60,6 +62,8 @@ const AddTaskTable: React.FC<AddTaskTableProps> = ({ id, refresh, columns }) => 
             });
             const updatedTask = response.data;
             console.log('Task updated successfully:', updatedTask);
+            setDue_Date('');
+            setTask('');
         } catch (error) {
             console.error('Error updating task:', error);
         }

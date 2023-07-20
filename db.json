@@ -51,19 +51,19 @@
           "id": "4",
           "Task": "Light/Dark mode",
           "Due_Date": "23-Aug-2020",
-          "status": "column2"
+          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba"
         },
         {
           "id": "5",
           "Task": "Testing",
           "Due_Date": "2023-07-27",
-          "status": "column3"
+          "status": "column2"
         },
         {
           "id": "8453dc36-d8ce-44e9-9878-753e60c911ad",
           "Task": "API",
           "Due_Date": "2023-07-27",
-          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba"
+          "status": "column2"
         },
         {
           "id": "8669cd10-1662-4ec0-b2d6-d8266a05d284",
@@ -81,7 +81,7 @@
           "id": "b07c4547-8967-441d-91fe-7b687f85eb1c",
           "Task": "Navbar",
           "Due_Date": "2023-07-04",
-          "status": "column1"
+          "status": "column3"
         }
       ]
     },
