@@ -70,7 +70,7 @@ const AddTask : React.FC<AddTaskProps> = ({ statusID, refresh }) => {
                 <p>Thêm thẻ</p>
             </div>
             <Dialog onClose={handleToClose} open={open} className='dialog'>
-                <div className='dialog-container'>
+                <div className='dialog-container' style={{width: '300px'}}>
                     <h4>Thêm thẻ</h4>
                     <form onSubmit={handleSubmit}>
                         <div className='input-part'>

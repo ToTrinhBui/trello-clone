@@ -23,11 +23,28 @@ server.post('/users/login', (req, res) => {
             .assign({ accessToken })
             .write();
 
-        res.status(200).json({ 'accessToken': accessToken, 'id': user_db.id });
+        res.status(200).json({ 'accessToken': accessToken, 'id': user_db.id, 'email': user_db.user.email });
     } else {
         res.status(401).json({ error: 'Invalid credentials', requestPayload: req.body });
     }
 });
+
+server.post('/board/member/add',(req, res)=>{
+    const {board_id, member_id} = req.body;
+    const board_db = router.db.get('boards').find(item => item.id === board_id).value();
+    console.log('Received request:', req.body); // Log the request body
+    if(board_db){
+        const members = board_db.members;
+        const member = {
+            user_id: member_id
+        }
+        members.push(member);
+        router.db.write(); // Persist the changes to the database
+        res.status(200).json({ notice: 'Successfull add new member in board', 'members': members });
+    }else {
+        res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
+    }
+})
 
 server.post('/status/add', (req, res) => {
     const { board_id } = req.body;

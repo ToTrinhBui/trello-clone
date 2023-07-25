@@ -39,7 +39,6 @@ export default function Kanban() {
         columns: {}
     });
     const { boardID } = useParams();
-    const [nameBoard, setNameBoard ]= useState<string>('Name board');
 
     useEffect(() => {
         fetchData();
@@ -50,7 +49,6 @@ export default function Kanban() {
             const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
             const newData = addTaskToColumns(response.data?.[0]);
             setData(newData);
-            setNameBoard(response.data?.[0].name); 
         } catch (error) {
             console.error(error);
         }
@@ -89,7 +87,7 @@ export default function Kanban() {
             <div className="flex">
                 <Sidebar />
                 <div className="kanban">
-                    <Heading title={nameBoard}/>
+                    <Heading />
                     <Board data={data} refresh={fetchData}/>
                 </div>
             </div>

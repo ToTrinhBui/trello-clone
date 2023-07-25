@@ -32,7 +32,6 @@ export default function Table() {
         tasks: [],
     });
     const { boardID } = useParams();
-    const [nameBoard, setNameBoard ]= useState<string>('Name board');
 
     useEffect(() => {
         fetchData();
@@ -47,7 +46,6 @@ export default function Table() {
             };
             const newData = replaceStatusIdByStatusName(data_db);
             setData(newData);
-            setNameBoard(response.data?.[0].name); 
         } catch (error) {
             console.error(error);
         }
@@ -70,7 +68,7 @@ export default function Table() {
             <div className="flex">
                 <Sidebar />
                 <div className="table">
-                    <Heading title={nameBoard}/>
+                    <Heading/>
                     <BoardTable data={data} refresh={fetchData}/>
                 </div>
             </div>

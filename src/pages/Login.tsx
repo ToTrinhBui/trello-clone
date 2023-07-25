@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from '@react-oauth/google';
 import FacebookLogin, { RenderProps } from 'react-facebook-login/dist/facebook-login-render-props';
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/userSlice";
 
 import '../styles/index.css';
 import '../styles/login.css';
@@ -14,6 +16,8 @@ export default function Login() {
     });
 
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const [response, setResponse] = useState<Record<string, any>>({});
 
@@ -55,7 +59,14 @@ export default function Login() {
             .then((response) => {
                 console.log(response);
                 console.log(response.data.accessToken); // Access token received from the server
-                navigate(`/user/${response.data.id}/broads`)
+                dispatch(login({
+                    user: {
+                        id: response.data.id,
+                        email: response.data.email,
+                    },
+                    token: response.data.accessToken
+                }))
+                navigate(`/user/${response.data.id}/boards`)
             })
             .catch((error) => {
                 console.error(error);

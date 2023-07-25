@@ -5,8 +5,24 @@
         "email": "totrinh@gmail.com",
         "password": "12345"
       },
-      "accessToken": "d0dc3a36eb2fa53cbe20d3782fc64a68b45c99eaba793ac5586c374d4fad7328fe10fca2dbf6558d3d305d5275321ce897fd7f2b549e669fcc3091ae80a6d2ce",
-      "id": 1
+      "accessToken": "88c90ac9be90538fcbd36f3ed78c5bf373b61749a5bc94f1a5f99432a25f75da53113c274fc15e1da1c7945ecb9cea5065c3964893dba7efc56b70ae04f69a91",
+      "id": "1"
+    },
+    {
+      "user": {
+        "email": "a@gmail.com",
+        "password": "12345"
+      },
+      "accessToken": "ec8056530698b22e674cbf0800383e9d9e1b62d551136ab65ba9a8c3e06801597bab1e97070009d200af852f63d243cd6415219b35d177943891a45c5ed0688b",
+      "id": "2"
+    },
+    {
+      "user": {
+        "email": "b@gmail.com",
+        "password": "12345"
+      },
+      "accessToken": "959246a220de899f08f2fc1c6a75635a8322b26a499a35624fd43fa5965e4d1424bfaaab79eadacb1cc78251cd47c66126fe7736a10ca81e4ede20180e27262a",
+      "id": "3"
     }
   ],
   "boards": [
@@ -14,6 +30,17 @@
       "id": "1",
       "user_id": "1",
       "name": "Board 1",
+      "members": [
+        {
+          "user_id": "1"
+        },
+        {
+          "user_id": "2"
+        },
+        {
+          "user_id": "3"
+        }
+      ],
       "columns": {
         "column1": {
           "title": "To Do"
@@ -39,19 +66,19 @@
           "id": "2",
           "Task": "Table",
           "Due_Date": "26-May-2020",
-          "status": "column3"
+          "status": "column1"
         },
         {
           "id": "3",
           "Task": "Login/Logout",
           "Due_Date": "27-May-2020",
-          "status": "column2"
+          "status": "column3"
         },
         {
           "id": "4",
           "Task": "Light/Dark mode",
           "Due_Date": "23-Aug-2020",
-          "status": "column3"
+          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba"
         },
         {
           "id": "5",
@@ -75,13 +102,13 @@
           "id": "hfsfsjdhfjd",
           "Task": "test mode",
           "Due_Date": "2023-07-27",
-          "status": "column1"
+          "status": "column3"
         },
         {
           "id": "b07c4547-8967-441d-91fe-7b687f85eb1c",
           "Task": "Navbar",
           "Due_Date": "2023-07-04",
-          "status": "column3"
+          "status": "column2"
         }
       ]
     },
@@ -89,6 +116,14 @@
       "id": "2",
       "user_id": "1",
       "name": "Board 2",
+      "members": [
+        {
+          "user_id": "1"
+        },
+        {
+          "user_id": "2"
+        }
+      ],
       "columns": {
         "column1": {
           "title": "To Do"
@@ -128,15 +163,16 @@
       ]
     },
     {
-      "user_id": "2",
-      "name": "New board",
-      "columns": {},
-      "tasks": [],
-      "id": "FH-BoIx"
-    },
-    {
       "user_id": "1",
       "name": "New board",
+      "members": [
+        {
+          "user_id": "1"
+        },
+        {
+          "user_id": "3"
+        }
+      ],
       "columns": {
         "581cea68-3cb4-4e74-9519-a355ceae64c1": {
           "title": "New column"
@@ -154,13 +190,6 @@
         }
       ],
       "id": "zCDM1rZ"
-    },
-    {
-      "user_id": "1",
-      "name": "New board",
-      "columns": {},
-      "tasks": [],
-      "id": "MU_w5xM"
     }
   ]
 }

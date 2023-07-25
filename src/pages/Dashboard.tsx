@@ -1,6 +1,5 @@
 // Dashbroad component
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import NavbarUser from "../components/NavbarUser";
 import Sidebar from "../components/Sidebar";
@@ -9,6 +8,8 @@ import '../styles/index.css';
 import '../styles/dashboard.css';
 import Boards from "../components/dashboard/Boards";
 import Title from "../components/dashboard/Title";
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/userSlice";
 
 interface Board {
     id: string,
@@ -30,7 +31,7 @@ export default function Dashbroad() {
     };
 
     const [data, setData] = useState<Board[]>([]);
-    const { id } = useParams<{ id?: string }>();
+    const user_redux = useSelector(selectUser).user;
 
     useEffect(() => {
         fetchBoards();
@@ -38,8 +39,7 @@ export default function Dashbroad() {
 
     async function fetchBoards() {
         try {
-            const response = await axios.get(`http://localhost:3001/boards?user_id=${id}`);
-            console.log(response.data);
+            const response = await axios.get(`http://localhost:3001/boards?user_id=${user_redux.id}`);
             setData(response.data);
         } catch (error) {
             console.error(error);

@@ -34,6 +34,11 @@
 }
 
 /* Board */
+.board {
+    overflow-x: auto;
+    min-height: calc(100vh - 105px);
+}
+
 .add-task {
     padding: 8px 8px;
     margin: 10px 0px 0px 0px;
@@ -54,67 +59,4 @@
 
 .add-task p {
     font-size: 14px;
-}
-
-/* Dialog */
-.dialog-container {
-    padding: 20px;
-    width: 300px;
-    color: dimgray;
-}
-
-.dialog-container .input-part {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 20px 0;
-}
-
-.dialog-container h4 {
-    font-size: 15px;
-}
-
-.dialog-container .input-part label {
-    font-size: 14px;
-}
-
-.dialog-container .submit button {
-    background: #0c66e4;
-    color: #FFFFFF;
-    margin: 0;
-    font-weight: 400;
-    padding: 0 12px;
-    border-radius: 3px;
-    height: 32px;
-    line-height: 32px;
-    margin: 0 4px 0 0;
-}
-
-.dialog-container .submit button:hover {
-    background-color: #0055cc;
-}
-
-.dialog-container .submit {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.dialog-container .submit .close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 32px;
-    width: 32px;
-    border-radius: 3px;
-}
-
-.dialog-container .submit .close:hover {
-    background-color: #72727254;
-}
-
-/* Board */
-.board {
-    overflow-x: auto;
-    min-height: calc(100vh - 105px);
 }
