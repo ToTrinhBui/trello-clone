@@ -5,7 +5,7 @@
         "email": "totrinh@gmail.com",
         "password": "12345"
       },
-      "accessToken": "88c90ac9be90538fcbd36f3ed78c5bf373b61749a5bc94f1a5f99432a25f75da53113c274fc15e1da1c7945ecb9cea5065c3964893dba7efc56b70ae04f69a91",
+      "accessToken": "f9e50039f6fde494cbaa9c61ff87e5d95c902da1a352a730dbe02649d064e74088e01c1f76963e7f51f01476268ac94f3a3ebf9a3e9bcf8293abedf235b5a03c",
       "id": "1"
     },
     {
@@ -60,55 +60,81 @@
           "id": "1",
           "Task": "Kanban",
           "Due_Date": "25-May-2020",
-          "status": "Done"
+          "status": "column1",
+          "members_task": ["2"],
+          "jobs": {},
+          "labels": {
+            "1": {
+              "color": "#4bce97",
+              "title": "",
+              "check": 1
+            },
+            "2": {
+              "color": "#e2b203",
+              "title": "",
+              "check": 0
+            },
+            "3": {
+              "color": "#FAA53D",
+              "title": "",
+              "check": 0
+            },
+            "4": {
+              "color": "#f87462",
+              "title": "",
+              "check": 0
+            },
+            "5": {
+              "color": "#9F8FEF",
+              "title": "",
+              "check": 1
+            },
+            "6": {
+              "color": "#579dff",
+              "title": "",
+              "check": 0
+            }
+          }
         },
         {
-          "id": "2",
-          "Task": "Table",
-          "Due_Date": "26-May-2020",
-          "status": "column1"
-        },
-        {
-          "id": "3",
-          "Task": "Login/Logout",
-          "Due_Date": "27-May-2020",
-          "status": "column3"
-        },
-        {
-          "id": "4",
-          "Task": "Light/Dark mode",
-          "Due_Date": "23-Aug-2020",
-          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba"
-        },
-        {
-          "id": "5",
-          "Task": "Testing",
-          "Due_Date": "2023-07-27",
-          "status": "column1"
-        },
-        {
-          "id": "8453dc36-d8ce-44e9-9878-753e60c911ad",
+          "id": "01f5a86d-d5ca-47c3-a468-cc7c33f24f0b",
           "Task": "API",
-          "Due_Date": "2023-07-27",
-          "status": "column2"
-        },
-        {
-          "id": "8669cd10-1662-4ec0-b2d6-d8266a05d284",
-          "Task": "UI",
-          "Due_Date": "2023-07-06",
-          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba"
-        },
-        {
-          "id": "hfsfsjdhfjd",
-          "Task": "test mode",
-          "Due_Date": "2023-07-27",
-          "status": "column3"
-        },
-        {
-          "id": "b07c4547-8967-441d-91fe-7b687f85eb1c",
-          "Task": "Navbar",
-          "Due_Date": "2023-07-04",
-          "status": "column2"
+          "Due_Date": "2023-07-14",
+          "status": "column2",
+          "members_task": [],
+          "jobs": {},
+          "labels": {
+            "1": {
+              "color": "#4bce97",
+              "title": "",
+              "check": 0
+            },
+            "2": {
+              "color": "#e2b203",
+              "title": "",
+              "check": 0
+            },
+            "3": {
+              "color": "#FAA53D",
+              "title": "",
+              "check": 0
+            },
+            "4": {
+              "color": "#f87462",
+              "title": "",
+              "check": 0
+            },
+            "5": {
+              "color": "#9F8FEF",
+              "title": "",
+              "check": 0
+            },
+            "6": {
+              "color": "#579dff",
+              "title": "",
+              "check": 0
+            }
+          }
         }
       ]
     },
@@ -140,56 +166,43 @@
           "id": "1",
           "Task": "Kanban",
           "Due_Date": "25-May-2020",
-          "status": "column3"
-        },
-        {
-          "id": "2",
-          "Task": "Table",
-          "Due_Date": "26-May-2020",
-          "status": "column3"
-        },
-        {
-          "id": "3",
-          "Task": "Login/Logout",
-          "Due_Date": "27-May-2020",
-          "status": "column2"
-        },
-        {
-          "id": "4",
-          "Task": "Light/Dark mode",
-          "Due_Date": "23-Aug-2020",
-          "status": "column1"
+          "status": "column1",
+          "members_task": [],
+          "jobs": {},
+          "labels": {
+            "1": {
+              "color": "#4bce97",
+              "title": "",
+              "check": 0
+            },
+            "2": {
+              "color": "#e2b203",
+              "title": "",
+              "check": 0
+            },
+            "3": {
+              "color": "#FAA53D",
+              "title": "",
+              "check": 0
+            },
+            "4": {
+              "color": "#f87462",
+              "title": "",
+              "check": 0
+            },
+            "5": {
+              "color": "#9F8FEF",
+              "title": "",
+              "check": 0
+            },
+            "6": {
+              "color": "#579dff",
+              "title": "",
+              "check": 0
+            }
+          }
         }
       ]
-    },
-    {
-      "user_id": "1",
-      "name": "New board",
-      "members": [
-        {
-          "user_id": "1"
-        },
-        {
-          "user_id": "3"
-        }
-      ],
-      "columns": {
-        "581cea68-3cb4-4e74-9519-a355ceae64c1": {
-          "title": "New column"
-        },
-        "c37614eb-a98a-47a1-90a8-19fff8b906c0": {
-          "title": "New column"
-        }
-      },
-      "tasks": [
-        {
-          "id": "8707edf6-40c7-4adb-99d4-9aefd8a4ba69",
-          "Task": "Học bài",
-          "Due_Date": "2023-07-04",
-          "status": "581cea68-3cb4-4e74-9519-a355ceae64c1"
-        }
-      ],
-      "id": "zCDM1rZ"
     }
   ]
 }

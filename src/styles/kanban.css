@@ -60,3 +60,264 @@
 .add-task p {
     font-size: 14px;
 }
+
+/* EditTask */
+.edit-task-container {
+    width: 100%;
+    min-height: 500px;
+    background: #f1f2f4;
+}
+
+.edit-task-inner{
+    padding: 16px 16px 26px 16px;
+    overflow-y: auto;
+    background: #f1f2f4;
+    color: #172b4d;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.task-title {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.task-title h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.task-title span {
+    text-decoration: underline;
+}
+
+.task-title .close {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+}
+
+.task-title .close:hover {
+    background: #091e420f;
+}
+
+.task-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-content .task-detail .description {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.task-content .task-detail .description h3 {
+    font-weight: 600;
+}
+
+.task-content .task-detail .description textarea {
+    resize: none;
+    width: 480px;
+    height: 3rem;
+    border: none;
+    padding: 10px;
+    border-radius: 3px;
+    background: #091e420f;
+    color: #172b4d;
+    margin: 20px 0px 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.task-content .task-detail .description button {
+    background: #0c66e4;
+    color: #FFFFFF;
+    margin: 0;
+    font-weight: 400;
+    padding: 0 12px;
+    border-radius: 3px;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 4px 0 0;
+}
+
+.task-content .task-detail .description button:hover {
+    background-color: #0055cc;
+}
+
+.task-content .item {
+    padding-left: 16px;
+}
+
+.task-content .item-card-outer {
+    position: relative;
+}
+
+.task-content .item-card {
+    background: #091e420f;
+    border-radius: 3px;
+    margin-top: 8px;
+}
+
+.task-content .item-card-inner {
+    height: 32px;
+    width: 148px;
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* card-box */
+.overlay {
+    z-index: 1000;
+    position: fixed;
+}
+
+.card-box {
+    position: absolute;
+    top: 100%;
+    transform: translate(0%, 2%);
+    width: 280px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0px 8px 12px #091E4226, 0px 0px 1px #091E424F;
+    padding: 10px 10px 15px 10px;
+    color: #44546f;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.card-box h4,
+h5 {
+    font-weight: 600;
+    padding: 10px 0px;
+}
+
+.card-box .title-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-box .close-card {
+    height: 32px;
+    width: 32px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-box .close-card:hover {
+    background: #091e4224;
+}
+
+.card-box .card-content {
+    padding-bottom: 10px;
+}
+
+.card-box .card-content input {
+    height: 32px;
+    width: 255px;
+    border-radius: 3px;
+    border: 2px solid lightgray;
+    padding: 0px 10px;
+    font-size: 14.5px;
+}
+
+.card-box .card-add button {
+    background: #0c66e4;
+    color: #FFFFFF;
+    margin: 0;
+    font-weight: 400;
+    padding: 0 12px;
+    border-radius: 3px;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 4px 0 0;
+}
+
+.card-box .card-add button:hover {
+    background-color: #0055cc;
+}
+
+.card-box .members {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 3px 0px;
+}
+
+.card-box .members:hover {
+    background-color: #091e420f;
+}
+
+.card-box .member-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 35px;
+    height: 35px;
+    padding: 0px 0px 0px 5px;
+}
+
+.card-box .member-outer p {
+    z-index: 5;
+    color: #fff;
+}
+
+.card-box .member {
+    position: absolute;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #dcdfe4;
+    border: 1px solid #172B4D;
+}
+
+.card-box .label-card {
+    margin: 5px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-box .tick-box {
+    border: 2px solid lightgray;
+    height: 16px;
+    width: 16px;
+    border-radius: 3px;
+}
+
+.card-box .label-title {
+    height: 32px;
+    width: 200px;
+    background-color: #4bce97;
+    text-align: center;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 0%;
+}
+
+.card-box .edit-label {
+    height: 32px;
+    width: 32px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-box .edit-label:hover {
+    background: #091e4224;
+}

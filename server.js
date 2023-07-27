@@ -29,11 +29,11 @@ server.post('/users/login', (req, res) => {
     }
 });
 
-server.post('/board/member/add',(req, res)=>{
-    const {board_id, member_id} = req.body;
+server.post('/board/member/add', (req, res) => {
+    const { board_id, member_id } = req.body;
     const board_db = router.db.get('boards').find(item => item.id === board_id).value();
     console.log('Received request:', req.body); // Log the request body
-    if(board_db){
+    if (board_db) {
         const members = board_db.members;
         const member = {
             user_id: member_id
@@ -41,7 +41,7 @@ server.post('/board/member/add',(req, res)=>{
         members.push(member);
         router.db.write(); // Persist the changes to the database
         res.status(200).json({ notice: 'Successfull add new member in board', 'members': members });
-    }else {
+    } else {
         res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
     }
 })
@@ -95,6 +95,41 @@ server.post('/task/add', (req, res) => {
             Task: Task,
             Due_Date: Due_Date,
             status: status,
+            members_task: [],
+            jobs: {},
+            labels: {
+                "1": {
+                    "color": "#4bce97",
+                    "title": "",
+                    "check": 0
+                },
+                "2": {
+                    "color": "#E2B20",
+                    "title": "",
+                    "check": 0
+                },
+                "3": {
+                    "color": "#FAA53D",
+                    "title": "",
+                    "check": 0
+                },
+                "4": {
+                    "color": "#f87462",
+                    "title": "",
+                    "check": 0
+                },
+                "5": {
+                    "color": "#9F8FEF",
+                    "title": "",
+                    "check": 0
+                },
+                "6": {
+                    "color": "#579dff",
+                    "title": "",
+                    "check": 0
+                }
+            }
+
         };
         tasks.push(task); // Add the task to the tasks array
         router.db.write(); // Persist the changes to the database

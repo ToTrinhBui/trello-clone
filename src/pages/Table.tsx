@@ -13,6 +13,22 @@ interface Task {
     Task: string;
     Due_Date: string;
     status: string;
+    members_task: string[];
+    jobs: {
+        [key: string]: Job;
+    },
+    labels: {
+        [key: string]: Label;
+    }
+}
+interface Job {
+    name: string,
+    done: number
+}
+interface Label {
+    color: string,
+    title: string,
+    check: number
 }
 
 interface Data {
@@ -25,12 +41,19 @@ interface Columns {
         title: string;
     };
 }
-
+interface Member {
+    user_id: string,
+    email: string,
+    color: string,
+}
 export default function Table() {
     const [data, setData] = useState<Data>({
         columns: {},
         tasks: [],
     });
+    const [members, setMembers] = useState<Member[]>([]);
+    const [nameBoard, setNameBoard] = useState<string>('Name board');
+    const [ownerBoard, setOwnerBoard] = useState<string>('');
     const { boardID } = useParams();
 
     useEffect(() => {
@@ -46,6 +69,24 @@ export default function Table() {
             };
             const newData = replaceStatusIdByStatusName(data_db);
             setData(newData);
+            setNameBoard(response.data?.[0].name);
+            setOwnerBoard(response.data?.user_id);
+            const memberFilter = response.data?.[0].members;
+            const updatedMembers = [];
+            for (const member of memberFilter) {
+                try {
+                    const member_response = await axios.get(`http://localhost:3001/users?id=${member.user_id}`);
+                    const memberWithEmail = {
+                        ...member,
+                        email: member_response.data?.[0].user.email,
+                        color: "#" + Math.floor(Math.random() * 16777215).toString(16),
+                    };
+                    updatedMembers.push(memberWithEmail);
+                } catch (error) {
+                    console.error(`Error fetching user with id ${member.user_id}:`, error);
+                }
+            }
+            setMembers(updatedMembers);
         } catch (error) {
             console.error(error);
         }
@@ -68,8 +109,8 @@ export default function Table() {
             <div className="flex">
                 <Sidebar />
                 <div className="table">
-                    <Heading/>
-                    <BoardTable data={data} refresh={fetchData}/>
+                    <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
+                    <BoardTable data={data} members={members} refresh={fetchData} />
                 </div>
             </div>
         </div>

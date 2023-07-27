@@ -19,7 +19,7 @@ interface AddMemberProps {
 
 const AddMember: React.FC<AddMemberProps> = ({ members, owner, refresh }) => {
     const { boardID } = useParams<{ boardID?: string }>();
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const user_redux = useSelector(selectUser).user;
     const [searchInput, setSearchInput] = useState<string>('');
     const [listSearch, setListSearch] = useState<any[]>([]);

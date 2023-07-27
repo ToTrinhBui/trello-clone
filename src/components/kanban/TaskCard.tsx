@@ -1,16 +1,42 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from '@emotion/styled';
+import EditTask from './EditTask';
 
 interface Task {
     id: string;
     Task: string;
     Due_Date: string;
+    status: string;
+    members_task: string[];
+    jobs: {
+        [key: string]: Job;
+    },
+    labels: {
+        [key: string]: Label;
+    }
+}
+interface Member {
+    user_id: string,
+    email: string,
+    color: string,
+}
+interface Job {
+    name: string,
+    done: number
+}
+interface Label {
+    color: string,
+    title: string,
+    check: number
 }
 
 interface TaskCardProps {
     item: Task;
     index: number;
+    members: Member[];
+    status_title: string;
+    refresh: Function;
 }
 
 const TaskInformation = styled.div`
@@ -37,28 +63,30 @@ box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   color: #7d7d7d;
 `;
 
-const TaskCard: React.FC<TaskCardProps> = ({ item, index }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ item, index, members, status_title, refresh }) => {
     return (
-        <Draggable key={item.id} draggableId={item.id} index={index}>
-            {(provided, snapshot) => (
-                <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                >
-                    <TaskInformation>
-                        <p>{item.Task}</p>
-                        <div className="secondary-details">
-                            <p>
-                                <span>
-                                    {new Date(item.Due_Date).toLocaleDateString("en-GB")}
-                                </span>
-                            </p>
-                        </div>
-                    </TaskInformation>
-                </div>
-            )}
-        </Draggable>
+        <EditTask item={item} members={members} status_title={status_title} refresh={refresh}>
+            <Draggable key={item.id} draggableId={item.id} index={index}>
+                {(provided, snapshot) => (
+                    <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                    >
+                        <TaskInformation>
+                            <p>{item.Task}</p>
+                            <div className="secondary-details">
+                                <p>
+                                    <span>
+                                        {new Date(item.Due_Date).toLocaleDateString("en-GB")}
+                                    </span>
+                                </p>
+                            </div>
+                        </TaskInformation>
+                    </div>
+                )}
+            </Draggable>
+        </EditTask>
     );
 };
 

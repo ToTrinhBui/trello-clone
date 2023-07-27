@@ -121,7 +121,7 @@ const Board = (props) => {
                                                 >
                                                     <Title>{column.title}</Title>
                                                     {column.items?.map((item, index) => (
-                                                        <TaskCard key={index} item={item} index={index} />
+                                                        <TaskCard key={index} item={item} index={index} members={props.members} status_title={column.title} refresh={props.refresh}/>
                                                     ))}
                                                     {provided.placeholder}
                                                     <AddTask statusID={columnId} refresh={props.refresh} />

@@ -11,49 +11,32 @@ interface Member {
     color: string,
 }
 
-const Heading = () => {
+interface HeadingProps{
+    members: Member[],
+    fetchData: Function;
+    nameBoard: string;
+    ownerBoard: string;
+}
+
+const Heading: React.FC<HeadingProps> = ({ members, fetchData, nameBoard, ownerBoard }) =>{
     const { boardID } = useParams<{ boardID?: string }>();
     const user_redux = useSelector(selectUser).user;
 
-    const [nameBoard, setNameBoard] = useState<string>('Name board');
-    const [ownerBoard, setOwnerBoard] = useState<string>(user_redux.id);
-    const [members, setMembers] = useState<Member[]>([]);
+    const [name, setName] = useState<string>('Name board');
+    const [owner, setOwner] = useState<string>(user_redux.id);
+    const [memberFilter, setMemberFilter] = useState<Member[]>([]);
 
 
     useEffect(() => {
-        fetchData();
-    }, []);
-
-    async function fetchData() {
-        try {
-            const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
-            setNameBoard(response.data?.[0].name);
-            setOwnerBoard(response.data?.[0].user_id);
-            const memberFilter = response.data?.[0].members.filter((member: Member) => member.user_id !== user_redux.id.toString());
-            const updatedMembers = [];
-            for (const member of memberFilter) {
-                try {
-                    const member_response = await axios.get(`http://localhost:3001/users?id=${member.user_id}`);
-                    const memberWithEmail = {
-                        ...member,
-                        email: member_response.data?.[0].user.email,
-                        color: "#" + Math.floor(Math.random() * 16777215).toString(16),
-                    };
-                    updatedMembers.push(memberWithEmail);
-                } catch (error) {
-                    console.error(`Error fetching user with id ${member.user_id}:`, error);
-                }
-            }
-            setMembers(updatedMembers)
-        } catch (error) {
-            console.error(error);
-        }
-    }
+        setMemberFilter(members.filter((member: Member) => member.user_id !== user_redux.id.toString()));
+        setName(nameBoard);
+        setOwner(ownerBoard);
+    }, [members]);
 
     return (
         <div className='heading'>
             <div className='left'>
-                <h1>{nameBoard}</h1>
+                <h1>{name}</h1>
                 <Link to={`/board/kanban/${boardID}`}>
                     <button className='change-mode'>
                         <svg width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M2 7V15C2 16.1046 2.89543 17 4 17H6C7.10457 17 8 16.1046 8 15V7C8 5.89543 7.10457 5 6 5H4C2.89543 5 2 5.89543 2 7ZM4 7V15H6V7L4 7Z" fill="currentColor"></path><path fillRule="evenodd" clipRule="evenodd" d="M9 7V13C9 14.1046 9.89543 15 11 15H13C14.1046 15 15 14.1046 15 13V7C15 5.89543 14.1046 5 13 5H11C9.89543 5 9 5.89543 9 7ZM11 7V13H13V7L11 7Z" fill="currentColor"></path><path fillRule="evenodd" clipRule="evenodd" d="M16 17V7C16 5.89543 16.8954 5 18 5H20C21.1046 5 22 5.89543 22 7V17C22 18.1046 21.1046 19 20 19H18C16.8954 19 16 18.1046 16 17ZM18 17V7L20 7V17H18Z"></path></svg>
@@ -70,7 +53,7 @@ const Heading = () => {
             <div className='right'>
                 <div className='share'>
                     <div className='members'>
-                        {members.map((member, index) => (
+                        {memberFilter.map((member, index) => (
                             <div key={index} className='member-outer'>
                                 <p style={{color: '#fff'}}>{member.email.charAt(0).toUpperCase()}</p>
                                 <div className='member' style={{ background: member.color }}></div>
@@ -80,7 +63,7 @@ const Heading = () => {
                             <img alt='avatar' src='https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/6e51afadf71d3d08f7f2dc8577e9d848/30.png' />
                         </div>
                     </div>
-                    <AddMember members={members} owner={ownerBoard} refresh={fetchData}/>
+                    <AddMember members={memberFilter} owner={owner} refresh={fetchData}/>
                 </div>
             </div>
         </div >

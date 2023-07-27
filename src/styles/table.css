@@ -45,6 +45,19 @@
     border-bottom: 1.5px solid #1e7cff;
 }
 
+.board-table .edit-board-table {
+    height: 32px;
+    width: 32px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board-table .edit-board-table:hover {
+    background: #091e4224;
+}
+
 /* AddTaskTable */
 
 .line-add {
