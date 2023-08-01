@@ -25,23 +25,26 @@ export default function Table() {
     const [members, setMembers] = useState<Member[]>([]);
     const [nameBoard, setNameBoard] = useState<string>('Name board');
     const [ownerBoard, setOwnerBoard] = useState<string>('');
-    const { boardID } = useParams();
+    const [background_link, setBackgroundLink] = useState<string>('');
+    const { boardID } = useParams<{ boardID?: string }>();
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        if (boardID) {
+            fetchData(boardID);
+        }
+    }, [boardID]);
 
-    async function fetchData() {
+    async function fetchData(boardID: string) {
         try {
             const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
             const data_db: Data = {
                 columns: { ...response.data?.[0].columns },
                 tasks: [...response.data?.[0].tasks],
             };
-            const newData = replaceStatusIdByStatusName(data_db);
-            setData(newData);
+            setData(data_db);
             setNameBoard(response.data?.[0].name);
-            setOwnerBoard(response.data?.user_id);
+            setOwnerBoard(response.data?.[0].user_id);
+            setBackgroundLink(response.data?.[0].background);
             const memberFilter = response.data?.[0].members;
             const updatedMembers = [];
             for (const member of memberFilter) {
@@ -63,19 +66,8 @@ export default function Table() {
         }
     }
 
-    function replaceStatusIdByStatusName(data: Data): Data {
-        const newData: Data = {
-            columns: { ...data.columns },
-            tasks: data.tasks.map((task) => ({
-                ...task,
-                status: data.columns[task.status]?.title || task.status,
-            })),
-        };
-        return newData;
-    }
-
     return (
-        <div style={{ background: "#9933ff" }}>
+        <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
             <NavbarUser />
             <div className="flex">
                 <Sidebar />

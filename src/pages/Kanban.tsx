@@ -34,19 +34,23 @@ export default function Kanban() {
     const [members, setMembers] = useState<Member[]>([]);
     const [nameBoard, setNameBoard] = useState<string>('Name board');
     const [ownerBoard, setOwnerBoard] = useState<string>('');
-    const { boardID } = useParams();
+    const [background_link, setBackgroundLink] = useState<string>('');
+    const { boardID } = useParams<{ boardID?: string }>();
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        if (boardID) {
+            fetchData(boardID);
+        }
+    }, [boardID]);
 
-    async function fetchData() {
+    async function fetchData(boardID: string) {
         try {
             const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
             const newData = addTaskToColumns(response.data?.[0]);
             setData(newData);
             setNameBoard(response.data?.[0].name);
-            setOwnerBoard(response.data?.user_id);
+            setOwnerBoard(response.data?.[0].user_id);
+            setBackgroundLink(response.data?.[0].background);
             const memberFilter = response.data?.[0].members;
             const updatedMembers = [];
             for (const member of memberFilter) {
@@ -95,12 +99,12 @@ export default function Kanban() {
 
 
     return (
-        <div style={{ "background": "url(https://images.unsplash.com/photo-1688367785310-c8c013548288?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80)" }}>
+        <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
             <NavbarUser />
             <div className="flex">
                 <Sidebar />
                 <div className="kanban">
-                    <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard}/>
+                    <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
                     <Board data={data} members={members} refresh={fetchData} />
                 </div>
             </div>

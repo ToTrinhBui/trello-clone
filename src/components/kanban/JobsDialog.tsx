@@ -30,7 +30,7 @@ const JobsDialog: React.FC<CardProps> = ({ item, refresh }) => {
         }
         const totalJobs = Object.keys(item.jobs).length;
         const percentage = (processCount / totalJobs) * 100;
-  
+
         if (processCount === 0) return 0;
         else return Number(percentage.toFixed(2));
     }
@@ -60,27 +60,13 @@ const JobsDialog: React.FC<CardProps> = ({ item, refresh }) => {
 
     const done = (jobId: string) => {
         var clone = Object.assign({}, item.jobs);
-        const job = Object.entries(clone).find(([id, item]) => id === jobId);
-        const newJob: Job = {
-            name: job?.[1].name || "Job Name",   // Assuming color is a string, provide a default value if label is undefined
-            done: 1
-        };
-        if (job) {
-            clone[jobId] = newJob; // Replace the existing label with the newLabel using the same id
-        }
+        clone[jobId].done = 1;
         editTask(clone);
     };
 
     const unDone = (jobId: string) => {
         var clone = Object.assign({}, item.jobs);
-        const job = Object.entries(clone).find(([id, item]) => id === jobId);
-        const newJob: Job = {
-            name: job?.[1].name || "Job Name",   // Assuming color is a string, provide a default value if label is undefined
-            done: 0
-        };
-        if (job) {
-            clone[jobId] = newJob; // Replace the existing label with the newLabel using the same id
-        }
+        clone[jobId].done = 0; // Replace the existing label with the newLabel using the same id
         editTask(clone);
     };
 

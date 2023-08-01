@@ -411,6 +411,15 @@ button {
   color: var(--color, whitesmoke);
 }
 
+.sidebar .tables {
+  overflow-x: auto;
+  max-height: calc(100% - 230px);
+}
+
+.sidebar .sidebar-inner {
+  height: 100%;
+}
+
 /* Heading */
 .heading {
   height: auto;

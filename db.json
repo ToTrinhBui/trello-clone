@@ -28,11 +28,22 @@
       "id": "3"
     }
   ],
+  "backgrounds": {
+    "1": "https://images.unsplash.com/photo-1655679152783-f4d22c72264a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDUwfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDY2N3w&ixlib=rb-4.0.3",
+    "2": "https://images.unsplash.com/photo-1688920556232-321bd176d0b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDMyfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDY2N3w&ixlib=rb-4.0.3",
+    "3": "https://images.unsplash.com/photo-1688232542797-c3e762c7e3c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDUzfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDY2N3w&ixlib=rb-4.0.3",
+    "4": "https://images.unsplash.com/photo-1690184432588-81068877d852?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDV8MzE3MDk5fHx8fHwyfHwxNjkwODcwNjI5fA&ixlib=rb-4.0.3",
+    "5": "https://images.unsplash.com/photo-1690055899078-63be27a01cdc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDh8MzE3MDk5fHx8fHwyfHwxNjkwODcwNjI5fA&ixlib=rb-4.0.3",
+    "6": "https://images.unsplash.com/photo-1690184432960-ea288727b9c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDEwfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDYyOXw&ixlib=rb-4.0.3",
+    "7": "https://images.unsplash.com/photo-1689631857988-a46ee3adf86b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDl8MzE3MDk5fHx8fHwyfHwxNjkwODcwNjI5fA&ixlib=rb-4.0.3",
+    "8": "https://images.unsplash.com/photo-1658457459792-f4dfe37407ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDI2fDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDYyOXw&ixlib=rb-4.0.3"
+  },
   "boards": [
     {
       "id": "1",
       "user_id": "1",
       "name": "Board 1",
+      "background": "https://images.unsplash.com/photo-1655679152783-f4d22c72264a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDUwfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDY2N3w&ixlib=rb-4.0.3",
       "members": [
         {
           "user_id": "1"
@@ -62,18 +73,18 @@
         {
           "id": "1",
           "Task": "Kanban",
-          "status": "To Do",
+          "status": "column1",
           "members_task": [
             "1"
           ],
           "jobs": {
             "e7a3e8da-7a32-400b-a316-b80764d36dc2": {
               "name": "connect API",
-              "done": 0
+              "done": 1
             },
             "6eb6f7fc-3baa-41d0-a043-112796d4308a": {
               "name": "build UI",
-              "done": 0
+              "done": 1
             },
             "df05ec26-37b5-4708-bfa3-8b63cf69140c": {
               "name": "xxx",
@@ -85,7 +96,7 @@
             "1": {
               "color": "#4bce97",
               "title": "",
-              "check": 0
+              "check": 1
             },
             "2": {
               "color": "#e2b203",
@@ -95,7 +106,7 @@
             "3": {
               "color": "#FAA53D",
               "title": "",
-              "check": 1
+              "check": 0
             },
             "4": {
               "color": "#f87462",
@@ -113,13 +124,13 @@
               "check": 0
             }
           },
-          "Due_Date": "2023-08-11T17:00:00.000Z"
+          "Due_Date": "2023-08-12T17:00:00.000Z"
         },
         {
           "id": "01f5a86d-d5ca-47c3-a468-cc7c33f24f0b",
           "Task": "API",
           "Due_Date": "2023-08-03T17:00:00.000Z",
-          "status": "column2",
+          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba",
           "members_task": [],
           "jobs": {},
           "description": "",
@@ -160,7 +171,7 @@
           "id": "d5878a36-a377-4e38-8958-6c16702eb5f2",
           "Task": "Table",
           "Due_Date": "2023-07-29T13:14:35.183Z",
-          "status": "column3",
+          "status": "column2",
           "members_task": [],
           "jobs": {},
           "description": "",
@@ -201,7 +212,7 @@
           "id": "b66c21c1-08c7-4b26-a9b5-ab7ec8030d91",
           "Task": "Update Task",
           "Due_Date": "2023-07-31T09:28:06.317Z",
-          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba",
+          "status": "column3",
           "members_task": [],
           "jobs": {},
           "description": "",
@@ -244,6 +255,7 @@
       "id": "2",
       "user_id": "1",
       "name": "Board 2",
+      "background": "https://images.unsplash.com/photo-1688920556232-321bd176d0b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDMyfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDY2N3w&ixlib=rb-4.0.3",
       "members": [
         {
           "user_id": "1"
@@ -306,6 +318,58 @@
           }
         }
       ]
+    },
+    {
+      "user_id": "1",
+      "name": "HW",
+      "background": "https://images.unsplash.com/photo-1690184432960-ea288727b9c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDEwfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDYyOXw&ixlib=rb-4.0.3",
+      "columns": {},
+      "tasks": [],
+      "members": [
+        {
+          "user_id": "1"
+        }
+      ],
+      "id": "022sTBv"
+    },
+    {
+      "user_id": "1",
+      "name": "Project",
+      "background": "https://images.unsplash.com/photo-1690055899078-63be27a01cdc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDh8MzE3MDk5fHx8fHwyfHwxNjkwODcwNjI5fA&ixlib=rb-4.0.3",
+      "columns": {},
+      "tasks": [],
+      "members": [
+        {
+          "user_id": "1"
+        }
+      ],
+      "id": "GxpYXh1"
+    },
+    {
+      "user_id": "1",
+      "name": "SOC",
+      "background": "https://images.unsplash.com/photo-1688232542797-c3e762c7e3c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDUzfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDY2N3w&ixlib=rb-4.0.3",
+      "columns": {},
+      "tasks": [],
+      "members": [
+        {
+          "user_id": "1"
+        }
+      ],
+      "id": "UNWgBCj"
+    },
+    {
+      "user_id": "1",
+      "name": "DSA",
+      "background": "https://images.unsplash.com/photo-1658457459792-f4dfe37407ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDI2fDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDYyOXw&ixlib=rb-4.0.3",
+      "columns": {},
+      "tasks": [],
+      "members": [
+        {
+          "user_id": "1"
+        }
+      ],
+      "id": "Q5OH4zq"
     }
   ]
 }

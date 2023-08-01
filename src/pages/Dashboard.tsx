@@ -1,4 +1,3 @@
-// Dashbroad component
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NavbarUser from "../components/NavbarUser";
@@ -14,8 +13,11 @@ import { selectUser } from "../redux/userSlice";
 interface Board {
     id: string,
     name: string,
+    background: string,
 }
-
+interface Background {
+    [key: string]: string
+}
 export default function Dashbroad() {
     const sidebarStyles: React.CSSProperties & { "--color": string } = {
         backgroundColor: "#fff",
@@ -31,16 +33,19 @@ export default function Dashbroad() {
     };
 
     const [data, setData] = useState<Board[]>([]);
+    const [backgrounds, setBacgrounds] = useState<Background>({});
     const user_redux = useSelector(selectUser).user;
 
     useEffect(() => {
-        fetchBoards();
+        fetchData();
     }, [])
 
-    async function fetchBoards() {
+    async function fetchData() {
         try {
             const response = await axios.get(`http://localhost:3001/boards?user_id=${user_redux.id}`);
             setData(response.data);
+            const response2 = await axios.get(`http://localhost:3001/backgrounds`);
+            setBacgrounds(response2.data);
         } catch (error) {
             console.error(error);
         }
@@ -55,7 +60,7 @@ export default function Dashbroad() {
                     <div className="dashboard">
                         <div className="dashboard-inner">
                             <Title />
-                            <Boards props={data} refresh={fetchBoards}/>
+                            <Boards props={data} backgrounds={backgrounds}/>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Label, Task } from '../../interface';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -37,29 +37,13 @@ const LabelTask: React.FC<CardProps> = ({ trigger, close, refresh, item }) => {
 
     const check = (labelId: string) => {
         var clone = Object.assign({}, item.labels);
-        const label = Object.entries(clone).find(([id, item]) => id === labelId);
-        const newLabel: Label = {
-            color: label?.[1].color || "#3483eb",   // Assuming color is a string, provide a default value if label is undefined
-            title: label?.[1].title || "",   // Assuming title is a string, provide a default value if label is undefined
-            check: 1,
-        };
-        if (label) {
-            clone[labelId] = newLabel; // Replace the existing label with the newLabel using the same id
-        }
+        clone[labelId].check = 1;
         editTask(clone);
     };
 
     const unCheck = (labelId: string) => {
         var clone = Object.assign({}, item.labels);
-        const label = Object.entries(clone).find(([id, item]) => id === labelId);
-        const newLabel: Label = {
-            color: label?.[1].color || "#3483eb",   // Assuming color is a string, provide a default value if label is undefined
-            title: label?.[1].title || "",   // Assuming title is a string, provide a default value if label is undefined
-            check: 0,
-        };
-        if (label) {
-            clone[labelId] = newLabel; // Replace the existing label with the newLabel using the same id
-        }
+        clone[labelId].check = 0;
         editTask(clone);
     };
 
