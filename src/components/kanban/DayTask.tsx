@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { Task } from '../../interface';
 
 type ValuePiece = Date | null;
 
@@ -9,14 +12,52 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 interface CardProps {
     trigger: boolean,
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    due_date: string,
+    item: Task,
     refresh: Function;
 }
 
-const DayTask: React.FC<CardProps> = ({ trigger, close, due_date , refresh}) => {
-    const [value, onChange] = useState<Value>(new Date(due_date));
+const DayTask: React.FC<CardProps> = ({ trigger, close, item, refresh }) => {
+    const { boardID } = useParams<{ boardID?: string }>();
+    const [value, onChange] = useState<Value>(item.Due_Date || new Date());
+    const defaultDueDate = new Date(item.Due_Date).toLocaleDateString("en-GB");
+    const [input, setInput] = useState<string>(defaultDueDate);
+    const [isOpen, setIsOpen] = useState<boolean>(trigger);
 
-    if (trigger) {
+    useEffect(() => {
+        if (value) {
+            if (value instanceof Date) {
+                setInput(value.toLocaleDateString("en-GB"));
+            }
+        }
+        setIsOpen(trigger);
+    }, [value, trigger]);
+
+    const editTask = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            const response = await axios.put(`http://localhost:3001/task/edit`, {
+                board_id: boardID,
+                task: {
+                    id: item.id,
+                    Task: item.Task,
+                    Due_Date: value,
+                    status: item.status,
+                    members_task: item.members_task,
+                    jobs: item.jobs,
+                    description: item.description,
+                    labels: item.labels,
+                }
+            })
+            const editedTask = response.data;
+            console.log('Task updated successfully:', editedTask);
+            refresh();
+            setIsOpen(false);
+        } catch (error) {
+            console.error('Error editing task:', error);
+        }
+    };
+
+    if (isOpen) {
         return (
             <div className='overlay' style={{ top: '15%' }}>
                 <div className='card-box'>
@@ -37,18 +78,20 @@ const DayTask: React.FC<CardProps> = ({ trigger, close, due_date , refresh}) => 
                             </svg>
                         </div>
                     </div>
-                    <div className='card-content'>
-                        <Calendar onChange={onChange} value={value} />
-                        <h5>Ngày đến hạn</h5>
-                        <input
-                            type='text'
-                            value={value?.toLocaleString('en-GB', { dateStyle: 'short' })}
-                            readOnly
-                        />
-                    </div>
-                    <div className='card-add'>
-                        <button>Thêm</button>
-                    </div>
+                    <form onSubmit={editTask}>
+                        <div className='card-content'>
+                            <Calendar onChange={onChange} value={value} />
+                            <h5>Ngày đến hạn</h5>
+                            <input
+                                type='text'
+                                value={input}
+                                readOnly
+                            />
+                        </div>
+                        <div className='card-add'>
+                            <button type='submit'>Thêm</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         )

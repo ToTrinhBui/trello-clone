@@ -97,6 +97,7 @@ server.post('/task/add', (req, res) => {
             status: status,
             members_task: [],
             jobs: {},
+            description: "",
             labels: {
                 "1": {
                     "color": "#4bce97",
@@ -129,7 +130,6 @@ server.post('/task/add', (req, res) => {
                     "check": 0
                 }
             }
-
         };
         tasks.push(task); // Add the task to the tasks array
         router.db.write(); // Persist the changes to the database
@@ -139,6 +139,32 @@ server.post('/task/add', (req, res) => {
         res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
     }
 })
+
+server.put('/task/edit', (req, res) => {
+    const { board_id, task } = req.body;
+    const board_db = router.db.get('boards').find(item => item.id === board_id).value();
+    console.log('Received request:', req.body); // Log the request body
+
+    if (board_db) {
+        const task_db = board_db.tasks.find(item => item.id === task.id);
+        if (task_db) {
+            task_db.Task = task.Task;
+            task_db.Due_Date = task.Due_Date;
+            task_db.status = task.status;
+            task_db.members_task = task.members_task;
+            task_db.jobs = task.jobs;
+            task_db.description = task.description;
+            task_db.labels = task.labels;
+
+            router.db.write();
+            res.status(200).json({ 'new task': task_db });
+        } else {
+            res.status(401).json({ error: 'Invalid credentials. Cant find task', requestPayload: req.body });
+        }
+    } else {
+        res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
+    }
+});
 
 server.use(router);
 server.listen(3001, () => {

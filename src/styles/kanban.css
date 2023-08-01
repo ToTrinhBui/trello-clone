@@ -68,9 +68,9 @@
     background: #f1f2f4;
 }
 
-.edit-task-inner{
+.edit-task-inner {
     padding: 16px 16px 26px 16px;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     background: #f1f2f4;
     color: #172b4d;
     font-size: 14px;
@@ -109,6 +109,13 @@
 .task-content {
     display: flex;
     justify-content: space-between;
+}
+
+.task-content .task-detail .description-box {
+    margin: 10px 15px 10px 40px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .task-content .task-detail .description {
@@ -196,7 +203,7 @@
 .card-box h4,
 h5 {
     font-weight: 600;
-    padding: 10px 0px;
+    padding: 8px 0px;
 }
 
 .card-box .title-card {
@@ -248,6 +255,10 @@ h5 {
 }
 
 .card-box .members {
+    width: 100%;
+}
+
+.card-box .member-outer {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -258,7 +269,7 @@ h5 {
     background-color: #091e420f;
 }
 
-.card-box .member-outer {
+.member-icon {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -268,12 +279,12 @@ h5 {
     padding: 0px 0px 0px 5px;
 }
 
-.card-box .member-outer p {
+.member-icon p {
     z-index: 5;
     color: #fff;
 }
 
-.card-box .member {
+.member {
     position: absolute;
     z-index: 1;
     width: 30px;
@@ -290,7 +301,7 @@ h5 {
     align-items: center;
 }
 
-.card-box .tick-box {
+.tick-box {
     border: 2px solid lightgray;
     height: 16px;
     width: 16px;
@@ -320,4 +331,88 @@ h5 {
 
 .card-box .edit-label:hover {
     background: #091e4224;
+}
+
+/* part of edit dialog */
+.list-members {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.day-dialog {
+    border-radius: 3px;
+    background-color: #091e4224;
+    padding: 5px 10px;
+}
+
+.label-dialog {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.label-box {
+    height: 30px;
+    min-width: 50px;
+    background: #6bed8d;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+
+.label-box p {
+    padding: 0px 10px;
+    font-weight: 600;
+}
+
+.label-box-add {
+    height: 30px;
+    width: 30px;
+    background: #091e4224;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.job {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 20px
+}
+
+.job-add {
+    display: inline-block;
+    margin: 10px 40px;
+    padding: 5px 10px;
+    background: #091e4224;
+    border-radius: 3px;
+}
+
+.full-process {
+    position: relative;
+    border-radius: 50px;
+    height: 10px;
+    width: 100%;
+    background: #091e420f;
+}
+
+.process {
+    position: absolute;
+    border-radius: 50px;
+    height: 10px;
+    width: 50%;
+    background: #4593ff;
+}
+
+.job-popup{
+    transform: translateX(7%);
+}
+
+.list-jobs{
+    min-height: 150px;
+    margin: 5px 5px;
 }

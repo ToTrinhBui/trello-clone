@@ -3,7 +3,8 @@
     {
       "user": {
         "email": "totrinh@gmail.com",
-        "password": "12345"
+        "password": "12345",
+        "color": "#eb4034"
       },
       "accessToken": "f9e50039f6fde494cbaa9c61ff87e5d95c902da1a352a730dbe02649d064e74088e01c1f76963e7f51f01476268ac94f3a3ebf9a3e9bcf8293abedf235b5a03c",
       "id": "1"
@@ -11,7 +12,8 @@
     {
       "user": {
         "email": "a@gmail.com",
-        "password": "12345"
+        "password": "12345",
+        "color": "#34eb4f"
       },
       "accessToken": "ec8056530698b22e674cbf0800383e9d9e1b62d551136ab65ba9a8c3e06801597bab1e97070009d200af852f63d243cd6415219b35d177943891a45c5ed0688b",
       "id": "2"
@@ -19,7 +21,8 @@
     {
       "user": {
         "email": "b@gmail.com",
-        "password": "12345"
+        "password": "12345",
+        "color": "#34ebdf"
       },
       "accessToken": "959246a220de899f08f2fc1c6a75635a8322b26a499a35624fd43fa5965e4d1424bfaaab79eadacb1cc78251cd47c66126fe7736a10ca81e4ede20180e27262a",
       "id": "3"
@@ -59,15 +62,72 @@
         {
           "id": "1",
           "Task": "Kanban",
-          "Due_Date": "25-May-2020",
-          "status": "column1",
-          "members_task": ["2"],
-          "jobs": {},
+          "status": "To Do",
+          "members_task": [
+            "1"
+          ],
+          "jobs": {
+            "e7a3e8da-7a32-400b-a316-b80764d36dc2": {
+              "name": "connect API",
+              "done": 0
+            },
+            "6eb6f7fc-3baa-41d0-a043-112796d4308a": {
+              "name": "build UI",
+              "done": 0
+            },
+            "df05ec26-37b5-4708-bfa3-8b63cf69140c": {
+              "name": "xxx",
+              "done": 0
+            }
+          },
+          "description": "sử dụng thư viện react-beautiful-dnd",
           "labels": {
             "1": {
               "color": "#4bce97",
               "title": "",
+              "check": 0
+            },
+            "2": {
+              "color": "#e2b203",
+              "title": "",
               "check": 1
+            },
+            "3": {
+              "color": "#FAA53D",
+              "title": "",
+              "check": 1
+            },
+            "4": {
+              "color": "#f87462",
+              "title": "",
+              "check": 1
+            },
+            "5": {
+              "color": "#9F8FEF",
+              "title": "",
+              "check": 0
+            },
+            "6": {
+              "color": "#579dff",
+              "title": "",
+              "check": 0
+            }
+          },
+          "Due_Date": "2023-08-11T17:00:00.000Z"
+        },
+        {
+          "id": "01f5a86d-d5ca-47c3-a468-cc7c33f24f0b",
+          "Task": "API",
+          "Due_Date": "2023-08-03T17:00:00.000Z",
+          "status": "column2",
+          "members_task": [],
+          "jobs": {},
+          "description": "",
+          "labels": {
+            "1": {
+              "color": "#4bce97",
+              "title": "",
+              "check": 0
             },
             "2": {
               "color": "#e2b203",
@@ -87,7 +147,7 @@
             "5": {
               "color": "#9F8FEF",
               "title": "",
-              "check": 1
+              "check": 0
             },
             "6": {
               "color": "#579dff",
@@ -97,12 +157,13 @@
           }
         },
         {
-          "id": "01f5a86d-d5ca-47c3-a468-cc7c33f24f0b",
-          "Task": "API",
-          "Due_Date": "2023-07-14",
-          "status": "column2",
+          "id": "d5878a36-a377-4e38-8958-6c16702eb5f2",
+          "Task": "Table",
+          "Due_Date": "2023-07-29T13:14:35.183Z",
+          "status": "column3",
           "members_task": [],
           "jobs": {},
+          "description": "",
           "labels": {
             "1": {
               "color": "#4bce97",
@@ -110,7 +171,48 @@
               "check": 0
             },
             "2": {
-              "color": "#e2b203",
+              "color": "#E2B20",
+              "title": "",
+              "check": 0
+            },
+            "3": {
+              "color": "#FAA53D",
+              "title": "",
+              "check": 0
+            },
+            "4": {
+              "color": "#f87462",
+              "title": "",
+              "check": 0
+            },
+            "5": {
+              "color": "#9F8FEF",
+              "title": "",
+              "check": 0
+            },
+            "6": {
+              "color": "#579dff",
+              "title": "",
+              "check": 0
+            }
+          }
+        },
+        {
+          "id": "b66c21c1-08c7-4b26-a9b5-ab7ec8030d91",
+          "Task": "Update Task",
+          "Due_Date": "2023-07-31T09:28:06.317Z",
+          "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba",
+          "members_task": [],
+          "jobs": {},
+          "description": "",
+          "labels": {
+            "1": {
+              "color": "#4bce97",
+              "title": "",
+              "check": 0
+            },
+            "2": {
+              "color": "#E2B20",
               "title": "",
               "check": 0
             },
@@ -165,10 +267,11 @@
         {
           "id": "1",
           "Task": "Kanban",
-          "Due_Date": "25-May-2020",
+          "Due_Date": "25/5/2020",
           "status": "column1",
           "members_task": [],
           "jobs": {},
+          "description": "",
           "labels": {
             "1": {
               "color": "#4bce97",

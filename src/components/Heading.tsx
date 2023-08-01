@@ -5,12 +5,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../redux/userSlice";
 
 import AddMember from './AddMember';
-interface Member {
-    user_id: string,
-    email: string,
-    color: string,
-}
-
+import { Member } from '../interface';
 interface HeadingProps{
     members: Member[],
     fetchData: Function;

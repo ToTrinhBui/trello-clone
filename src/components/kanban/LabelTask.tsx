@@ -1,19 +1,68 @@
-import React from 'react';
-interface Label {
-    color: string,
-    title: string,
-    check: number
-}
+import React, { useState, useEffect } from 'react';
+import { Label, Task } from '../../interface';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 interface CardProps {
     trigger: boolean,
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     refresh: Function;
-    labels: {
-        [key: string]: Label;
-    }
+    item: Task;
 }
 
-const LabelTask: React.FC<CardProps> = ({ trigger, close, refresh, labels }) => {
+const LabelTask: React.FC<CardProps> = ({ trigger, close, refresh, item }) => {
+    const { boardID } = useParams<{ boardID?: string }>();
+
+    const editTask = async (labels: { [key: string]: Label }) => {
+        try {
+            const response = await axios.put(`http://localhost:3001/task/edit`, {
+                board_id: boardID,
+                task: {
+                    id: item.id,
+                    Task: item.Task,
+                    Due_Date: item.Due_Date,
+                    status: item.status,
+                    members_task: item.members_task,
+                    jobs: item.jobs,
+                    description: item.description,
+                    labels: labels,
+                }
+            })
+            const editedTask = response.data;
+            console.log('Task updated successfully:', editedTask);
+            refresh();
+        } catch (error) {
+            console.error('Error editing task:', error);
+        }
+    };
+
+    const check = (labelId: string) => {
+        var clone = Object.assign({}, item.labels);
+        const label = Object.entries(clone).find(([id, item]) => id === labelId);
+        const newLabel: Label = {
+            color: label?.[1].color || "#3483eb",   // Assuming color is a string, provide a default value if label is undefined
+            title: label?.[1].title || "",   // Assuming title is a string, provide a default value if label is undefined
+            check: 1,
+        };
+        if (label) {
+            clone[labelId] = newLabel; // Replace the existing label with the newLabel using the same id
+        }
+        editTask(clone);
+    };
+
+    const unCheck = (labelId: string) => {
+        var clone = Object.assign({}, item.labels);
+        const label = Object.entries(clone).find(([id, item]) => id === labelId);
+        const newLabel: Label = {
+            color: label?.[1].color || "#3483eb",   // Assuming color is a string, provide a default value if label is undefined
+            title: label?.[1].title || "",   // Assuming title is a string, provide a default value if label is undefined
+            check: 0,
+        };
+        if (label) {
+            clone[labelId] = newLabel; // Replace the existing label with the newLabel using the same id
+        }
+        editTask(clone);
+    };
+
     if (trigger) {
         return (
             <div className='overlay'>
@@ -37,11 +86,16 @@ const LabelTask: React.FC<CardProps> = ({ trigger, close, refresh, labels }) => 
                     </div>
                     <div className='card-content'>
                         <h5>Nhãn</h5>
-                        {Object.entries(labels)?.map(([labelId, label], index) => (
+                        {Object.entries(item.labels)?.map(([labelId, label], index) => (
                             <div className='label-card' key={labelId}>
-                                <div className='tick-box' style={{background: label.check === 1 ? "#0c66e4": 'transparent'}}>
-                                    <svg fill="#ffffff" width="16px" height="16px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M760 380.4l-61.6-61.6-263.2 263.1-109.6-109.5L264 534l171.2 171.2L760 380.4z"></path></g></svg>
-                                </div>
+                                {label.check === 1 ? (
+                                    <div className='tick-box btn' onClick={() => unCheck(labelId)} style={{ background: "#0c66e4" }}>
+                                        <svg fill="#ffffff" width="16px" height="16px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M760 380.4l-61.6-61.6-263.2 263.1-109.6-109.5L264 534l171.2 171.2L760 380.4z"></path></g></svg>
+                                    </div>
+                                ) : (
+                                    <div className='tick-box btn' onClick={() => check(labelId)} style={{ background: 'transparent' }}>
+                                    </div>
+                                )}
                                 <div className='label-title' style={{ background: label.color }}>
                                     <p>{label.title}</p>
                                 </div>
@@ -51,8 +105,8 @@ const LabelTask: React.FC<CardProps> = ({ trigger, close, refresh, labels }) => 
                             </div>
                         ))}
                     </div>
-                </div>
-            </div>
+                </div >
+            </div >
         )
     }
     return <></>;

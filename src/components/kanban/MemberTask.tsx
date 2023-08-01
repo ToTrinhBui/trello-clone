@@ -1,18 +1,52 @@
-import React from 'react';
-interface Member {
-    user_id: string,
-    email: string,
-    color: string,
-}
+import React, { useState, useEffect } from 'react';
+import { Member, Task } from '../../interface';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 interface CardProps {
     trigger: boolean,
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     members: Member[],
     refresh: Function;
-    members_task: string[];
+    item: Task;
 }
 
-const MemberTask: React.FC<CardProps> = ({ trigger, close, members, refresh, members_task }) => {
+const MemberTask: React.FC<CardProps> = ({ trigger, close, members, refresh, item }) => {
+    const { boardID } = useParams<{ boardID?: string }>();
+
+    const editTask = async (members_task: string[]) => {
+        try {
+            const response = await axios.put(`http://localhost:3001/task/edit`, {
+                board_id: boardID,
+                task: {
+                    id: item.id,
+                    Task: item.Task,
+                    Due_Date: item.Due_Date,
+                    status: item.status,
+                    members_task: members_task,
+                    jobs: item.jobs,
+                    description: item.description,
+                    labels: item.labels,
+                }
+            })
+            const editedTask = response.data;
+            console.log('Task updated successfully:', editedTask);
+            refresh();
+        } catch (error) {
+            console.error('Error editing task:', error);
+        }
+    };
+
+    const isMember = (userId: string) => {
+        const newMembers = item.members_task;
+        newMembers.push(userId);
+        editTask(newMembers);
+    };
+
+    const notIsMember = (userId: string) => {
+        const newMembers = item.members_task.filter(memberId => memberId !== userId);
+        editTask(newMembers);
+    }
+
     if (trigger) {
         return (
             <div className='overlay'>
@@ -37,20 +71,29 @@ const MemberTask: React.FC<CardProps> = ({ trigger, close, members, refresh, mem
                     <div className='card-content'>
                         <h5>Thành viên của bảng</h5>
                         {members.map((member, index) => (
-                            <div className='members' key={index}>
-                                <div className='member-outer'>
-                                    <p>{member.email.charAt(0).toUpperCase()}</p>
-                                    <div className='member' style={{ background: member.color }}></div>
-                                </div>
-                                <p>{member.email}</p>
-                                {Array.isArray(members_task) && members_task.includes(member.user_id)  ?
-                                    <div className='right' style={{ paddingRight: '5px' }}>
-                                        <svg width="14px" height="14px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4.89163 13.2687L9.16582 17.5427L18.7085 8" stroke="#44546f" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
+                            Array.isArray(item.members_task) && item.members_task.includes(member.user_id) ?
+                                <div className='members btn' key={index} onClick={() => notIsMember(member.user_id)}>
+                                    <div className='member-outer'>
+                                        <div className='member-icon'>
+                                            <p>{member.email.charAt(0).toUpperCase()}</p>
+                                            <div className='member' style={{ background: member.color }}></div>
+                                        </div>
+                                        <p>{member.email}</p>
+                                        <div className='right' style={{ paddingRight: '5px' }}>
+                                            <svg width="14px" height="14px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4.89163 13.2687L9.16582 17.5427L18.7085 8" stroke="#44546f" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
+                                        </div>
                                     </div>
-                                    : <></>
-                                }
-
-                            </div>
+                                </div>
+                                :
+                                <div className='members btn' key={index} onClick={() => isMember(member.user_id)}>
+                                    <div className='member-outer'>
+                                        <div className='member-icon'>
+                                            <p>{member.email.charAt(0).toUpperCase()}</p>
+                                            <div className='member' style={{ background: member.color }}></div>
+                                        </div>
+                                        <p>{member.email}</p>
+                                    </div>
+                                </div>
                         ))}
                     </div>
                 </div>

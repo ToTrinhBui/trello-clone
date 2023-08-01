@@ -1,36 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 import MemberTask from "./MemberTask";
 import JobsTask from "./JobsTask";
 import LabelTask from "./LabelTask";
 import DayTask from "./DayTask";
-interface Task {
-    id: string;
-    Task: string;
-    Due_Date: string;
-    status: string;
-    members_task: string[];
-    jobs: {
-        [key: string]: Job;
-    },
-    labels: {
-        [key: string]: Label;
-    }
-}
-interface Member {
-    user_id: string,
-    email: string,
-    color: string,
-}
-interface Job {
-    name: string,
-    done: number
-}
-interface Label {
-    color: string,
-    title: string,
-    check: number
-}
+import { Member, Task } from "../../interface";
+import JobsDialog from "./JobsDialog";
+import MemberDialog from "./MemberDialog";
+import LabelDialog from "./LabelDialog";
+import DayDialog from "./DayDialog";
 
 interface EditTaskProps {
     children: React.ReactNode;
@@ -39,12 +19,15 @@ interface EditTaskProps {
     status_title: string;
     refresh: Function;
 }
+
 const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_title, refresh }) => {
     const [open, setOpen] = useState(false);
     const [isMemberOpen, setMemberOpen] = useState(false);
     const [isLabelOpen, setLabelOpen] = useState(false);
     const [isJobsOpen, setJobsOpen] = useState(false);
     const [isDayOpen, setDayOpen] = useState(false);
+    const [description, setDescription] = useState<string>(item.description);
+    const { boardID } = useParams<{ boardID?: string }>();
 
     const handleClickToOpen = () => {
         setOpen(true);
@@ -53,6 +36,10 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
     const handleToClose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation();
         setOpen(false);
+        setDayOpen(false);
+        setJobsOpen(false);
+        setLabelOpen(false);
+        setMemberOpen(false);
     };
 
     const toggleMember = () => {
@@ -87,10 +74,40 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
         }
     };
 
+    useEffect(()=>{
+        setDescription(item.description);
+    }, [item])
+
+    const editTask = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            const response = await axios.put(`http://localhost:3001/task/edit`, {
+                board_id: boardID,
+                task: {
+                    id: item.id,
+                    Task: item.Task,
+                    Due_Date: item.Due_Date,
+                    status: item.status,
+                    members_task: item.members_task,
+                    jobs: item.jobs,
+                    description: description,
+                    labels: item.labels,
+                }
+            })
+            const editedTask = response.data;
+            console.log('Task updated successfully:', editedTask);
+            alert('Đã lưu!');
+            refresh();
+        } catch (error) {
+            console.error('Error editing task:', error);
+        }
+    };
+
     return (
         <div className="edit-task btn" onClick={handleClickToOpen}>
             {children}
             <Dialog onClose={handleToClose} open={open}
+                disableScrollLock
                 sx={{
                     "& .MuiDialog-container": {
                         "& .MuiPaper-root": {
@@ -118,24 +135,24 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                         </div>
                         <div className="task-content">
                             <div className="task-detail">
+                                <div className="description-box">
+                                    <MemberDialog members={members} item={item} refresh={refresh} />
+                                    <LabelDialog item={item} refresh={refresh} />
+                                    <DayDialog item={item} refresh={refresh} />
+                                </div>
                                 <div className="description">
                                     <div className="des-icon">
                                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(180)matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Menu / Menu_Alt_04"> <path id="Vector" d="M5 17H19M5 12H19M5 7H13" stroke="#44546f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg>
                                     </div>
-                                    <div className="des-content">
-                                        <h3>Mô tả</h3>
-                                        <textarea placeholder="Thêm mô tả chi tiết hơn..." />
-                                        <button>Lưu</button>
-                                    </div>
+                                    <form onSubmit={editTask}>
+                                        <div className="des-content">
+                                            <h3>Mô tả</h3>
+                                            <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Thêm mô tả chi tiết hơn..." />
+                                            <button type="submit">Lưu</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div className="description">
-                                    <div className="des-icon">
-                                        <svg width="30px" height="18px" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#44546f"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-219.000000, -400.000000)" fill="#44546f"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M181.9,258 L165.1,258 L165.1,242 L173.5,242 L173.5,240 L163,240 L163,260 L184,260 L184,250 L181.9,250 L181.9,258 Z M170.58205,245.121 L173.86015,248.243 L182.5153,240 L184,241.414 L173.86015,251.071 L173.86015,251.071 L173.8591,251.071 L169.09735,246.536 L170.58205,245.121 Z" id="done-[#44546f]"> </path> </g> </g> </g> </g></svg>
-                                    </div>
-                                    <div>
-                                        <h3>Việc cần làm</h3>
-                                    </div>
-                                </div>
+                                <JobsDialog item={item} refresh={refresh} />
                             </div>
                             <div className="item">
                                 <h5 style={{ color: '#44546f' }}>Thêm vào thẻ</h5>
@@ -146,7 +163,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                             <p>Thành viên</p>
                                         </div>
                                     </div>
-                                    <MemberTask trigger={isMemberOpen} close={toggleClose} members={members} members_task={item.members_task} refresh={refresh} />
+                                    <MemberTask trigger={isMemberOpen} close={toggleClose} members={members} item={item} refresh={refresh} />
                                 </div>
 
                                 <div className="item-card-outer">
@@ -156,7 +173,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                             <p>Nhãn</p>
                                         </div>
                                     </div>
-                                    <LabelTask trigger={isLabelOpen} close={toggleClose} labels={item.labels} refresh={refresh} />
+                                    <LabelTask trigger={isLabelOpen} close={toggleClose} item={item} refresh={refresh} />
                                 </div>
                                 <div className="item-card-outer">
                                     <div className="btn item-card" onClick={toggleJobs}>
@@ -165,7 +182,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                             <p>Việc cần làm</p>
                                         </div>
                                     </div>
-                                    <JobsTask trigger={isJobsOpen} close={toggleClose} refresh={refresh} />
+                                    <JobsTask trigger={isJobsOpen} close={toggleClose} item={item} refresh={refresh} />
                                 </div>
                                 <div className="item-card-outer">
                                     <div className="btn item-card" onClick={toggleDay}>
@@ -174,7 +191,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                             <p>Ngày</p>
                                         </div>
                                     </div>
-                                    <DayTask trigger={isDayOpen} close={toggleClose} due_date={item.Due_Date} refresh={refresh} />
+                                    <DayTask trigger={isDayOpen} close={toggleClose} item={item} refresh={refresh} />
                                 </div>
 
                             </div>

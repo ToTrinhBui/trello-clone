@@ -8,37 +8,11 @@ import Sidebar from "../components/Sidebar";
 
 import "../styles/index.css";
 import "../styles/kanban.css";
+import { Member, Task } from "../interface";
 
 interface Column {
     id: string;
     items: Task[];
-}
-interface Task {
-    id: string;
-    task: string;
-    Due_Date: string;
-    status: string;
-    member_task: string[];
-    jobs: {
-        [key: string]: Job;
-    },
-    labels: {
-        [key: string]: Label;
-    }
-}
-interface Member {
-    user_id: string,
-    email: string,
-    color: string,
-}
-interface Job {
-    name: string,
-    done: number
-}
-interface Label {
-    color: string,
-    title: string,
-    check: number
 }
 interface Data {
     columns: {
@@ -81,7 +55,7 @@ export default function Kanban() {
                     const memberWithEmail = {
                         ...member,
                         email: member_response.data?.[0].user.email,
-                        color: "#" + Math.floor(Math.random() * 16777215).toString(16),
+                        color: member_response.data?.[0].user.color,
                     };
                     updatedMembers.push(memberWithEmail);
                 } catch (error) {

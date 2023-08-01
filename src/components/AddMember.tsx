@@ -4,13 +4,7 @@ import { useParams } from 'react-router-dom';
 import Dialog from "@mui/material/Dialog";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/userSlice";
-
-interface Member {
-    user_id: string,
-    email: string,
-    color: string,
-}
-
+import { Member } from '../interface';
 interface AddMemberProps {
     members: Member[],
     owner: string,

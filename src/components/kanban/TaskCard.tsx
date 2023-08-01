@@ -2,34 +2,7 @@ import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from '@emotion/styled';
 import EditTask from './EditTask';
-
-interface Task {
-    id: string;
-    Task: string;
-    Due_Date: string;
-    status: string;
-    members_task: string[];
-    jobs: {
-        [key: string]: Job;
-    },
-    labels: {
-        [key: string]: Label;
-    }
-}
-interface Member {
-    user_id: string,
-    email: string,
-    color: string,
-}
-interface Job {
-    name: string,
-    done: number
-}
-interface Label {
-    color: string,
-    title: string,
-    check: number
-}
+import { Member, Task } from '../../interface';
 
 interface TaskCardProps {
     item: Task;

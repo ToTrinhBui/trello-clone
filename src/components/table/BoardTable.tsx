@@ -1,29 +1,7 @@
 import React from 'react';
 import AddTaskTable from './AddTaskTable';
 import EditTask from '../kanban/EditTask';
-
-interface Task {
-    id: string;
-    Task: string;
-    Due_Date: string;
-    status: string;
-    members_task: string[];
-    jobs: {
-        [key: string]: Job;
-    },
-    labels: {
-        [key: string]: Label;
-    }
-}
-interface Job {
-    name: string,
-    done: number
-}
-interface Label {
-    color: string,
-    title: string,
-    check: number
-}
+import { Member, Task } from '../../interface';
 
 interface Data {
     columns: Columns;
@@ -34,11 +12,6 @@ interface Columns {
     [key: string]: {
         title: string;
     };
-}
-interface Member {
-    user_id: string,
-    email: string,
-    color: string,
 }
 interface BoardTableProps {
     data: Data;
