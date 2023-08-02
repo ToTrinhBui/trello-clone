@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Member, Task } from '../../interface';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';

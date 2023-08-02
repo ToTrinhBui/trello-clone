@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Kanban from './pages/Kanban';
 import Table from './pages/Table';
+import Charts from './pages/Charts';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='/user/:id/boards' element={<Dashboard/>}/>
           <Route path='/board/table/:boardID' element={<Table/>}/>
           <Route path='/board/kanban/:boardID' element={<Kanban/>}/>
+          <Route path='/board/charts/:boardID' element={<Charts/>}/>
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

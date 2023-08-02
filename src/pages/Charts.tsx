@@ -3,11 +3,12 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 import NavbarUser from "../components/NavbarUser";
 import Heading from "../components/Heading";
-import Board from "../components/kanban/Board";
 import Sidebar from "../components/Sidebar";
+import BoardChart from "../components/charts/BoardChart";
 
 import "../styles/index.css";
-import "../styles/kanban.css";
+import "../styles/charts.css";
+
 import { Member, Task } from "../interface";
 
 interface Column {
@@ -26,8 +27,7 @@ interface NewData {
         [key: string]: Column;
     }
 }
-
-export default function Kanban() {
+const Charts = () => {
     const [data, setData] = useState<NewData>({
         columns: {}
     });
@@ -46,8 +46,7 @@ export default function Kanban() {
     async function fetchData(boardID: string) {
         try {
             const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
-            const newData = addTaskToColumns(response.data?.[0]);
-            setData(newData);
+            setData(response.data?.[0]);
             setNameBoard(response.data?.[0].name);
             setOwnerBoard(response.data?.[0].user_id);
             setBackgroundLink(response.data?.[0].background);
@@ -72,41 +71,18 @@ export default function Kanban() {
         }
     }
 
-    function addTaskToColumns(data: Data): NewData {
-        const newData: NewData = {
-            columns: { ...data.columns },
-        };
-
-        for (const task of data.tasks) {
-            const matchingColumnKey = Object.keys(newData.columns).find(
-                (columnKey) => columnKey === task.status
-            );
-            if (matchingColumnKey) {
-                const matchingColumn = newData.columns[matchingColumnKey];
-                matchingColumn.items = matchingColumn.items || [];
-                matchingColumn.items.push(task);
-            }
-        }
-
-        // Add empty arrays to columns with no matching tasks
-        Object.values(newData.columns).forEach((column) => {
-            if (!column.items || column.items.length === 0) {
-                column.items = [];
-            }
-        });
-        return newData;
-    }
-
     return (
         <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
             <NavbarUser />
             <div className="flex">
                 <Sidebar />
-                <div className="kanban">
+                <div className="charts">
                     <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
-                    <Board data={data} members={members} refresh={fetchData} />
+                    <BoardChart />
                 </div>
             </div>
         </div>
     )
 }
+
+export default Charts
