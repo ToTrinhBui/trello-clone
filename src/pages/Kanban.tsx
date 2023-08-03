@@ -38,12 +38,10 @@ export default function Kanban() {
     const { boardID } = useParams<{ boardID?: string }>();
 
     useEffect(() => {
-        if (boardID) {
-            fetchData(boardID);
-        }
+        fetchData();
     }, [boardID]);
 
-    async function fetchData(boardID: string) {
+    async function fetchData() {
         try {
             const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
             const newData = addTaskToColumns(response.data?.[0]);

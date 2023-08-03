@@ -8,7 +8,7 @@ import React from 'react'; import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Task } from '../../interface';
+import { Member, Task } from '../../interface';
 
 ChartJS.register(
     CategoryScale,
@@ -29,34 +29,37 @@ interface Columns {
 }
 interface ChartProps {
     data: Data;
+    members: Member[];
 }
-const CardsPerList: React.FC<ChartProps> = ({ data }) => {
-    const columnIdList: string[] = Object.keys(data.columns);
-    const columnIdCount: { [key: string]: number } = {};
+const CardsPerMember: React.FC<ChartProps> = ({ data, members }) => {
+    const userIdList: string[] = members.map(member => member.user_id);
+    const userIdCount: { [key: string]: number } = {};
 
-    columnIdList.forEach((element) => {
-        columnIdCount[element] = 0;
+    userIdList.forEach(item => {
+        userIdCount[item] = 0;
     })
 
-    data.tasks.forEach((task) => {
-        columnIdCount[task.status]++;
+    data.tasks.forEach(task => {
+        task.members_task.forEach(userId => {
+            userIdCount[userId]++;
+        })
     })
 
-    const titleCountMap: { [title: string]: number } = {};
+    const emailCountMap: { [email: string]: number } = {};
 
-    columnIdList.forEach((columnId) => {
-        const title = data.columns[columnId].title;
-        titleCountMap[title] = columnIdCount[columnId];
-    });
-    
+    members.forEach(member => {
+        const emailUser = member.email;
+        emailCountMap[emailUser] = userIdCount[member.user_id];
+    })
+
     const dataFilter = {
-        labels: Object.keys(titleCountMap),
+        labels: Object.keys(emailCountMap),
         datasets: [
             {
                 label: "Số lượng thẻ",
                 backgroundColor: "#1a254a",
                 borderColor: "#1a254a",
-                data: Object.values(titleCountMap),
+                data: Object.values(emailCountMap),
             },
         ],
     };
@@ -67,7 +70,7 @@ const CardsPerList: React.FC<ChartProps> = ({ data }) => {
         plugins: {
             title: {
                 display: true,
-                text: 'Cards per List',
+                text: 'Cards per Member',
             },
         }
     }
@@ -80,4 +83,4 @@ const CardsPerList: React.FC<ChartProps> = ({ data }) => {
     );
 }
 
-export default CardsPerList
+export default CardsPerMember

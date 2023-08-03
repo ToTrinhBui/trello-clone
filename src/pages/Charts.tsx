@@ -11,25 +11,19 @@ import "../styles/charts.css";
 
 import { Member, Task } from "../interface";
 
-interface Column {
-    id: string;
-    items: Task[];
-}
 interface Data {
-    columns: {
-        [key: string]: Column;
-    };
+    columns: Columns;
     tasks: Task[];
 }
-
-interface NewData {
-    columns: {
-        [key: string]: Column;
-    }
+interface Columns {
+    [key: string]: {
+        title: string;
+    };
 }
 const Charts = () => {
-    const [data, setData] = useState<NewData>({
-        columns: {}
+    const [data, setData] = useState<Data>({
+        columns: {},
+        tasks: [],
     });
     const [members, setMembers] = useState<Member[]>([]);
     const [nameBoard, setNameBoard] = useState<string>('Name board');
@@ -38,15 +32,17 @@ const Charts = () => {
     const { boardID } = useParams<{ boardID?: string }>();
 
     useEffect(() => {
-        if (boardID) {
-            fetchData(boardID);
-        }
+        fetchData();
     }, [boardID]);
 
-    async function fetchData(boardID: string) {
+    async function fetchData() {
         try {
             const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
-            setData(response.data?.[0]);
+            const data_db: Data = {
+                columns: { ...response.data?.[0].columns },
+                tasks: [...response.data?.[0].tasks],
+            };
+            setData(data_db);
             setNameBoard(response.data?.[0].name);
             setOwnerBoard(response.data?.[0].user_id);
             setBackgroundLink(response.data?.[0].background);
@@ -65,7 +61,7 @@ const Charts = () => {
                     console.error(`Error fetching user with id ${member.user_id}:`, error);
                 }
             }
-            setMembers(updatedMembers)
+            setMembers(updatedMembers);
         } catch (error) {
             console.error(error);
         }
@@ -78,7 +74,7 @@ const Charts = () => {
                 <Sidebar />
                 <div className="charts">
                     <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
-                    <BoardChart />
+                    <BoardChart data={data} members={members} />
                 </div>
             </div>
         </div>

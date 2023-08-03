@@ -75,6 +75,7 @@
           "Task": "Kanban",
           "status": "column1",
           "members_task": [
+            "2",
             "1"
           ],
           "jobs": {
@@ -131,7 +132,9 @@
           "Task": "API",
           "Due_Date": "2023-08-03T17:00:00.000Z",
           "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba",
-          "members_task": [],
+          "members_task": [
+            "3"
+          ],
           "jobs": {},
           "description": "",
           "labels": {
@@ -171,7 +174,7 @@
           "id": "d5878a36-a377-4e38-8958-6c16702eb5f2",
           "Task": "Table",
           "Due_Date": "2023-07-29T13:14:35.183Z",
-          "status": "column2",
+          "status": "column1",
           "members_task": [],
           "jobs": {},
           "description": "",
@@ -281,7 +284,10 @@
           "Task": "Kanban",
           "Due_Date": "25/5/2020",
           "status": "column1",
-          "members_task": [],
+          "members_task": [
+            "1",
+            "2"
+          ],
           "jobs": {},
           "description": "",
           "labels": {
@@ -328,6 +334,9 @@
       "members": [
         {
           "user_id": "1"
+        },
+        {
+          "user_id": "2"
         }
       ],
       "id": "022sTBv"
