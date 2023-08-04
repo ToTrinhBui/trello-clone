@@ -8,6 +8,10 @@ import "../styles/index.css";
 import "../styles/table.css";
 import BoardTable from "../components/table/BoardTable";
 import { Member, Task } from "../interface";
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/userSlice";
+import NotFound from "./NotFound";
+import Loading from "../components/Loading";
 interface Data {
     columns: Columns;
     tasks: Task[];
@@ -27,10 +31,16 @@ export default function Table() {
     const [ownerBoard, setOwnerBoard] = useState<string>('');
     const [background_link, setBackgroundLink] = useState<string>('');
     const { boardID } = useParams<{ boardID?: string }>();
+    const user_redux = useSelector(selectUser).user;
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchData();
+        fetchData().then(() => setLoading(false));;
     }, [boardID]);
+
+    if (loading) {
+        return <Loading/>;
+    }
 
     async function fetchData() {
         try {
@@ -64,16 +74,21 @@ export default function Table() {
         }
     }
 
-    return (
-        <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
-            <NavbarUser />
-            <div className="flex">
-                <Sidebar />
-                <div className="table">
-                    <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
-                    <BoardTable data={data} members={members} refresh={fetchData} />
+    const check = members.filter(member => member.user_id === user_redux.id).length > 0;
+
+    if (user_redux && check) {
+        return (
+            <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
+                <NavbarUser />
+                <div className="flex">
+                    <Sidebar />
+                    <div className="table">
+                        <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
+                        <BoardTable data={data} members={members} refresh={fetchData} />
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        )
+    }
+    return <NotFound />;
 }

@@ -9,6 +9,7 @@ import Boards from "../components/dashboard/Boards";
 import Title from "../components/dashboard/Title";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/userSlice";
+import NotFound from "./NotFound";
 
 interface Board {
     id: string,
@@ -50,21 +51,24 @@ export default function Dashbroad() {
             console.error(error);
         }
     }
-
-    return (
-        <>
-            <div>
-                <NavbarUser style={navbarStyles} />
-                <div className="flex">
-                    <Sidebar style={sidebarStyles} />
-                    <div className="dashboard">
-                        <div className="dashboard-inner">
-                            <Title />
-                            <Boards props={data} backgrounds={backgrounds}/>
+    
+    if (user_redux) {
+        return (
+            <>
+                <div>
+                    <NavbarUser style={navbarStyles} />
+                    <div className="flex">
+                        <Sidebar style={sidebarStyles} />
+                        <div className="dashboard">
+                            <div className="dashboard-inner">
+                                <Title />
+                                <Boards props={data} backgrounds={backgrounds} />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
-    );
+            </>
+        );
+    }
+    return <NotFound/>;
 }

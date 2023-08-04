@@ -159,6 +159,10 @@ button {
   color: var(--nav-color, #FFFFFF);
 }
 
+.navbar-user span {
+  color: var(--nav-color, #FFFFFF);
+}
+
 .navbar-user .logo-user {
   width: 75px;
   height: 16px;
@@ -288,11 +292,11 @@ button {
   background-color: var(--ds-background-input-hovered, #f7f8f9);
 }
 
-.navbar-user .avatar {
+.avatar {
   width: 35px;
   height: 35px;
   line-height: 24px;
-  background-image: url(https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/6e51afadf71d3d08f7f2dc8577e9d848/30.png);
+  background-image: url(https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/c080abc7f45703f2f7b91e88d2e41202/50.png);
   background-size: 100% auto;
   background-position: center;
   background-repeat: no-repeat;
@@ -724,4 +728,84 @@ button {
 
 .dropdown-menu li:hover {
   background-color: #f0f0f0;
+}
+
+/* Logout */
+.overlay-logout {
+  z-index: 1000;
+  position: fixed;
+  top: 55px;
+  right: 235px;
+}
+
+.card-logout {
+  position: absolute;
+  width: 230px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0px 8px 12px #091E4226, 0px 0px 1px #091E424F;
+  color: #172B4D;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.card-logout h5 {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 700;
+  padding: 8px 0px;
+  color: #626F86;
+}
+
+.card-logout .title-card {
+  margin: 10px 20px 10px 20px;
+}
+
+.card-logout .title-card::after {
+  display: block;
+  content: '';
+  height: 1px;
+  width: 100%;
+  background: rgb(161 161 163 / 26%);
+}
+
+.card-logout .user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.card-logout .logout {
+  padding: 5px 20px 5px 20px;
+  margin: 0px 0px 10px;
+}
+
+.card-logout .logout:hover {
+  background-color: #f1f2f4;
+}
+
+/* Loading */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000000e3;
+}
+
+.circle-loading {
+  border: 3px solid hsla(240, 2%, 35%, 0.356);
+  border-top-color: #2e4dfb;
+  border-radius: 50%;
+  width: 3em;
+  height: 3em;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

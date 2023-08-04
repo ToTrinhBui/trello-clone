@@ -5,11 +5,14 @@ import NavbarUser from "../components/NavbarUser";
 import Heading from "../components/Heading";
 import Sidebar from "../components/Sidebar";
 import BoardChart from "../components/charts/BoardChart";
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/userSlice";
+import NotFound from "./NotFound";
+import { Member, Task } from "../interface";
+import Loading from "../components/Loading";
 
 import "../styles/index.css";
 import "../styles/charts.css";
-
-import { Member, Task } from "../interface";
 
 interface Data {
     columns: Columns;
@@ -30,11 +33,17 @@ const Charts = () => {
     const [ownerBoard, setOwnerBoard] = useState<string>('');
     const [background_link, setBackgroundLink] = useState<string>('');
     const { boardID } = useParams<{ boardID?: string }>();
+    const user_redux = useSelector(selectUser).user;
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchData();
+        fetchData().then(() => setLoading(false));;
     }, [boardID]);
 
+    if (loading) {
+        return <Loading/>;
+    }
+    
     async function fetchData() {
         try {
             const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
@@ -67,18 +76,22 @@ const Charts = () => {
         }
     }
 
-    return (
-        <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
-            <NavbarUser />
-            <div className="flex">
-                <Sidebar />
-                <div className="charts">
-                    <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
-                    <BoardChart data={data} members={members} />
+    const check = members.filter(member => member.user_id === user_redux.id).length > 0;
+
+    if (user_redux && check) {
+        return (
+            <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
+                <NavbarUser />
+                <div className="flex">
+                    <Sidebar />
+                    <div className="charts">
+                        <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
+                        <BoardChart data={data} members={members} />
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
+    return <NotFound />;
 }
-
-export default Charts
+export default Charts;

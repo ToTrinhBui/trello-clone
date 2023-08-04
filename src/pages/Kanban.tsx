@@ -9,6 +9,10 @@ import Sidebar from "../components/Sidebar";
 import "../styles/index.css";
 import "../styles/kanban.css";
 import { Member, Task } from "../interface";
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/userSlice";
+import NotFound from "./NotFound";
+import Loading from "../components/Loading";
 
 interface Column {
     id: string;
@@ -36,10 +40,16 @@ export default function Kanban() {
     const [ownerBoard, setOwnerBoard] = useState<string>('');
     const [background_link, setBackgroundLink] = useState<string>('');
     const { boardID } = useParams<{ boardID?: string }>();
+    const user_redux = useSelector(selectUser).user;
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchData();
+        fetchData().then(() => setLoading(false));;
     }, [boardID]);
+
+    if (loading) {
+        return <Loading/>;
+    }
 
     async function fetchData() {
         try {
@@ -95,16 +105,21 @@ export default function Kanban() {
         return newData;
     }
 
-    return (
-        <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
-            <NavbarUser />
-            <div className="flex">
-                <Sidebar />
-                <div className="kanban">
-                    <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
-                    <Board data={data} members={members} refresh={fetchData} />
+    const check = members.filter(member => member.user_id === user_redux.id).length > 0;
+
+    if (user_redux && check) {
+        return (
+            <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
+                <NavbarUser />
+                <div className="flex">
+                    <Sidebar />
+                    <div className="kanban">
+                        <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
+                        <Board data={data} members={members} refresh={fetchData} />
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
+    return <NotFound />;
 }
