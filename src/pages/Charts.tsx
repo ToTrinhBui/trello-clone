@@ -37,7 +37,7 @@ const Charts = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchData().then(() => setLoading(false));;
+        fetchData().then(() => setLoading(false));
     }, [boardID]);
 
     if (loading) {

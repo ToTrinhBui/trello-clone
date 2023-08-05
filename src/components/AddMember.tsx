@@ -5,13 +5,15 @@ import Dialog from "@mui/material/Dialog";
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/userSlice";
 import { Member } from '../interface';
+import RemoveMember from './RemoveMember';
 interface AddMemberProps {
     members: Member[],
     owner: string,
-    refresh: Function
+    refresh: Function,
+    memberFilter: Member[],
 }
 
-const AddMember: React.FC<AddMemberProps> = ({ members, owner, refresh }) => {
+const AddMember: React.FC<AddMemberProps> = ({ members, owner, refresh, memberFilter }) => {
     const { boardID } = useParams<{ boardID?: string }>();
     const [open, setOpen] = useState(false);
     const user_redux = useSelector(selectUser).user;
@@ -22,7 +24,6 @@ const AddMember: React.FC<AddMemberProps> = ({ members, owner, refresh }) => {
         email: '',
         color: ''
     });
-
     useEffect(() => {
         if (searchInput.length > 0) {
             search(searchInput);
@@ -60,24 +61,37 @@ const AddMember: React.FC<AddMemberProps> = ({ members, owner, refresh }) => {
         });
     };
 
-    const addMember = async (event: React.FormEvent<HTMLFormElement>) => {
+    const addMember = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (selectedItem?.email.length > 0 && searchInput === selectedItem?.email) {
-            try {
-                const response = await axios.post(`http://localhost:3001/board/member/add`, {
-                    board_id: boardID,
-                    member_id: selectedItem?.user_id,
-                });
-                refresh();
-                setSearchInput('');
-                const addedMember = response.data;
-                console.log('Task added successfully:', addedMember);
-
-            } catch (error) {
-                console.error('Error adding:', error);
-            }
+            const newMembers: Member[] = members;
+            newMembers.push(selectedItem);
+            const listMemberId = newMembers.map(member => ({ user_id: member.user_id }));
+            updateMembers(listMemberId);
         } else {
             alert('Cant share!')
+        }
+    }
+
+    const deleteMember = (id: string) => {
+        const newMembers: Member[] = members.filter(member => member.user_id !== id);
+        const listMemberId = newMembers.map(member => ({ user_id: member.user_id }));
+        updateMembers(listMemberId);
+    }
+
+    const updateMembers = async (memberboards: Object[]) => {
+        try {
+            const response = await axios.put(`http://localhost:3001/board/member/update`, {
+                board_id: boardID,
+                members: memberboards,
+            });
+            refresh();
+            setSearchInput('');
+            const addedMember = response.data;
+            console.log('Task added successfully:', addedMember);
+
+        } catch (error) {
+            console.error('Error adding:', error);
         }
     }
 
@@ -140,29 +154,37 @@ const AddMember: React.FC<AddMemberProps> = ({ members, owner, refresh }) => {
                         <div className='link btn' onClick={handleCopyLink}>Sao chép liên kết</div>
                         <h6 className='copied'>Copied!</h6>
                     </div>
-                    <div className='user-in4'>
-                        <div className='user-email'>
-                            <img alt='avatar' style={{ width: '35px' }} src='https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/6e51afadf71d3d08f7f2dc8577e9d848/30.png' />
-                            <p>{user_redux.email}</p>
-                        </div>
-                        <div className='user-role'>
-                            {owner === user_redux.id ? <p>Quản trị viên</p> : <p>Thành viên</p>}
-                        </div>
-                    </div>
-                    {members.map((member, index) => (
-                        <div key={index} className='user-in4'>
+                    <div className='list-users-board'>
+                        <div className='user-in4'>
                             <div className='user-email'>
-                                <div className='member-outer'>
-                                    <p>{member.email.charAt(0).toUpperCase()}</p>
-                                    <div className='member' style={{ background: member.color }}></div>
-                                </div>
-                                <p>{member.email}</p>
+                                <img alt='avatar' style={{ width: '35px' }} src='https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/6e51afadf71d3d08f7f2dc8577e9d848/30.png' />
+                                <p>{user_redux.email}</p>
                             </div>
-                            <div className='user-role'>
-                                {owner === member.user_id ? <p>Quản trị viên</p> : <p>Thành viên</p>}
-                            </div>
+                            {owner === user_redux.id ?
+                                <div className='user-role'>
+                                    <p>Quản trị viên</p>
+                                </div> :
+                                <RemoveMember id={user_redux.id} onDelete={deleteMember} />
+                            }
                         </div>
-                    ))}
+                        {memberFilter.map((member, index) => (
+                            <div key={member.user_id} className='user-in4'>
+                                <div className='user-email'>
+                                    <div className='member-outer'>
+                                        <p>{member.email.charAt(0).toUpperCase()}</p>
+                                        <div className='member' style={{ background: member.color }}></div>
+                                    </div>
+                                    <p>{member.email}</p>
+                                </div>
+                                {owner === member.user_id ?
+                                    <div className='user-role'>
+                                        <p>Quản trị viên</p>
+                                    </div> :
+                                    <RemoveMember id={member.user_id} onDelete={deleteMember} />
+                                }
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </Dialog>
         </div>

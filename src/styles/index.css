@@ -649,7 +649,9 @@ button {
 .dialog-container .copy-link .copied {
   visibility: hidden;
 }
-
+.dialog-container .list-users-board{
+  margin-bottom: 22px;
+}
 .dialog-container .user-in4 {
   display: flex;
   align-items: center;
@@ -673,6 +675,17 @@ button {
   align-items: center;
   color: #172B4D;
   font-size: 14px;
+}
+
+.dialog-container .user-delete {
+  position: absolute;
+  transform: translate(0px, 4px);
+  padding: 8px 4px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  border-radius: 3px;
+  font-size: 13px;
+  z-index: 10;
 }
 
 .dialog-container .member-outer {

@@ -6,7 +6,7 @@
         "password": "12345",
         "color": "#eb4034"
       },
-      "accessToken": "c1e60c93271d4840448bb41b952080b3dca0dc3abcd56892e7b393cce6cb17228d4186e2a7d852d7da38adfac442f4cb10e35f3aa9b6cbaf5cef89f3524dcdb3",
+      "accessToken": "cdbe7a7152522411df0b9079975d62797a91ca7eb28e0bdc698fd860a090b2e81f9b295220a494a15b34c30c8e8e4560cbabfe06dff83d02936c8e83195174a0",
       "id": "1"
     },
     {
@@ -24,7 +24,7 @@
         "password": "12345",
         "color": "#34ebdf"
       },
-      "accessToken": "959246a220de899f08f2fc1c6a75635a8322b26a499a35624fd43fa5965e4d1424bfaaab79eadacb1cc78251cd47c66126fe7736a10ca81e4ede20180e27262a",
+      "accessToken": "620d5606edc2b19bbdb8e664c8d9f60661fecc77b8441d266cf547545d53653d31a56cb79cac0eda4fd707d49d689f46ff2982b43a69a5f9dcef359b9ec34a9f",
       "id": "3"
     }
   ],
@@ -133,7 +133,8 @@
           "Due_Date": "2023-08-03T17:00:00.000Z",
           "status": "1f7a4852-fe55-4ac4-bd4c-3e91eef0d1ba",
           "members_task": [
-            "3"
+            "3",
+            "1"
           ],
           "jobs": {},
           "description": "",

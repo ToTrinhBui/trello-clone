@@ -42,7 +42,20 @@ const BoardTable: React.FC<BoardTableProps> = ({ data, refresh, members }) => {
                                         {item.Task}
                                     </td>
                                     <td>{data.columns[item.status]?.title}</td>
-                                    <td>Me</td>
+                                    <td>
+                                        <div className='list-members'>
+                                            {members.map((member, index) => (
+                                                Array.isArray(item.members_task) && item.members_task.includes(member.user_id) ?
+                                                    <div className='member-outer' key={index}>
+                                                        <div className='member-icon' style={{ padding: '0px', height: '20px', width: '20px' }}>
+                                                            <p>{member.email.charAt(0).toUpperCase()}</p>
+                                                            <div className='member' style={{ background: member.color, height: '28px', width: '28px' }}></div>
+                                                        </div>
+                                                    </div>
+                                                    : <div key={index}></div>
+                                            ))}
+                                        </div>
+                                    </td>
                                     <td>
                                         {new Date(item.Due_Date).toLocaleDateString('en-us', {
                                             month: 'short',

@@ -63,7 +63,7 @@ const Heading: React.FC<HeadingProps> = ({ members, fetchData, nameBoard, ownerB
                             <img alt='avatar' src='https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/6e51afadf71d3d08f7f2dc8577e9d848/30.png' />
                         </div>
                     </div>
-                    <AddMember members={memberFilter} owner={owner} refresh={fetchData} />
+                    <AddMember members={members} memberFilter={memberFilter} owner={owner} refresh={fetchData} />
                 </div>
             </div>
         </div >
