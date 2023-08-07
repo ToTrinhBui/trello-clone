@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Task, Member } from '../../interface';
 import MemberTask from './MemberTask';
-
+import Avatar from 'react-avatar';
 interface CardProps {
     members: Member[],
     refresh: Function;
@@ -20,7 +20,7 @@ const MemberDialog: React.FC<CardProps> = ({ members, item, refresh }) => {
             setOpen(false);
         }
     };
-    
+
     useEffect(() => {
         if (item.members_task.length === 0) {
             setOpen(false)
@@ -34,12 +34,13 @@ const MemberDialog: React.FC<CardProps> = ({ members, item, refresh }) => {
                 <div className='list-members'>
                     {members.map((member, index) => (
                         Array.isArray(item.members_task) && item.members_task.includes(member.user_id) ?
-                            <div className='member-outer' key={index}>
-                                <div className='member-icon' style={{ padding: '0px' }}>
-                                    <p>{member.email.charAt(0).toUpperCase()}</p>
-                                    <div className='member' style={{ background: member.color }}></div>
-                                </div>
-                            </div>
+                        //     <div className='member-outer' key={index}>
+                        //         <div className='member-icon' style={{ padding: '0px' }}>
+                        //             <p>{member.email.charAt(0).toUpperCase()}</p>
+                        //             <div className='member' style={{ background: member.color }}></div>
+                        //         </div>
+                        //     </div>
+                        <Avatar name={member.email} size={'35'} round="40px" />
                             : <div key={index}></div>
                     ))}
                     <div className='member-outer'>

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../redux/userSlice";
 import { Member } from '../interface';
 import RemoveMember from './RemoveMember';
+import Avatar from 'react-avatar';
 interface AddMemberProps {
     members: Member[],
     owner: string,
@@ -157,7 +158,7 @@ const AddMember: React.FC<AddMemberProps> = ({ members, owner, refresh, memberFi
                     <div className='list-users-board'>
                         <div className='user-in4'>
                             <div className='user-email'>
-                                <img alt='avatar' style={{ width: '35px' }} src='https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/6e51afadf71d3d08f7f2dc8577e9d848/30.png' />
+                                <img alt='avatar' style={{ width: '35px' }} src='https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/c080abc7f45703f2f7b91e88d2e41202/50.png' />
                                 <p>{user_redux.email}</p>
                             </div>
                             {owner === user_redux.id ?
@@ -170,10 +171,11 @@ const AddMember: React.FC<AddMemberProps> = ({ members, owner, refresh, memberFi
                         {memberFilter.map((member, index) => (
                             <div key={member.user_id} className='user-in4'>
                                 <div className='user-email'>
-                                    <div className='member-outer'>
+                                    {/* <div className='member-outer'>
                                         <p>{member.email.charAt(0).toUpperCase()}</p>
                                         <div className='member' style={{ background: member.color }}></div>
-                                    </div>
+                                    </div> */}
+                                    <Avatar name={member.email} size={'35'} round="50px" />
                                     <p>{member.email}</p>
                                 </div>
                                 {owner === member.user_id ?

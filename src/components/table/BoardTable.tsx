@@ -2,6 +2,7 @@ import React from 'react';
 import AddTaskTable from './AddTaskTable';
 import EditTask from '../kanban/EditTask';
 import { Member, Task } from '../../interface';
+import Avatar from 'react-avatar';
 
 interface Data {
     columns: Columns;
@@ -46,12 +47,13 @@ const BoardTable: React.FC<BoardTableProps> = ({ data, refresh, members }) => {
                                         <div className='list-members'>
                                             {members.map((member, index) => (
                                                 Array.isArray(item.members_task) && item.members_task.includes(member.user_id) ?
-                                                    <div className='member-outer' key={index}>
-                                                        <div className='member-icon' style={{ padding: '0px', height: '20px', width: '20px' }}>
-                                                            <p>{member.email.charAt(0).toUpperCase()}</p>
-                                                            <div className='member' style={{ background: member.color, height: '28px', width: '28px' }}></div>
-                                                        </div>
-                                                    </div>
+                                                    //     <div className='member-outer' key={index}>
+                                                    //         <div className='member-icon' style={{ padding: '0px', height: '20px', width: '20px' }}>
+                                                    //             <p>{member.email.charAt(0).toUpperCase()}</p>
+                                                    //             <div className='member' style={{ background: member.color, height: '28px', width: '28px' }}></div>
+                                                    //         </div>
+                                                    //     </div>
+                                                    <Avatar key={index} name={member.email} size={'30'} round="20px" />
                                                     : <div key={index}></div>
                                             ))}
                                         </div>

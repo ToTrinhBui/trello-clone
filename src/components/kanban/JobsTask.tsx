@@ -78,7 +78,7 @@ const JobsTask: React.FC<CardProps> = ({ trigger, close, item, refresh }) => {
                     <form onSubmit={editTask}>
                         <div className='card-content'>
                             <h5>Tiêu đề</h5>
-                            <input placeholder='Việc cần làm' value={job.name} onChange={(e) => setJob({ ...job, name: e.target.value })} />
+                            <input required placeholder='Việc cần làm' value={job.name} onChange={(e) => setJob({ ...job, name: e.target.value })} />
                         </div>
                         <div className='card-add'>
                             <button type='submit'>Thêm</button>

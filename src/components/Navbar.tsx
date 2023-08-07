@@ -4,15 +4,13 @@ import { Link } from 'react-router-dom';
 import { selectUser } from "../redux/userSlice";
 
 export default function Navbar() {
-    const user = useSelector(selectUser).user;
+    const user_redux = useSelector(selectUser).user;
     const login = useSelector(selectUser).isLoggedIn;
-    const [user_redux, setUserRedux] = useState(user);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     useEffect(() => {
         setIsLoggedIn(login);
-        setUserRedux(user);
-    }, [user, login])
+    }, [login])
 
     return (
         <div className="navbar">
@@ -28,7 +26,7 @@ export default function Navbar() {
                 {isLoggedIn ? (
                     <>
                         <div className="link-to-login">Hello!</div>
-                        <Link to={`/user/${user.id}/boards`} className="link-to-sign-up">Go to your Boards</Link>
+                        <Link to={`/user/${user_redux.id}/boards`} className="link-to-sign-up">Go to your Boards</Link>
                     </>
                 )
                     : (

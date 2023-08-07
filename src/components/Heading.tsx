@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/userSlice";
 import axios from 'axios';
+import Avatar from 'react-avatar';
 
 import AddMember from './AddMember';
 import { Member } from '../interface';
@@ -82,9 +83,8 @@ const Heading: React.FC<HeadingProps> = ({ members, fetchData, nameBoard, ownerB
                 <div className='share'>
                     <div className='members'>
                         {memberFilter.map((member, index) => (
-                            <div key={index} className='member-outer'>
-                                <p style={{ color: '#fff' }}>{member.email.charAt(0).toUpperCase()}</p>
-                                <div className='member' style={{ background: member.color }}></div>
+                            <div style={{ width: '22px' }}>
+                                <Avatar key={index} name={member.email} size={'28'} round="20px" />
                             </div>
                         ))}
                         <div className="owner">

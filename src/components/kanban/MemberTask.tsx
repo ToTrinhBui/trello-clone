@@ -2,6 +2,7 @@ import React from 'react';
 import { Member, Task } from '../../interface';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Avatar from 'react-avatar';
 interface CardProps {
     trigger: boolean,
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -74,10 +75,7 @@ const MemberTask: React.FC<CardProps> = ({ trigger, close, members, refresh, ite
                             Array.isArray(item.members_task) && item.members_task.includes(member.user_id) ?
                                 <div className='members btn' key={index} onClick={() => notIsMember(member.user_id)}>
                                     <div className='member-outer'>
-                                        <div className='member-icon'>
-                                            <p>{member.email.charAt(0).toUpperCase()}</p>
-                                            <div className='member' style={{ background: member.color }}></div>
-                                        </div>
+                                        <Avatar name={member.email} size={'35'} round="40px" />
                                         <p>{member.email}</p>
                                         <div className='right' style={{ paddingRight: '5px' }}>
                                             <svg width="14px" height="14px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4.89163 13.2687L9.16582 17.5427L18.7085 8" stroke="#44546f" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
@@ -87,10 +85,7 @@ const MemberTask: React.FC<CardProps> = ({ trigger, close, members, refresh, ite
                                 :
                                 <div className='members btn' key={index} onClick={() => isMember(member.user_id)}>
                                     <div className='member-outer'>
-                                        <div className='member-icon'>
-                                            <p>{member.email.charAt(0).toUpperCase()}</p>
-                                            <div className='member' style={{ background: member.color }}></div>
-                                        </div>
+                                        <Avatar name={member.email} size={'35'} round="40px" />
                                         <p>{member.email}</p>
                                     </div>
                                 </div>

@@ -90,9 +90,9 @@ export default function Login() {
                 <div className="account-form">
                     <h1>Đăng nhập vào Trello</h1>
                     <form id="login-form" onSubmit={handleSubmit}>
-                        <input placeholder="Nhập email" type="text" value={user.email}
+                        <input required placeholder="Nhập email" type="text" value={user.email}
                             onChange={handleChange} name="email" />
-                        <input placeholder="Nhập mật khẩu" type="password" value={user.password}
+                        <input required placeholder="Nhập mật khẩu" type="password" value={user.password}
                             onChange={handleChange} name="password" />
                         <button className="btn btn-account" type="submit">Tiếp tục</button>
                     </form>
