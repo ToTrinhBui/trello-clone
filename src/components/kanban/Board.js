@@ -6,6 +6,7 @@ import TaskCard from './TaskCard';
 import AddTask from './AddTask';
 import { useParams } from 'react-router-dom';
 import AddColumn from './AddColumn';
+import EditColumn from './EditColumn';
 
 const Container = styled.div`
   display: flex;
@@ -102,6 +103,7 @@ const Board = (props) => {
             // updateTaskStatus(removed.id, source.droppableId);
         }
     };
+
     return (
         <>
             {props ? (
@@ -119,9 +121,12 @@ const Board = (props) => {
                                                     ref={provided.innerRef}
                                                     {...provided.droppableProps}
                                                 >
-                                                    <Title>{column.title}</Title>
+                                                    <div className='task-list-header'>
+                                                        <Title>{column.title}</Title>
+                                                        <EditColumn columnId={columnId} refresh={props.refresh} title={column.title}/>
+                                                    </div>
                                                     {column.items?.map((item, index) => (
-                                                        <TaskCard key={index} item={item} index={index} members={props.members} status_title={column.title} refresh={props.refresh}/>
+                                                        <TaskCard key={index} item={item} index={index} members={props.members} status_title={column.title} refresh={props.refresh} />
                                                     ))}
                                                     {provided.placeholder}
                                                     <AddTask statusID={columnId} refresh={props.refresh} />

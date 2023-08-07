@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { selectUser } from "../redux/userSlice";
+import axios from 'axios';
 
 import AddMember from './AddMember';
 import { Member } from '../interface';
+import MoreOption from './MoreOption';
 interface HeadingProps {
     members: Member[],
     fetchData: Function;
@@ -15,17 +17,43 @@ interface HeadingProps {
 const Heading: React.FC<HeadingProps> = ({ members, fetchData, nameBoard, ownerBoard }) => {
     const { boardID } = useParams<{ boardID?: string }>();
     const user_redux = useSelector(selectUser).user;
-
     const [name, setName] = useState<string>('Name board');
     const [owner, setOwner] = useState<string>(user_redux.id);
     const [memberFilter, setMemberFilter] = useState<Member[]>([]);
 
+    const navigate = useNavigate();
 
     useEffect(() => {
         setMemberFilter(members.filter((member: Member) => member.user_id !== user_redux.id.toString()));
         setName(nameBoard);
         setOwner(ownerBoard);
     }, [members, nameBoard, ownerBoard, user_redux]);
+
+    const deleteBoard = async () => {
+        try {
+            const response = await axios.delete(`http://localhost:3001/boards/${boardID}`);
+            const responseData = response.data;
+            console.log('deleted successfully:', responseData);
+            navigate(`/user/${user_redux.id}/boards`);
+        } catch (error) {
+            console.error('Error deleting:', error);
+        }
+    }
+
+    const renameBoard = async (name: string) => {
+        try {
+            const response = await axios.put(`http://localhost:3001/board/rename`, {
+                board_id: boardID,
+                name: name
+            });
+            fetchData();
+            const responseData = response.data;
+            console.log('renamed successfully:', responseData);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     return (
         <div className='heading'>
@@ -65,6 +93,7 @@ const Heading: React.FC<HeadingProps> = ({ members, fetchData, nameBoard, ownerB
                     </div>
                     <AddMember members={members} memberFilter={memberFilter} owner={owner} refresh={fetchData} />
                 </div>
+                <MoreOption type={'Bảng'} title={nameBoard} onDelete={deleteBoard} rename={renameBoard} />
             </div>
         </div >
     )

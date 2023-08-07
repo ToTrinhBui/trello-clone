@@ -484,11 +484,17 @@ button {
   background-color: white;
 }
 
+.heading .right {
+  display: flex;
+  align-items: center;
+}
+
 .heading .share {
   display: flex;
   align-items: center;
   gap: 7px;
   border-left: 1px solid rgb(161 161 163 / 26%);
+  border-right: 1px solid rgb(161 161 163 / 26%);
   padding: 0px 10px;
 }
 
@@ -649,9 +655,11 @@ button {
 .dialog-container .copy-link .copied {
   visibility: hidden;
 }
-.dialog-container .list-users-board{
+
+.dialog-container .list-users-board {
   margin-bottom: 22px;
 }
+
 .dialog-container .user-in4 {
   display: flex;
   align-items: center;
@@ -821,4 +829,43 @@ button {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* MoreOption */
+.more-option {
+  color: #626F86;
+  font-size: 14px;
+}
+
+.more-option .more-icon {
+  height: 28px;
+  width: 28px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 5px;
+}
+
+.more-option .more-icon:hover {
+  background-color: #f1f2f434;
+}
+
+.more-option .more-item {
+  position: absolute;
+  z-index: 20;
+  background: #FFFFFF;
+  border-radius: 8px;
+  width: 80px;
+  padding: 5px 0px;
+  transform: translate(-42px, 5px);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.more-option .option-part{
+  padding: 5px 10px;
+}
+
+.more-option .option-part:hover {
+  background-color: #f1f2f4;
 }

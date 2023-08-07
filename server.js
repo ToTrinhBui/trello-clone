@@ -42,6 +42,19 @@ server.put('/board/member/update', (req, res) => {
     }
 })
 
+server.put('/board/rename', (req, res) => {
+    const { board_id, name } = req.body;
+    const board_db = router.db.get('boards').find(item => item.id === board_id).value();
+    console.log('Received request:', req.body); // Log the request body
+    if (board_db) {
+        board_db.name = name;
+        router.db.write(); // Persist the changes to the database
+        res.status(200).json({ notice: 'Successfull rename board', 'members': board_db.name });
+    } else {
+        res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
+    }
+})
+
 server.post('/status/add', (req, res) => {
     const { board_id } = req.body;
     const board_db = router.db.get('boards').find(item => item.id === board_id).value();
@@ -61,7 +74,36 @@ server.post('/status/add', (req, res) => {
     }
 });
 
+server.put('/status/rename', (req, res) => {
+    const { board_id, columnId, name } = req.body;
+    const board_db = router.db.get('boards').find(item => item.id === board_id).value();
+    console.log('Received request:', req.body); // Log the request body
+    if (board_db) {
+        const columns = board_db.columns;
+        columns[columnId].title = name;
+        router.db.write();
+        res.status(200).json({ 'rename column': columns[columnId] });
+    } else {
+        res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
+    }
+});
+
+server.delete('/status/delete', (req, res) => {
+    const { board_id, columnId } = req.body;
+    const board_db = router.db.get('boards').find(item => item.id === board_id).value();
+    console.log('Received request:', req.body); // Log the request body
+    if (board_db) {
+        const columns = board_db.columns;
+        delete columns[columnId];
+        router.db.write();
+        res.status(200).json({ 'new list columns': columns });
+    } else {
+        res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
+    }
+});
+
 server.put('/task/update', (req, res) => {
+    // update status
     const { board_id, task_id, status } = req.body;
     const board_db = router.db.get('boards').find(item => item.id === board_id).value();
     console.log('Received request:', req.body); // Log the request body
@@ -101,7 +143,7 @@ server.post('/task/add', (req, res) => {
                     "check": 0
                 },
                 "2": {
-                    "color": "#E2B20",
+                    "color": "#e2b203",
                     "title": "",
                     "check": 0
                 },
@@ -157,6 +199,20 @@ server.put('/task/edit', (req, res) => {
         } else {
             res.status(401).json({ error: 'Invalid credentials. Cant find task', requestPayload: req.body });
         }
+    } else {
+        res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
+    }
+});
+
+server.delete('/task/delete', (req, res) => {
+    const { board_id, taskId } = req.body;
+    const board_db = router.db.get('boards').find(item => item.id === board_id).value();
+    console.log('Received request:', req.body); // Log the request body
+    
+    if (board_db) {
+        const newListTasks = board_db.tasks.filter(item => item.id !== taskId);
+        board_db.tasks = newListTasks;
+        res.status(200).json('Successfully deleted');
     } else {
         res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
     }

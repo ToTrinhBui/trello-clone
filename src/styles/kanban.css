@@ -39,6 +39,12 @@
     min-height: calc(100vh - 105px);
 }
 
+.board .task-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .add-task {
     padding: 8px 8px;
     margin: 10px 0px 0px 0px;
@@ -159,6 +165,12 @@
 
 .task-content .item {
     padding-left: 16px;
+}
+
+.task-content .item-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .task-content .item-card-outer {
@@ -408,11 +420,11 @@ h5 {
     background: #4593ff;
 }
 
-.job-popup{
+.job-popup {
     transform: translateX(7%);
 }
 
-.list-jobs{
+.list-jobs {
     min-height: 150px;
     margin: 5px 5px;
 }

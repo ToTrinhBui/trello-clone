@@ -11,6 +11,7 @@ import JobsDialog from "./JobsDialog";
 import MemberDialog from "./MemberDialog";
 import LabelDialog from "./LabelDialog";
 import DayDialog from "./DayDialog";
+import MoreOption from "../MoreOption";
 
 interface EditTaskProps {
     children: React.ReactNode;
@@ -74,7 +75,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         setDescription(item.description);
     }, [item])
 
@@ -102,6 +103,45 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
             console.error('Error editing task:', error);
         }
     };
+
+    const deleteTask = async () => {
+        try {
+            const response = await axios.delete(`http://localhost:3001/task/delete`, {
+                data: {
+                    board_id: boardID,
+                    taskId: item.id,
+                }
+            });
+            const responseData = response.data;
+            console.log('deleted successfully:', responseData);
+            refresh();
+        } catch (error) {
+            console.error('Error deleting:', error);
+        }
+    }
+
+    const renameTask = async (name: string) => {
+        try {
+            const response = await axios.put(`http://localhost:3001/task/edit`, {
+                board_id: boardID,
+                task: {
+                    id: item.id,
+                    Task: name,
+                    Due_Date: item.Due_Date,
+                    status: item.status,
+                    members_task: item.members_task,
+                    jobs: item.jobs,
+                    description: item.description,
+                    labels: item.labels,
+                }
+            })
+            const editedTask = response.data;
+            console.log('Task updated successfully:', editedTask);
+            refresh();
+        } catch (error) {
+            console.error('Error editing task:', error);
+        }
+    }
 
     return (
         <div className="edit-task btn" onClick={handleClickToOpen}>
@@ -155,7 +195,10 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                 <JobsDialog item={item} refresh={refresh} />
                             </div>
                             <div className="item">
-                                <h5 style={{ color: '#44546f' }}>Thêm vào thẻ</h5>
+                                <div className="item-title">
+                                    <h5 style={{ color: '#44546f' }}>Thêm vào thẻ</h5>
+                                    <MoreOption type={'Thẻ'} title={item.Task} onDelete={deleteTask} rename={renameTask} />
+                                </div>
                                 <div className="item-card-outer">
                                     <div className="item-card" onClick={toggleMember}>
                                         <div className="btn item-card-inner">
@@ -193,7 +236,6 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                     </div>
                                     <DayTask trigger={isDayOpen} close={toggleClose} item={item} refresh={refresh} />
                                 </div>
-
                             </div>
                         </div>
                     </div>
