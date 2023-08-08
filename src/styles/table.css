@@ -1,11 +1,16 @@
 /* Table */
 .table {
-    min-width: calc(100% - 265px);
+    width: calc(100% - 265px);
+    height: calc(100vh - 48px);
+    display: flex;
+    flex-direction: column;
 }
 
 /* BoardTable */
 .board-table {
     margin: 15px 15px;
+    flex: 1;
+    overflow-y: auto;
 }
 
 .board-table table {
@@ -21,8 +26,6 @@
     background-color: whitesmoke;
     border-radius: 3px;
     padding: 15px 15px;
-    overflow-y: auto;
-    max-height: calc(100vh - 165px);
 }
 
 .board-table table th {

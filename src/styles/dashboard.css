@@ -1,6 +1,8 @@
 /* Dashboard */
 .dashboard {
     width: calc(100% - 265px);
+    height: calc(100vh - 48px);
+    overflow: auto;
 }
 
 .dashboard-inner {
@@ -66,7 +68,7 @@
     padding: 0px 50px;
 }
 
-.dashboard .name{
+.dashboard .name {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -139,14 +141,14 @@ h5 {
     background: #091e4224;
 }
 
-.card-add-board .list-backgrounds{
+.card-add-board .list-backgrounds {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 5px;
 }
 
-.card-add-board .option{
+.card-add-board .option {
     width: 64px;
     height: 40px;
     border-radius: 3px;
@@ -156,7 +158,7 @@ h5 {
     background-repeat: no-repeat;
 }
 
-.card-add-board .choose{
+.card-add-board .choose {
     position: absolute;
     background-color: #00000073;
     display: flex;
@@ -166,7 +168,7 @@ h5 {
     height: 100%;
 }
 
-.card-add-board .demo{
+.card-add-board .demo {
     width: 200px;
     height: 120px;
     border-radius: 3px;
@@ -178,7 +180,7 @@ h5 {
     text-align: center;
 }
 
-.card-add-board input{
+.card-add-board input {
     width: 100%;
     padding: 8px;
     border: 2px solid #0C66E4;
@@ -186,11 +188,11 @@ h5 {
     margin: 10px 0px;
 }
 
-.card-add-board button{
+.card-add-board button {
     width: 100%;
     border-radius: 3px;
-    padding: 10px 0px;  
-    margin: 10px 0px;  
+    padding: 10px 0px;
+    margin: 10px 0px;
     background-color: #0c66e4;
     color: #FFFFFF;
 }

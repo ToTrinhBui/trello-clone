@@ -428,7 +428,6 @@ button {
   display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
-  flex-grow: 1;
   gap: 10px;
   width: calc(100% - 21px);
   align-items: center;

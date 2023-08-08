@@ -1,6 +1,9 @@
 /* Kanban */
 .kanban {
     width: calc(100% - 265px);
+    height: calc(100vh - 48px);
+    display: flex;
+    flex-direction: column;
 }
 
 /* AddColumn */
@@ -36,7 +39,7 @@
 /* Board */
 .board {
     overflow-x: auto;
-    min-height: calc(100vh - 105px);
+    flex: 1;
 }
 
 .board .task-list-header {

@@ -76,6 +76,7 @@ const AddTask : React.FC<AddTaskProps> = ({ statusID, refresh }) => {
                         <div className='input-part'>
                             <label>Tên thẻ:</label>
                             <input
+                                required
                                 placeholder='Nhập tiêu đề cho thẻ này'
                                 value={Task}
                                 onChange={(e) => setTask(e.target.value)}

@@ -94,12 +94,13 @@ const AddTaskTable: React.FC<AddTaskTableProps> = ({ id, refresh, columns }) => 
                 </div>
             )}
             <Dialog onClose={handleToClose} open={open} className='dialog'>
-                <div className='dialog-container' style={{width: '300px'}}>
+                <div className='dialog-container' style={{ width: '300px' }}>
                     <h4>Thêm thẻ</h4>
                     <form onSubmit={handleSubmit}>
                         <div className='input-part'>
                             <label>Tên thẻ:</label>
                             <input
+                                required
                                 placeholder='Nhập tiêu đề cho thẻ này'
                                 value={Task}
                                 onChange={(e) => setTask(e.target.value)}
