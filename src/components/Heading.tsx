@@ -83,8 +83,8 @@ const Heading: React.FC<HeadingProps> = ({ members, fetchData, nameBoard, ownerB
                 <div className='share'>
                     <div className='members'>
                         {memberFilter.map((member, index) => (
-                            <div style={{ width: '22px' }}>
-                                <Avatar key={index} name={member.email} size={'28'} round="20px" />
+                            <div key={index} style={{ width: '22px' }}>
+                                <Avatar name={member.email} size={'28'} round="20px" />
                             </div>
                         ))}
                         <div className="owner">
