@@ -48,7 +48,7 @@ export default function Kanban() {
     }, [boardID]);
 
     if (loading) {
-        return <Loading/>;
+        return <Loading />;
     }
 
     async function fetchData() {
@@ -105,9 +105,9 @@ export default function Kanban() {
         return newData;
     }
 
-    const check = members.filter(member => member.user_id === user_redux.id).length > 0;
+    const check = user_redux && members.filter(member => member.user_id === user_redux.id).length > 0;
 
-    if (user_redux && check) {
+    if (check) {
         return (
             <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
                 <NavbarUser />

@@ -41,9 +41,9 @@ const Charts = () => {
     }, [boardID]);
 
     if (loading) {
-        return <Loading/>;
+        return <Loading />;
     }
-    
+
     async function fetchData() {
         try {
             const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
@@ -76,9 +76,9 @@ const Charts = () => {
         }
     }
 
-    const check = members.filter(member => member.user_id === user_redux.id).length > 0;
+    const check = user_redux && members.filter(member => member.user_id === user_redux.id).length > 0;
 
-    if (user_redux && check) {
+    if (check) {
         return (
             <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
                 <NavbarUser />
