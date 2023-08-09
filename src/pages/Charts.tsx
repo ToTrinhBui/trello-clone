@@ -37,27 +37,28 @@ const Charts = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchData().then(() => setLoading(false));
-    }, [boardID]);
+        const newWs = new WebSocket('ws://localhost:8080');
 
-    if (loading) {
-        return <Loading />;
-    }
+        newWs.addEventListener('open', () => {
+            console.log('Connected to WebSocket server');
+            if (boardID)
+                newWs.send(boardID);
+        });
 
-    async function fetchData() {
-        try {
-            const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
+        newWs.addEventListener('message', async (event) => {
+            const response = JSON.parse(event.data);
             const data_db: Data = {
-                columns: { ...response.data?.[0].columns },
-                tasks: [...response.data?.[0].tasks],
+                columns: { ...response.columns },
+                tasks: [...response.tasks],
             };
             setData(data_db);
-            setNameBoard(response.data?.[0].name);
-            setOwnerBoard(response.data?.[0].user_id);
-            setBackgroundLink(response.data?.[0].background);
-            const memberFilter = response.data?.[0].members;
-            const updatedMembers = [];
-            for (const member of memberFilter) {
+            setNameBoard(response.name);
+            setOwnerBoard(response.user_id);
+            setBackgroundLink(response.background);
+
+            // Fetch members asynchronously and update state
+            const memberFilter: Member[] = response.members;
+            const updatedMembers = await Promise.all(memberFilter.map(async (member) => {
                 try {
                     const member_response = await axios.get(`http://localhost:3001/users?id=${member.user_id}`);
                     const memberWithEmail = {
@@ -65,18 +66,28 @@ const Charts = () => {
                         email: member_response.data?.[0].user.email,
                         color: member_response.data?.[0].user.color,
                     };
-                    updatedMembers.push(memberWithEmail);
+                    return memberWithEmail;
                 } catch (error) {
                     console.error(`Error fetching user with id ${member.user_id}:`, error);
+                    return null; // You can choose how to handle errors here
                 }
-            }
-            setMembers(updatedMembers);
-        } catch (error) {
-            console.error(error);
-        }
-    }
+            }));
+
+            // Cast the array to the correct type before passing to setMembers
+            setMembers(updatedMembers.filter((member): member is Member => member !== null));
+            setLoading(false);
+        });
+
+        return () => {
+            newWs.close();
+        };
+    }, [boardID]);
 
     const check = user_redux && members.filter(member => member.user_id === user_redux.id).length > 0;
+
+    if (loading) {
+        return <Loading />;
+    }
 
     if (check) {
         return (
@@ -85,7 +96,7 @@ const Charts = () => {
                 <div className="flex">
                     <Sidebar />
                     <div className="charts">
-                        <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
+                        <Heading members={members} nameBoard={nameBoard} ownerBoard={ownerBoard} />
                         <BoardChart data={data} members={members} />
                     </div>
                 </div>

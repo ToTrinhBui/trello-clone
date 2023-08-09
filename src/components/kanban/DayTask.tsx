@@ -13,10 +13,9 @@ interface CardProps {
     trigger: boolean,
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     item: Task,
-    refresh: Function;
 }
 
-const DayTask: React.FC<CardProps> = ({ trigger, close, item, refresh }) => {
+const DayTask: React.FC<CardProps> = ({ trigger, close, item }) => {
     const { boardID } = useParams<{ boardID?: string }>();
     const [value, onChange] = useState<Value>(item.Due_Date || new Date());
     const defaultDueDate = new Date(item.Due_Date).toLocaleDateString("en-GB");
@@ -50,7 +49,6 @@ const DayTask: React.FC<CardProps> = ({ trigger, close, item, refresh }) => {
             })
             const editedTask = response.data;
             console.log('Task updated successfully:', editedTask);
-            refresh();
             setIsOpen(false);
         } catch (error) {
             console.error('Error editing task:', error);

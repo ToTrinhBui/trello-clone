@@ -5,11 +5,10 @@ import axios from 'axios';
 interface CardProps {
     trigger: boolean,
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    refresh: Function;
     item: Task;
 }
 
-const LabelTask: React.FC<CardProps> = ({ trigger, close, refresh, item }) => {
+const LabelTask: React.FC<CardProps> = ({ trigger, close, item }) => {
     const { boardID } = useParams<{ boardID?: string }>();
 
     const editTask = async (labels: { [key: string]: Label }) => {
@@ -29,7 +28,6 @@ const LabelTask: React.FC<CardProps> = ({ trigger, close, refresh, item }) => {
             })
             const editedTask = response.data;
             console.log('Task updated successfully:', editedTask);
-            refresh();
         } catch (error) {
             console.error('Error editing task:', error);
         }

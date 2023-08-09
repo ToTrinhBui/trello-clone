@@ -2,16 +2,12 @@ import React from "react";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-interface AddColumnProps {
-    refresh: Function
-}
-const AddColumn: React.FC<AddColumnProps> = ({ refresh }) => {
+const AddColumn = () => {
     const { boardID } = useParams<{ boardID?: string }>();
 
     const handleSubmit = (event: React.MouseEvent) => {
         event.preventDefault();
         addNewColumn();
-        refresh();
     };
 
     const addNewColumn = async () => {

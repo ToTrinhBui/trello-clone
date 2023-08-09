@@ -10,11 +10,10 @@ import Avatar from 'react-avatar';
 interface AddMemberProps {
     members: Member[],
     owner: string,
-    refresh: Function,
     memberFilter: Member[],
 }
 
-const AddMember: React.FC<AddMemberProps> = ({ members, owner, refresh, memberFilter }) => {
+const AddMember: React.FC<AddMemberProps> = ({ members, owner, memberFilter }) => {
     const { boardID } = useParams<{ boardID?: string }>();
     const [open, setOpen] = useState(false);
     const user_redux = useSelector(selectUser).user;
@@ -86,7 +85,6 @@ const AddMember: React.FC<AddMemberProps> = ({ members, owner, refresh, memberFi
                 board_id: boardID,
                 members: memberboards,
             });
-            refresh();
             setSearchInput('');
             const addedMember = response.data;
             console.log('Task added successfully:', addedMember);

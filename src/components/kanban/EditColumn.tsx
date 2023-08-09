@@ -4,10 +4,9 @@ import MoreOption from '../MoreOption';
 import { useParams } from 'react-router-dom';
 interface CardProps {
     columnId: string,
-    title: string,
-    refresh: Function
+    title: string
 }
-const EditColumn: React.FC<CardProps> = ({ columnId, refresh, title }) => {
+const EditColumn: React.FC<CardProps> = ({ columnId, title }) => {
     const { boardID } = useParams<{ boardID?: string }>();
 
     const deleteColumn = async () => {
@@ -20,11 +19,10 @@ const EditColumn: React.FC<CardProps> = ({ columnId, refresh, title }) => {
             });
             const responseData = response.data;
             console.log('deleted successfully:', responseData);
-            refresh();
         } catch (error) {
             console.error('Error deleting:', error);
         }
-    }    
+    }
 
     const renameColumn = async (name: string) => {
         try {
@@ -33,7 +31,6 @@ const EditColumn: React.FC<CardProps> = ({ columnId, refresh, title }) => {
                 columnId: columnId,
                 name: name
             });
-            refresh();
             const responseData = response.data;
             console.log('renamed successfully:', responseData);
         } catch (error) {

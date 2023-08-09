@@ -14,13 +14,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home/>} /> 
-          <Route path='/login' element={<Login/>} />
-          <Route path='/register' element={<Register/>} />
-          <Route path='/user/:id/boards' element={<Dashboard/>}/>
-          <Route path='/board/table/:boardID' element={<Table/>}/>
-          <Route path='/board/kanban/:boardID' element={<Kanban/>}/>
-          <Route path='/board/charts/:boardID' element={<Charts/>}/>
+          <Route path="/" element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/user/:id/boards' element={<Dashboard />} />
+          <Route path='/board/table/:boardID' element={<Table />} />
+          <Route path='/board/kanban/:boardID' element={<Kanban />} />
+          <Route path='/board/charts/:boardID' element={<Charts />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

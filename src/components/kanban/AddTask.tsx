@@ -4,11 +4,10 @@ import { useParams } from 'react-router-dom';
 import Dialog from "@mui/material/Dialog";
 
 interface AddTaskProps {
-    statusID: string,
-    refresh: Function
+    statusID: string
 }
 
-const AddTask : React.FC<AddTaskProps> = ({ statusID, refresh }) => {
+const AddTask: React.FC<AddTaskProps> = ({ statusID }) => {
     const { boardID } = useParams<{ boardID?: string }>();
     const [Task, setTask] = useState<string>('');
     const [Due_Date, setDue_Date] = useState<string>('');
@@ -27,7 +26,6 @@ const AddTask : React.FC<AddTaskProps> = ({ statusID, refresh }) => {
         event.preventDefault();
         addNewTask(Task, Due_Date);
         setOpen(false);
-        refresh();
     };
 
     const addNewTask = async (taskName: string, DueDate: string) => {
@@ -70,7 +68,7 @@ const AddTask : React.FC<AddTaskProps> = ({ statusID, refresh }) => {
                 <p>Thêm thẻ</p>
             </div>
             <Dialog onClose={handleToClose} open={open} className='dialog'>
-                <div className='dialog-container' style={{width: '300px'}}>
+                <div className='dialog-container' style={{ width: '300px' }}>
                     <h4>Thêm thẻ</h4>
                     <form onSubmit={handleSubmit}>
                         <div className='input-part'>

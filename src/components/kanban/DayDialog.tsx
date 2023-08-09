@@ -3,10 +3,9 @@ import { Task } from '../../interface';
 import DayTask from './DayTask';
 
 interface CardProps {
-  refresh: Function;
   item: Task;
 }
-const DayDialog: React.FC<CardProps> = ({ item, refresh }) => {
+const DayDialog: React.FC<CardProps> = ({ item }) => {
   const [isOpen, setOpen] = useState(false);
 
   const toggle = () => {
@@ -30,7 +29,7 @@ const DayDialog: React.FC<CardProps> = ({ item, refresh }) => {
         <div className='day-dialog btn' onClick={toggle}>
           {new Date(item.Due_Date).toLocaleDateString("en-GB")}
         </div>
-        <DayTask trigger={isOpen} close={toggleClose} item={item} refresh={refresh} />
+        <DayTask trigger={isOpen} close={toggleClose} item={item} />
       </div>
     )
   }
