@@ -2,6 +2,9 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 
+import "../styles/index.css";
+import "../styles/home.css";
+
 export default function NotFound() {
     return (
         <>

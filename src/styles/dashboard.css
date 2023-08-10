@@ -196,3 +196,40 @@ h5 {
     background-color: #0c66e4;
     color: #FFFFFF;
 }
+
+@media only screen and (max-width: 800px) {
+
+    /* Dashboard */
+    .dashboard {
+        width: calc(100% - 126px);
+    }
+
+    .dashboard-inner {
+        margin: 10px;
+    }
+
+    /* Title */
+    .dashboard .title {
+        padding: 0px;
+    }
+
+    /* AddBoard */
+    .card-add-board {
+        transform: none;
+        width: 190px;
+    }
+
+    .card-add-board .demo img {
+        width: 170px;
+    }
+
+    /* Boards */
+    .boards .list-cards {
+        gap: 5px;
+        margin: 10px 0px;
+    }
+
+    .boards .card {
+        width: 45%;
+    }
+}
