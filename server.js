@@ -4,6 +4,7 @@ const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
+const { wss, handleDataUpdate } = require('./websocket'); // Adjust the path as needed
 
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
@@ -36,6 +37,9 @@ server.put('/board/member/update', (req, res) => {
     if (board_db) {
         board_db.members = members;
         router.db.write(); // Persist the changes to the database
+        (async () => {
+            await handleDataUpdate(wss, board_id); // Pass 'wss' and the updated data here
+        })();
         res.status(200).json({ notice: 'Successfull add new member in board', 'members': board_db.members });
     } else {
         res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
@@ -49,6 +53,9 @@ server.put('/board/rename', (req, res) => {
     if (board_db) {
         board_db.name = name;
         router.db.write(); // Persist the changes to the database
+        (async () => {
+            await handleDataUpdate(wss, board_id); // Pass 'wss' and the updated data here
+        })();
         res.status(200).json({ notice: 'Successfull rename board', 'members': board_db.name });
     } else {
         res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
@@ -68,6 +75,9 @@ server.post('/status/add', (req, res) => {
         };
         Object.assign(columns, column);
         router.db.write();
+        (async () => {
+            await handleDataUpdate(wss, board_id); // Pass 'wss' and the updated data here
+        })();
         res.status(200).json({ 'new column': column });
     } else {
         res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
@@ -82,6 +92,9 @@ server.put('/status/rename', (req, res) => {
         const columns = board_db.columns;
         columns[columnId].title = name;
         router.db.write();
+        (async () => {
+            await handleDataUpdate(wss, board_id); // Pass 'wss' and the updated data here
+        })();
         res.status(200).json({ 'rename column': columns[columnId] });
     } else {
         res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
@@ -96,6 +109,9 @@ server.delete('/status/delete', (req, res) => {
         const columns = board_db.columns;
         delete columns[columnId];
         router.db.write();
+        (async () => {
+            await handleDataUpdate(wss, board_id); // Pass 'wss' and the updated data here
+        })();
         res.status(200).json({ 'new list columns': columns });
     } else {
         res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });
@@ -113,6 +129,9 @@ server.put('/task/update', (req, res) => {
         if (task) {
             task.status = status;
             router.db.write();
+            (async () => {
+                await handleDataUpdate(wss, board_id); // Pass 'wss' and the updated data here
+            })();
             res.status(200).json({ 'task': task });
         } else {
             res.status(401).json({ error: 'Invalid credentials. Cant find task', requestPayload: req.body });
@@ -171,6 +190,9 @@ server.post('/task/add', (req, res) => {
         };
         tasks.push(task); // Add the task to the tasks array
         router.db.write(); // Persist the changes to the database
+        (async () => {
+            await handleDataUpdate(wss, board_id); // Pass 'wss' and the updated data here
+        })();
         res.status(200).json({ notice: 'Successfull add new task' });
     }
     else {
@@ -195,6 +217,9 @@ server.put('/task/edit', (req, res) => {
             task_db.labels = task.labels;
 
             router.db.write();
+            (async () => {
+                await handleDataUpdate(wss, board_id); // Pass 'wss' and the updated data here
+            })();
             res.status(200).json({ 'new task': task_db });
         } else {
             res.status(401).json({ error: 'Invalid credentials. Cant find task', requestPayload: req.body });
@@ -208,10 +233,13 @@ server.delete('/task/delete', (req, res) => {
     const { board_id, taskId } = req.body;
     const board_db = router.db.get('boards').find(item => item.id === board_id).value();
     console.log('Received request:', req.body); // Log the request body
-    
+
     if (board_db) {
         const newListTasks = board_db.tasks.filter(item => item.id !== taskId);
         board_db.tasks = newListTasks;
+        (async () => {
+            await handleDataUpdate(wss, board_id); // Pass 'wss' and the updated data here
+        })();
         res.status(200).json('Successfully deleted');
     } else {
         res.status(401).json({ error: 'Invalid credentials. Cant find board', requestPayload: req.body });

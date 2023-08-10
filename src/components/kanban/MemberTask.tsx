@@ -7,11 +7,10 @@ interface CardProps {
     trigger: boolean,
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     members: Member[],
-    refresh: Function;
     item: Task;
 }
 
-const MemberTask: React.FC<CardProps> = ({ trigger, close, members, refresh, item }) => {
+const MemberTask: React.FC<CardProps> = ({ trigger, close, members, item }) => {
     const { boardID } = useParams<{ boardID?: string }>();
 
     const editTask = async (members_task: string[]) => {
@@ -31,7 +30,6 @@ const MemberTask: React.FC<CardProps> = ({ trigger, close, members, refresh, ite
             })
             const editedTask = response.data;
             console.log('Task updated successfully:', editedTask);
-            refresh();
         } catch (error) {
             console.error('Error editing task:', error);
         }

@@ -57,7 +57,6 @@ const Board = (props) => {
             });
             const updatedTask = response.data;
             console.log('Task updated successfully:', updatedTask);
-            props.refresh();
             setColumns(updatedColumns);
         } catch (error) {
             console.error('Error updating task:', error);
@@ -123,19 +122,19 @@ const Board = (props) => {
                                                 >
                                                     <div className='task-list-header'>
                                                         <Title>{column.title}</Title>
-                                                        <EditColumn columnId={columnId} refresh={props.refresh} title={column.title}/>
+                                                        <EditColumn columnId={columnId} title={column.title} />
                                                     </div>
                                                     {column.items?.map((item, index) => (
-                                                        <TaskCard key={index} item={item} index={index} members={props.members} status_title={column.title} refresh={props.refresh} />
+                                                        <TaskCard key={index} item={item} index={index} members={props.members} status_title={column.title} />
                                                     ))}
                                                     {provided.placeholder}
-                                                    <AddTask statusID={columnId} refresh={props.refresh} />
+                                                    <AddTask statusID={columnId} />
                                                 </TaskList >
                                             )}
                                         </Droppable>
                                     );
                                 })}
-                                <AddColumn refresh={props.refresh} />
+                                <AddColumn />
                             </TaskColumnStyles>
                         </Container>
                     </DragDropContext>

@@ -10,11 +10,10 @@ import { Job, Task } from '../../interface';
 interface CardProps {
     trigger: boolean,
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    refresh: Function;
     item: Task;
 }
 
-const JobsTask: React.FC<CardProps> = ({ trigger, close, item, refresh }) => {
+const JobsTask: React.FC<CardProps> = ({ trigger, close, item }) => {
     const [job, setJob] = useState<Job>({ name: "", done: 0 });
     const [isOpen, setIsOpen] = useState<boolean>(trigger);
     const { boardID } = useParams<{ boardID?: string }>();
@@ -47,7 +46,6 @@ const JobsTask: React.FC<CardProps> = ({ trigger, close, item, refresh }) => {
             })
             const editedTask = response.data;
             console.log('Task updated successfully:', editedTask);
-            refresh();
             setIsOpen(false);
         } catch (error) {
             console.error('Error editing task:', error);

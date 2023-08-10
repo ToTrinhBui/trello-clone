@@ -9,7 +9,6 @@ interface TaskCardProps {
     index: number;
     members: Member[];
     status_title: string;
-    refresh: Function;
 }
 
 const TaskInformation = styled.div`
@@ -36,9 +35,9 @@ box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   color: #7d7d7d;
 `;
 
-const TaskCard: React.FC<TaskCardProps> = ({ item, index, members, status_title, refresh }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ item, index, members, status_title }) => {
     return (
-        <EditTask item={item} members={members} status_title={status_title} refresh={refresh}>
+        <EditTask item={item} members={members} status_title={status_title}>
             <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                     <div

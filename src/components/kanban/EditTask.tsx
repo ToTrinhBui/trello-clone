@@ -18,10 +18,9 @@ interface EditTaskProps {
     item: Task;
     members: Member[];
     status_title: string;
-    refresh: Function;
 }
 
-const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_title, refresh }) => {
+const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_title }) => {
     const [open, setOpen] = useState(false);
     const [isMemberOpen, setMemberOpen] = useState(false);
     const [isLabelOpen, setLabelOpen] = useState(false);
@@ -98,7 +97,6 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
             const editedTask = response.data;
             console.log('Task updated successfully:', editedTask);
             alert('Đã lưu!');
-            refresh();
         } catch (error) {
             console.error('Error editing task:', error);
         }
@@ -114,7 +112,6 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
             });
             const responseData = response.data;
             console.log('deleted successfully:', responseData);
-            refresh();
         } catch (error) {
             console.error('Error deleting:', error);
         }
@@ -137,7 +134,6 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
             })
             const editedTask = response.data;
             console.log('Task updated successfully:', editedTask);
-            refresh();
         } catch (error) {
             console.error('Error editing task:', error);
         }
@@ -176,9 +172,9 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                         <div className="task-content">
                             <div className="task-detail">
                                 <div className="description-box">
-                                    <MemberDialog members={members} item={item} refresh={refresh} />
-                                    <LabelDialog item={item} refresh={refresh} />
-                                    <DayDialog item={item} refresh={refresh} />
+                                    <MemberDialog members={members} item={item} />
+                                    <LabelDialog item={item} />
+                                    <DayDialog item={item} />
                                 </div>
                                 <div className="description">
                                     <div className="des-icon">
@@ -192,7 +188,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                         </div>
                                     </form>
                                 </div>
-                                <JobsDialog item={item} refresh={refresh} />
+                                <JobsDialog item={item} />
                             </div>
                             <div className="item">
                                 <div className="item-title">
@@ -206,7 +202,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                             <p>Thành viên</p>
                                         </div>
                                     </div>
-                                    <MemberTask trigger={isMemberOpen} close={toggleClose} members={members} item={item} refresh={refresh} />
+                                    <MemberTask trigger={isMemberOpen} close={toggleClose} members={members} item={item} />
                                 </div>
 
                                 <div className="item-card-outer">
@@ -216,7 +212,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                             <p>Nhãn</p>
                                         </div>
                                     </div>
-                                    <LabelTask trigger={isLabelOpen} close={toggleClose} item={item} refresh={refresh} />
+                                    <LabelTask trigger={isLabelOpen} close={toggleClose} item={item} />
                                 </div>
                                 <div className="item-card-outer">
                                     <div className="btn item-card" onClick={toggleJobs}>
@@ -225,7 +221,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                             <p>Việc cần làm</p>
                                         </div>
                                     </div>
-                                    <JobsTask trigger={isJobsOpen} close={toggleClose} item={item} refresh={refresh} />
+                                    <JobsTask trigger={isJobsOpen} close={toggleClose} item={item} />
                                 </div>
                                 <div className="item-card-outer">
                                     <div className="btn item-card" onClick={toggleDay}>
@@ -234,7 +230,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
                                             <p>Ngày</p>
                                         </div>
                                     </div>
-                                    <DayTask trigger={isDayOpen} close={toggleClose} item={item} refresh={refresh} />
+                                    <DayTask trigger={isDayOpen} close={toggleClose} item={item} />
                                 </div>
                             </div>
                         </div>

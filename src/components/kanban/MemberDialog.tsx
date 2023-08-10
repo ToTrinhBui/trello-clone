@@ -4,10 +4,9 @@ import MemberTask from './MemberTask';
 import Avatar from 'react-avatar';
 interface CardProps {
     members: Member[],
-    refresh: Function;
     item: Task;
 }
-const MemberDialog: React.FC<CardProps> = ({ members, item, refresh }) => {
+const MemberDialog: React.FC<CardProps> = ({ members, item }) => {
     const [isOpen, setOpen] = useState(false);
 
     const toggle = () => {
@@ -34,13 +33,13 @@ const MemberDialog: React.FC<CardProps> = ({ members, item, refresh }) => {
                 <div className='list-members'>
                     {members.map((member, index) => (
                         Array.isArray(item.members_task) && item.members_task.includes(member.user_id) ?
-                        //     <div className='member-outer' key={index}>
-                        //         <div className='member-icon' style={{ padding: '0px' }}>
-                        //             <p>{member.email.charAt(0).toUpperCase()}</p>
-                        //             <div className='member' style={{ background: member.color }}></div>
-                        //         </div>
-                        //     </div>
-                        <Avatar name={member.email} size={'35'} round="40px" />
+                            //     <div className='member-outer' key={index}>
+                            //         <div className='member-icon' style={{ padding: '0px' }}>
+                            //             <p>{member.email.charAt(0).toUpperCase()}</p>
+                            //             <div className='member' style={{ background: member.color }}></div>
+                            //         </div>
+                            //     </div>
+                            <Avatar name={member.email} size={'35'} round="40px" />
                             : <div key={index}></div>
                     ))}
                     <div className='member-outer'>
@@ -50,7 +49,7 @@ const MemberDialog: React.FC<CardProps> = ({ members, item, refresh }) => {
                         </div>
                     </div>
                 </div>
-                <MemberTask trigger={isOpen} close={toggleClose} members={members} item={item} refresh={refresh} />
+                <MemberTask trigger={isOpen} close={toggleClose} members={members} item={item} />
             </div>
         )
     }

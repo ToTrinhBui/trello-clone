@@ -4,10 +4,9 @@ import axios from 'axios';
 import { Job, Task } from '../../interface';
 import JobsTask from './JobsTask';
 interface CardProps {
-    refresh: Function;
     item: Task;
 }
-const JobsDialog: React.FC<CardProps> = ({ item, refresh }) => {
+const JobsDialog: React.FC<CardProps> = ({ item }) => {
     const [isOpen, setOpen] = useState(false);
     const { boardID } = useParams<{ boardID?: string }>();
 
@@ -52,7 +51,6 @@ const JobsDialog: React.FC<CardProps> = ({ item, refresh }) => {
             })
             const editedTask = response.data;
             console.log('Task updated successfully:', editedTask);
-            refresh();
         } catch (error) {
             console.error('Error editing task:', error);
         }
@@ -87,7 +85,7 @@ const JobsDialog: React.FC<CardProps> = ({ item, refresh }) => {
                     </div>
                 </div>
                 <div className='job-popup'>
-                    <JobsTask trigger={isOpen} close={toggleClose} item={item} refresh={refresh} />
+                    <JobsTask trigger={isOpen} close={toggleClose} item={item} />
                 </div>
                 <div className='list-jobs'>
                     {Object.entries(item.jobs).map(([jobId, job], index) => (

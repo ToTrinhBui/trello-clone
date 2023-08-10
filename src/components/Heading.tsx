@@ -10,12 +10,11 @@ import { Member } from '../interface';
 import MoreOption from './MoreOption';
 interface HeadingProps {
     members: Member[],
-    fetchData: Function;
     nameBoard: string;
     ownerBoard: string;
 }
 
-const Heading: React.FC<HeadingProps> = ({ members, fetchData, nameBoard, ownerBoard }) => {
+const Heading: React.FC<HeadingProps> = ({ members, nameBoard, ownerBoard }) => {
     const { boardID } = useParams<{ boardID?: string }>();
     const user_redux = useSelector(selectUser).user;
     const [name, setName] = useState<string>('Name board');
@@ -47,7 +46,6 @@ const Heading: React.FC<HeadingProps> = ({ members, fetchData, nameBoard, ownerB
                 board_id: boardID,
                 name: name
             });
-            fetchData();
             const responseData = response.data;
             console.log('renamed successfully:', responseData);
 
@@ -91,7 +89,7 @@ const Heading: React.FC<HeadingProps> = ({ members, fetchData, nameBoard, ownerB
                             <img alt='avatar' src='https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/c080abc7f45703f2f7b91e88d2e41202/50.png' />
                         </div>
                     </div>
-                    <AddMember members={members} memberFilter={memberFilter} owner={owner} refresh={fetchData} />
+                    <AddMember members={members} memberFilter={memberFilter} owner={owner} />
                 </div>
                 <MoreOption type={'Bảng'} title={nameBoard} onDelete={deleteBoard} rename={renameBoard} />
             </div>

@@ -5,7 +5,6 @@ import Dialog from "@mui/material/Dialog";
 
 interface AddTaskTableProps {
     id: string,
-    refresh: Function,
     columns: Columns
 }
 
@@ -15,7 +14,7 @@ interface Columns {
     };
 }
 
-const AddTaskTable: React.FC<AddTaskTableProps> = ({ id, refresh, columns }) => {
+const AddTaskTable: React.FC<AddTaskTableProps> = ({ id, columns }) => {
     const [openTaskId, setOpenTaskId] = useState<string | null>(null);
     const { boardID } = useParams<{ boardID?: string }>();
     const [Task, setTask] = useState<string>('');
@@ -44,7 +43,6 @@ const AddTaskTable: React.FC<AddTaskTableProps> = ({ id, refresh, columns }) => 
         event.preventDefault();
         addNewTask(Task, Due_Date, status);
         setOpen(false);
-        refresh();
     };
 
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

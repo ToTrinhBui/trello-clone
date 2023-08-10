@@ -30,7 +30,6 @@ interface NewData {
         [key: string]: Column;
     }
 }
-
 export default function Kanban() {
     const [data, setData] = useState<NewData>({
         columns: {}
@@ -44,24 +43,26 @@ export default function Kanban() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchData().then(() => setLoading(false));
-    }, [boardID]);
+        const newWs = new WebSocket('ws://localhost:8080');
 
-    if (loading) {
-        return <Loading />;
-    }
+        newWs.addEventListener('open', () => {
+            console.log('Connected to WebSocket server');
+            if (boardID)
+                newWs.send(boardID);
+        });
 
-    async function fetchData() {
-        try {
-            const response = await axios.get(`http://localhost:3001/boards?id=${boardID}`);
-            const newData = addTaskToColumns(response.data?.[0]);
+        newWs.addEventListener('message', async (event) => {
+            const response = JSON.parse(event.data);
+            // console.log('Received updated data:', response);
+            const newData = addTaskToColumns(response);
             setData(newData);
-            setNameBoard(response.data?.[0].name);
-            setOwnerBoard(response.data?.[0].user_id);
-            setBackgroundLink(response.data?.[0].background);
-            const memberFilter = response.data?.[0].members;
-            const updatedMembers = [];
-            for (const member of memberFilter) {
+            setNameBoard(response.name);
+            setOwnerBoard(response.user_id);
+            setBackgroundLink(response.background);
+
+            // Fetch members asynchronously and update state
+            const memberFilter: Member[] = response.members;
+            const updatedMembers = await Promise.all(memberFilter.map(async (member) => {
                 try {
                     const member_response = await axios.get(`http://localhost:3001/users?id=${member.user_id}`);
                     const memberWithEmail = {
@@ -69,16 +70,22 @@ export default function Kanban() {
                         email: member_response.data?.[0].user.email,
                         color: member_response.data?.[0].user.color,
                     };
-                    updatedMembers.push(memberWithEmail);
+                    return memberWithEmail;
                 } catch (error) {
                     console.error(`Error fetching user with id ${member.user_id}:`, error);
+                    return null; // You can choose how to handle errors here
                 }
-            }
-            setMembers(updatedMembers)
-        } catch (error) {
-            console.error(error);
-        }
-    }
+            }));
+
+            // Cast the array to the correct type before passing to setMembers
+            setMembers(updatedMembers.filter((member): member is Member => member !== null));
+            setLoading(false);
+        });
+
+        return () => {
+            newWs.close();
+        };
+    }, [boardID]);
 
     function addTaskToColumns(data: Data): NewData {
         const newData: NewData = {
@@ -107,6 +114,10 @@ export default function Kanban() {
 
     const check = user_redux && members.filter(member => member.user_id === user_redux.id).length > 0;
 
+    if (loading) {
+        return <Loading />;
+    }
+
     if (check) {
         return (
             <div style={{ 'backgroundImage': `url(${background_link})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat', 'backgroundAttachment': 'fixed' }}>
@@ -114,12 +125,12 @@ export default function Kanban() {
                 <div className="flex">
                     <Sidebar />
                     <div className="kanban">
-                        <Heading members={members} fetchData={fetchData} nameBoard={nameBoard} ownerBoard={ownerBoard} />
-                        <Board data={data} members={members} refresh={fetchData} />
+                        <Heading members={members} nameBoard={nameBoard} ownerBoard={ownerBoard} />
+                        <Board data={data} members={members} />
                     </div>
                 </div>
             </div>
         )
     }
     return <NotFound />;
-}
+};
