@@ -277,12 +277,13 @@ button {
 }
 
 .sidebar .title .logo {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 32px;
   width: 32px;
   background: linear-gradient(#6E5DC6, #0C66E4);
   border-radius: 3px;
-  text-align: center;
 }
 
 .sidebar .title h1 {
@@ -809,19 +810,32 @@ button {
 
   /* Sidebar */
   .sidebar {
-    width: 125px;
+    width: 130px;
   }
 
   .sidebar .title {
-    padding: 2px;
+    padding: 0px 5px;
+  }
+
+  .sidebar .title .logo {
+    height: 25px;
+    width: 40px;
+  }
+
+  .sidebar .title h1 {
+    font-size: 14px;
   }
 
   .sidebar h5 {
-    margin: 4px 4px 4px 5px;
+    margin: 4px 4px 4px 8px;
   }
 
   .sidebar .option {
-    padding: 4px 4px 4px 5px;
+    padding: 4px 4px 4px 8px;
+  }
+
+  .sidebar .tables {
+    max-height: calc(100% - 200px);
   }
 
   /* Heading */

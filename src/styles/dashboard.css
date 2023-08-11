@@ -143,7 +143,6 @@ h5 {
 
 .card-add-board .list-backgrounds {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
     gap: 5px;
 }
@@ -215,12 +214,20 @@ h5 {
 
     /* AddBoard */
     .card-add-board {
-        transform: none;
+        transform: translate(-1%, -37%);
         width: 190px;
+    }
+
+    .card-add-board .demo {
+        width: 100%;
     }
 
     .card-add-board .demo img {
         width: 170px;
+    }
+
+    .card-add-board .option {
+        width: 43px;
     }
 
     /* Boards */

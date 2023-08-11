@@ -15,7 +15,7 @@
         "password": "12345",
         "color": "#34eb4f"
       },
-      "accessToken": "950d65ca6f4e17e6a60dc0ccd51040111c1485f748d1ee85470f4aef034697c16bbb94edef4b29612656a9cb579c4494c38f364cf1b09819532812f8aeeb82e9",
+      "accessToken": "adade83623b3ba73b06469b111726df09420845e56f4f54d285ead26d8140bc306e65321680f3e9c59d347dfb2c01d3e0eb28ad495180fe98edc1c44d7abebc6",
       "id": "2"
     },
     {
@@ -50,6 +50,9 @@
         },
         {
           "user_id": "2"
+        },
+        {
+          "user_id": "3"
         }
       ],
       "columns": {
@@ -71,10 +74,19 @@
           "status": "6ec49604-24ba-41ef-b737-d803fb881845",
           "members_task": [
             "2",
-            "1",
-            "3"
+            "3",
+            "1"
           ],
-          "jobs": {},
+          "jobs": {
+            "f0482faa-501d-48df-ba89-f33db4d5dbb8": {
+              "name": "b",
+              "done": 1
+            },
+            "67678355-27e6-41a1-8178-d0213639e2f5": {
+              "name": "A",
+              "done": 1
+            }
+          },
           "description": "",
           "labels": {
             "1": {
@@ -207,7 +219,7 @@
           "id": "d4e671d3-c51c-4ad5-8e63-b9053b4c7cf7",
           "Task": "Share",
           "Due_Date": "2023-07-30T17:00:00.000Z",
-          "status": "45d6ac5e-013a-4928-89b1-16eb79884732",
+          "status": "6ec49604-24ba-41ef-b737-d803fb881845",
           "members_task": [],
           "jobs": {},
           "description": "",
@@ -287,7 +299,7 @@
         },
         {
           "id": "8c4c2a68-3a89-43d6-ab81-92dbd7191c42",
-          "Task": "Login",
+          "Task": "xxx",
           "Due_Date": "",
           "status": "45d6ac5e-013a-4928-89b1-16eb79884732",
           "members_task": [],
@@ -519,6 +531,19 @@
         }
       ],
       "id": "OIoYpg5"
+    },
+    {
+      "user_id": "1",
+      "name": "Bang 8",
+      "background": "https://images.unsplash.com/photo-1655679152783-f4d22c72264a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDUwfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDY2N3w&ixlib=rb-4.0.3",
+      "columns": {},
+      "tasks": [],
+      "members": [
+        {
+          "user_id": "1"
+        }
+      ],
+      "id": "nyThUhI"
     }
   ]
 }
