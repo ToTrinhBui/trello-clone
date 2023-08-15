@@ -12,9 +12,10 @@ interface Background {
 interface BoardsProps {
     props: Board[];
     backgrounds: Background;
+    search: boolean;
 }
 
-const Boards: React.FC<BoardsProps> = React.memo(({ props, backgrounds }) => {
+const Boards: React.FC<BoardsProps> = React.memo(({ props, backgrounds, search }) => {
     const navigate = useNavigate();
     const [dataReceived, setDataReceived] = useState<Board[]>([]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -45,16 +46,19 @@ const Boards: React.FC<BoardsProps> = React.memo(({ props, backgrounds }) => {
                 </div>
                 <Suspense fallback={<div>Loading...</div>}>
                     <AddBoard trigger={isOpen} close={toggleClose} backgrounds={backgrounds} />
+                    {dataReceived && dataReceived.length > 0 ?
+                        (dataReceived.map((item: Board) => (
+                            <div
+                                key={item.id}
+                                className="card btn"
+                                onClick={() => handleCardClick(item.id)}
+                                style={{ 'backgroundImage': `url(${item.background}&q=80&w=400)`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat' }}>
+                                <h4>{item.name}</h4>
+                            </div>
+                        ))) :
+                        (search && <div>Không thể tìm thấy bảng mà bạn cần tìm...</div>)
+                    }
                 </Suspense>
-                {dataReceived?.map((item: Board) => (
-                    <div
-                        key={item.id}
-                        className="card btn"
-                        onClick={() => handleCardClick(item.id)}
-                        style={{ 'backgroundImage': `url(${item.background})`, 'backgroundPosition': "center", 'backgroundSize': 'cover', 'backgroundRepeat': 'no-repeat' }}>
-                        <h4>{item.name}</h4>
-                    </div>
-                ))}
             </div>
         </div>
     );

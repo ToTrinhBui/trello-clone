@@ -6,7 +6,7 @@
         "password": "12345",
         "color": "#eb4034"
       },
-      "accessToken": "ad3e3f34d4bf2511c6797028dbba42927c194462061e568ca78786d7f71b0be50a754cda7b73f6f825e7d336554823963f88bdf4d3470ffd21944994ac65e844",
+      "accessToken": "79524f1647f1bbc09654f182d9492574f514c9855337555a82084c2a973c0b46f7a2fd2a0906feaa05efaf422d5d5738e34cc8df631b9d2c5981cc8edde5964c",
       "id": "1"
     },
     {
@@ -15,7 +15,7 @@
         "password": "12345",
         "color": "#34eb4f"
       },
-      "accessToken": "adade83623b3ba73b06469b111726df09420845e56f4f54d285ead26d8140bc306e65321680f3e9c59d347dfb2c01d3e0eb28ad495180fe98edc1c44d7abebc6",
+      "accessToken": "e5e03e05d0fdfeb99b7e69f3fbe8c3bc25a76c79c044f8d50928ab4188f98867c354958c86bfe8fa5fd060074ea2d294b5899530f5850ef810ee8305a570d982",
       "id": "2"
     },
     {
@@ -528,6 +528,9 @@
       "members": [
         {
           "user_id": "1"
+        },
+        {
+          "user_id": "2"
         }
       ],
       "id": "OIoYpg5"

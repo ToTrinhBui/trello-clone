@@ -73,7 +73,7 @@ const AddBoard: React.FC<CardProps> = React.memo(({ trigger, close, backgrounds 
                         </div>
                     </div>
                     <div className='card-content'>
-                        <div className='demo' style={{ backgroundImage: `url(${choose})` }}>
+                        <div className='demo' style={{ backgroundImage: `url(${choose}&q=80&w=400)` }}>
                             <img alt='assets' src='https://trello.com/assets/14cda5dc635d1f13bc48.svg' />
                         </div>
                         <form onSubmit={addNewBoard}>
@@ -81,13 +81,13 @@ const AddBoard: React.FC<CardProps> = React.memo(({ trigger, close, backgrounds 
                             <div className='list-backgrounds'>
                                 {Object.entries(backgrounds).map(([id, item], index) => (
                                     choose === backgrounds[id] ? (
-                                        <div className='option btn' key={index} style={{ 'backgroundImage': `url(${backgrounds[id]})` }}>
+                                        <div className='option btn' key={index} style={{ 'backgroundImage': `url(${backgrounds[id]}&q=80&w=400)` }}>
                                             <div className='choose'>
                                                 <svg height='20px' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fff"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4.89163 13.2687L9.16582 17.5427L18.7085 8" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className='option btn' key={index} onClick={() => chooseBackground(id)} style={{ 'backgroundImage': `url(${backgrounds[id]})` }}></div>
+                                        <div className='option btn' key={index} onClick={() => chooseBackground(id)} style={{ 'backgroundImage': `url(${backgrounds[id]}&q=80&w=400)` }}></div>
                                     )
                                 ))}
                             </div>

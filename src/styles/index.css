@@ -794,6 +794,14 @@ button {
   background-color: #f1f2f4;
 }
 
+/* ListMember */
+.overlay-list-member {
+  position: fixed;
+  z-index: 100;
+  left: 263px;
+  top: 170px;
+}
+
 @media only screen and (max-width: 800px) {
 
   /* NavbarUser */
@@ -836,6 +844,12 @@ button {
 
   .sidebar .tables {
     max-height: calc(100% - 200px);
+  }
+
+  /* ListMember */
+  .overlay-list-member {
+    top: 150px;
+    left: 135px;
   }
 
   /* Heading */

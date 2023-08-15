@@ -62,7 +62,7 @@ export default function Dashbroad() {
                         <div className="dashboard">
                             <div className="dashboard-inner">
                                 <Title />
-                                <Boards props={data} backgrounds={backgrounds} />
+                                <Boards props={data} backgrounds={backgrounds} search={false}/>
                             </div>
                         </div>
                     </div>

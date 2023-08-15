@@ -8,6 +8,8 @@ import Dashboard from './pages/Dashboard';
 import Kanban from './pages/Kanban';
 import Table from './pages/Table';
 import Charts from './pages/Charts';
+import Setting from './pages/Setting';
+import Search from './pages/Search';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/user/:id/boards' element={<Dashboard />} />
+          <Route path='/user/:id/setting' element={<Setting />} />
+          <Route path='/search' element={<Search />} />
           <Route path='/board/table/:boardID' element={<Table />} />
           <Route path='/board/kanban/:boardID' element={<Kanban />} />
           <Route path='/board/charts/:boardID' element={<Charts />} />
