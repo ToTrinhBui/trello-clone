@@ -44,18 +44,30 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
 
     const toggleMember = () => {
         setMemberOpen((prev) => !prev);
+        setDayOpen(false);
+        setJobsOpen(false);
+        setLabelOpen(false);
     };
 
     const toggleLabel = () => {
         setLabelOpen((prev) => !prev);
+        setDayOpen(false);
+        setJobsOpen(false);
+        setMemberOpen(false);
     };
 
     const toggleJobs = () => {
         setJobsOpen((prev) => !prev);
+        setLabelOpen(false);
+        setMemberOpen(false);
+        setDayOpen(false);
     };
 
     const toggleDay = () => {
         setDayOpen((prev) => !prev);
+        setJobsOpen(false);
+        setLabelOpen(false);
+        setMemberOpen(false);
     };
 
     const toggleClose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

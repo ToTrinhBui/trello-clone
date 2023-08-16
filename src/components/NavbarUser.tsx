@@ -20,7 +20,7 @@ export default function NavbarUser({ style = {}, ...props }) {
         event.stopPropagation()
         navigate(`/search?${input}`);
     }
-    
+
     return (
         <div className="navbar-user" style={style} {...props}>
             <div className="left">
@@ -50,8 +50,10 @@ export default function NavbarUser({ style = {}, ...props }) {
             <div className="right">
                 <form onSubmit={searchForm}>
                     <div className="search">
-                        <svg className="search-icon" width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fillRule="evenodd" clipRule="evenodd" d="M16.436 15.085l3.94 4.01a1 1 0 01-1.425 1.402l-3.938-4.006a7.5 7.5 0 111.423-1.406zM10.5 16a5.5 5.5 0 100-11 5.5 5.5 0 000 11z"></path></svg>
-                        <input placeholder="Nhập bảng cần tìm" value={input} onChange={(e) => setInput(e.target.value)} />
+                        <div>
+                            <svg className="search-icon" width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fillRule="evenodd" clipRule="evenodd" d="M16.436 15.085l3.94 4.01a1 1 0 01-1.425 1.402l-3.938-4.006a7.5 7.5 0 111.423-1.406zM10.5 16a5.5 5.5 0 100-11 5.5 5.5 0 000 11z"></path></svg>
+                        </div>
+                        <input placeholder="Tìm kiếm" value={input} onChange={(e) => setInput(e.target.value)} />
                     </div>
                 </form>
                 <div className="container">
@@ -66,7 +68,8 @@ export default function NavbarUser({ style = {}, ...props }) {
                     <svg className="svg-icon" width="24" height="24" role="presentation" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M12 20V4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="currentColor"></path></svg>
                     <div className="circle"></div>
                 </div>
-                <div className="avatar container btn" onClick={toggle}>
+                <div className="container btn" onClick={toggle}>
+                    <div className="avatar"></div>
                     <div className="circle"></div>
                 </div>
                 <Logout trigger={isOpen} />

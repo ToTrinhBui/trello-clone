@@ -191,24 +191,22 @@ button {
   line-height: 20px;
   border: 1.5px solid #e6e6e6;
   box-shadow: none;
-  background-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
   background-color: var(--ds-background-input-hovered, #f7f8f9);
 }
 
-.navbar-user .search svg {
+.navbar-user .right .search svg {
   width: 16px;
   height: 16px;
   overflow: hidden;
   pointer-events: none;
-  max-width: 100%;
-  max-height: 100%;
   color: var(--icon-primary-color, #626f86);
   fill: var(--icon-secondary-color, #ffffff);
-  vertical-align: bottom;
+  vertical-align: middle;
 }
 
 .navbar-user .search input {
+  width: 100%;
   margin-bottom: revert;
   transition: revert;
   border-width: 1px;
@@ -217,6 +215,7 @@ button {
 }
 
 .avatar {
+  border-radius: 50%;
   width: 35px;
   height: 35px;
   line-height: 24px;
@@ -224,6 +223,11 @@ button {
   background-size: 100% auto;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.navbar-user .avatar {
+  height: 20px;
+  width: 20px;
 }
 
 .navbar-user .right svg {
@@ -806,14 +810,8 @@ button {
 
   /* NavbarUser */
   .navbar-user .option,
-  .navbar-user .search,
   .navbar-user button {
     display: none;
-  }
-
-  .navbar-user .avatar {
-    height: 20px;
-    width: 20px;
   }
 
   /* Sidebar */
@@ -861,5 +859,12 @@ button {
   .heading .right,
   .heading .right .share {
     flex-wrap: wrap;
+  }
+}
+
+
+@media only screen and (max-width: 350px) {
+  .navbar-user .search {
+    display: none;
   }
 }

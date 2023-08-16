@@ -6,7 +6,7 @@
         "password": "12345",
         "color": "#eb4034"
       },
-      "accessToken": "79524f1647f1bbc09654f182d9492574f514c9855337555a82084c2a973c0b46f7a2fd2a0906feaa05efaf422d5d5738e34cc8df631b9d2c5981cc8edde5964c",
+      "accessToken": "3e9c3823fab191d179e0721ebb98363307e875f5db08f416c7a26fc44c508f5294211c6da5a29176bac78c4230e570b6fca21dc8e37ceaf559bbb91a453ea76e",
       "id": "1"
     },
     {
@@ -77,22 +77,13 @@
             "3",
             "1"
           ],
-          "jobs": {
-            "f0482faa-501d-48df-ba89-f33db4d5dbb8": {
-              "name": "b",
-              "done": 1
-            },
-            "67678355-27e6-41a1-8178-d0213639e2f5": {
-              "name": "A",
-              "done": 1
-            }
-          },
+          "jobs": {},
           "description": "",
           "labels": {
             "1": {
               "color": "#4bce97",
               "title": "",
-              "check": 1
+              "check": 0
             },
             "2": {
               "color": "#e2b203",
@@ -107,7 +98,7 @@
             "4": {
               "color": "#f87462",
               "title": "",
-              "check": 0
+              "check": 1
             },
             "5": {
               "color": "#9F8FEF",
@@ -117,7 +108,7 @@
             "6": {
               "color": "#579dff",
               "title": "",
-              "check": 0
+              "check": 1
             }
           }
         },
@@ -133,7 +124,7 @@
           "jobs": {
             "3b338709-6f59-4e20-b7ea-1a8f6ee3c46b": {
               "name": "nối API",
-              "done": 1
+              "done": 0
             },
             "1286f012-97dc-443c-b663-a143df3bdaed": {
               "name": "Dựng UI",
@@ -155,12 +146,12 @@
             "3": {
               "color": "#FAA53D",
               "title": "",
-              "check": 0
+              "check": 1
             },
             "4": {
               "color": "#f87462",
               "title": "",
-              "check": 0
+              "check": 1
             },
             "5": {
               "color": "#9F8FEF",
@@ -170,7 +161,7 @@
             "6": {
               "color": "#579dff",
               "title": "",
-              "check": 0
+              "check": 1
             }
           }
         },
@@ -261,7 +252,9 @@
           "Task": "Charts",
           "Due_Date": "",
           "status": "cafa59ee-c0f5-4f63-974e-4d867dbc22dc",
-          "members_task": [],
+          "members_task": [
+            "2"
+          ],
           "jobs": {},
           "description": "",
           "labels": {
@@ -299,7 +292,7 @@
         },
         {
           "id": "8c4c2a68-3a89-43d6-ab81-92dbd7191c42",
-          "Task": "xxx",
+          "Task": "Searching",
           "Due_Date": "",
           "status": "45d6ac5e-013a-4928-89b1-16eb79884732",
           "members_task": [],
@@ -384,7 +377,9 @@
           "Task": "Login with Facebook",
           "Due_Date": "",
           "status": "45d6ac5e-013a-4928-89b1-16eb79884732",
-          "members_task": [],
+          "members_task": [
+            "3"
+          ],
           "jobs": {},
           "description": "",
           "labels": {
@@ -450,6 +445,9 @@
         },
         {
           "user_id": "2"
+        },
+        {
+          "user_id": "3"
         }
       ],
       "id": "022sTBv"

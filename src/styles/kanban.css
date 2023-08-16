@@ -122,6 +122,10 @@
     gap: 16px;
 }
 
+.task-content .task-detail{
+    max-width: 540px;
+}
+
 .task-content .task-detail .description-box {
     margin: 10px 15px 10px 40px;
     display: flex;
@@ -400,7 +404,6 @@ h5 {
 .job {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
     gap: 20px
 }
 
@@ -434,7 +437,32 @@ h5 {
 
 .list-jobs {
     min-height: 150px;
-    margin: 5px 5px;
+    margin: 5px 0px;
+}
+
+.job-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+
+.job-content:hover {
+    background: #091e420f;
+}
+
+.job-remove {
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.job-remove:hover {
+    background: #091e4234;
 }
 
 @media only screen and (max-width: 800px) {
