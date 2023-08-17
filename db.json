@@ -6,7 +6,7 @@
         "password": "12345",
         "color": "#eb4034"
       },
-      "accessToken": "3e9c3823fab191d179e0721ebb98363307e875f5db08f416c7a26fc44c508f5294211c6da5a29176bac78c4230e570b6fca21dc8e37ceaf559bbb91a453ea76e",
+      "accessToken": "d11924e5d1eb1e2ae20c31c8366aec47e0c69a88320496936fa1354dcf7e6eaa623f60d6c4e1e9293a2fa38ca5c5f4aff6e17bc56c0f80af05d91f659963100c",
       "id": "1"
     },
     {
@@ -15,7 +15,7 @@
         "password": "12345",
         "color": "#34eb4f"
       },
-      "accessToken": "e5e03e05d0fdfeb99b7e69f3fbe8c3bc25a76c79c044f8d50928ab4188f98867c354958c86bfe8fa5fd060074ea2d294b5899530f5850ef810ee8305a570d982",
+      "accessToken": "cc741cf02b9e630b620835bec5a70530f3eb78a46ba309e503d4a999d016b99e8681b87a0ccb4330769051e11138f9300a1d2d127f36d2833be5008d9dbeff16",
       "id": "2"
     },
     {
@@ -26,6 +26,28 @@
       },
       "accessToken": "3b46049259cc1bdd939277fbfbf3bb5d6e39a0b4016fe278231a55a12ea3b2876187a48787a6abee94f02416c2f7729ec5cd1684fa182cc8e67f87730dd40d11",
       "id": "3"
+    },
+    {
+      "user": {
+        "email": "c@gmail.com",
+        "password": "12345"
+      },
+      "accessToken": "7e40e3f34fa3e11160feaa108da8a0a0c7ccf7a7f443ab99222d172d08a49fd83dc360e2cc69d6ea92f6ea56b81f7273698a82b21e616afa2764db603d0c723f",
+      "id": "02jXNUc"
+    },
+    {
+      "user": {
+        "email": "totriinh@gmail.com"
+      },
+      "accessToken": "6a36155f96cd6ef3d6324e8a052cfac60fc9148d9ba1bb4d46a4d36845002153d3ed2597932eec2fb7c83296bc53c0a61be1de35b4b18b588bebb8d05679ee0f",
+      "id": "0769306c-7564-4fba-94ef-68fcf9b2cefd"
+    },
+    {
+      "user": {
+        "email": "Bùi Tố Trinh"
+      },
+      "accessToken": "2b96a6bf5c7d056eb791831d38ffe9f207e4190fa48d661aca595ad0b2a673be6ad4a5e0894f240927b800f61b99c844957cddce68e33adf8941da4ce804aff3",
+      "id": "4ed8b5e4-680f-41ff-a8cf-8d0c9f79b00a"
     }
   ],
   "backgrounds": {
@@ -53,6 +75,9 @@
         },
         {
           "user_id": "3"
+        },
+        {
+          "user_id": "02jXNUc"
         }
       ],
       "columns": {
@@ -210,7 +235,7 @@
           "id": "d4e671d3-c51c-4ad5-8e63-b9053b4c7cf7",
           "Task": "Share",
           "Due_Date": "2023-07-30T17:00:00.000Z",
-          "status": "6ec49604-24ba-41ef-b737-d803fb881845",
+          "status": "cafa59ee-c0f5-4f63-974e-4d867dbc22dc",
           "members_task": [],
           "jobs": {},
           "description": "",
@@ -335,7 +360,7 @@
           "id": "d5635834-b73c-4add-a97c-1ef75733d3e6",
           "Task": "Logout",
           "Due_Date": "",
-          "status": "6ec49604-24ba-41ef-b737-d803fb881845",
+          "status": "45d6ac5e-013a-4928-89b1-16eb79884732",
           "members_task": [],
           "jobs": {},
           "description": "",
@@ -545,6 +570,19 @@
         }
       ],
       "id": "nyThUhI"
+    },
+    {
+      "user_id": "0769306c-7564-4fba-94ef-68fcf9b2cefd",
+      "name": "board 1",
+      "background": "https://images.unsplash.com/photo-1688232542797-c3e762c7e3c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDUzfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDY2N3w&ixlib=rb-4.0.3",
+      "columns": {},
+      "tasks": [],
+      "members": [
+        {
+          "user_id": "0769306c-7564-4fba-94ef-68fcf9b2cefd"
+        }
+      ],
+      "id": "vFLEHvM"
     }
   ]
 }

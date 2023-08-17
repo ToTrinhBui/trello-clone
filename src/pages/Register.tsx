@@ -2,79 +2,76 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from '@react-oauth/google';
 import FacebookLogin, { RenderProps } from 'react-facebook-login/dist/facebook-login-render-props';
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
-import '../styles/index.css'
+import '../styles/index.css';
 import '../styles/login.css';
 
+type FormValues = {
+    user: {
+        email: string,
+        password: string,
+    }
+}
 export default function Register() {
-    const [user, setUser] = useState({
-        email: "",
-        password: "",
-        color: "#" + Math.floor(Math.random() * 16777215).toString(16),
-    });
-    const [response, setResponse] = useState<Record<string, any>>({});
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+    console.log(errors)
 
     const navigate = useNavigate();
+
+    const [error, setError] = useState<string>();
+
+    const onSubmit = async (data: FormValues) => {
+        try {
+            await axios.post('http://localhost:3001/users',
+                {
+                    user: data.user,
+                    accessToken: ""
+                }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            navigate(`/login`);
+        } catch (error) {
+            console.error('Error during register:', error);
+            setError('Failed to register')
+        }
+    };
 
     const responseFacebook = (response: any) => {
         // Handle the response here
         console.log(response);
     };
+
     const loginGoogle = useGoogleLogin({
-        onSuccess: tokenResponse => {
-            // console.log(tokenResponse);
-            setResponse(tokenResponse);
-            if (response.access_token) {
-                fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`, {
-                    headers: {
-                        Authorization: `Bearer ${response.access_token}`,
-                        Accept: 'application/json'
-                    }
-                })
-                    .then((res) => res.json())
-                    .then((data) => {
-                        console.log(data);
+        onSuccess: async (tokenResponse) => {
+            try {
+                if (tokenResponse.access_token) {
+                    const userInfoResponse = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenResponse.access_token}`, {
+                        headers: {
+                            Authorization: `Bearer ${tokenResponse.access_token}`,
+                            Accept: 'application/json'
+                        }
+                    });
+                    if (userInfoResponse.ok) {
+                        const userData = await userInfoResponse.json();
+                        console.log(userData);
                         // Handle the retrieved user information as needed
                         navigate('/');
-                    })
-                    .catch((err) => console.log(err));
+                    } else {
+                        console.log('Error retrieving user info:', userInfoResponse.statusText);
+                    }
+                }
+            } catch (error) {
+                console.log('Error:', error);
             }
         },
         onError: (error) => console.log('Login Failed:', error)
     });
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        fetch("http://localhost:3001/users", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                user,
-                accessToken: ""
-            })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to register");
-                } else {
-                    console.log(response)
-                    navigate(`/login`);
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    };
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setUser(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
     return (
         <div className="login">
             <div>
@@ -83,14 +80,14 @@ export default function Register() {
             <div className="login-inner">
                 <div className="account-form">
                     <h1>Đăng ký vào Trello</h1>
-                    <form id="login-form" onSubmit={handleSubmit}>
-                        <input required placeholder="Nhập email" type="text" value={user.email}
-                            onChange={handleChange} name="email" />
-                        <input required placeholder="Nhập mật khẩu" type="password" value={user.password}
-                            onChange={handleChange} name="password" />
+                    <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
+                        <input required placeholder="Nhập email" type="text" {...register("user.email")} />
+                        <input required placeholder="Nhập mật khẩu" type="password" {...register("user.password")} />
                         <button className="btn btn-account" type="submit">Tiếp tục</button>
                     </form>
+                    {error && <div className="error">{error}</div>}
                     <div className="login-method-separator">HOẶC</div>
+
                     <div className="oauth-button btn" onClick={() => loginGoogle()}>
                         <img alt="google-icon" src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/8215f6659adc202403198fef903a447e/sign-in-with-google.svg" />
                         <span className="label">Tiếp tục với Google</span>

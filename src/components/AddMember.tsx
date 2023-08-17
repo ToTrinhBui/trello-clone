@@ -22,7 +22,6 @@ const AddMember: React.FC<AddMemberProps> = ({ members, owner, memberFilter }) =
     const [selectedItem, setSelectedItem] = useState<Member>({
         user_id: '',
         email: '',
-        color: ''
     });
     useEffect(() => {
         if (searchInput.length > 0) {
@@ -43,7 +42,6 @@ const AddMember: React.FC<AddMemberProps> = ({ members, owner, memberFilter }) =
         setSelectedItem({
             user_id: id,
             email: email,
-            color: ''
         });
         setSearchInput(email);
         setListSearch([]);

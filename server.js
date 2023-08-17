@@ -9,25 +9,58 @@ const { wss, handleDataUpdate } = require('./websocket'); // Adjust the path as 
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
+// Helper function to find a user by email
+const findUser = (user) => {
+    return router.db.get('users').find({ user }).value();
+}
+
+// Update user's access token
+const updateUserAccessToken = (userId, accessToken) => {
+    router.db.get('users')
+        .find({ id: userId })
+        .assign({ accessToken })
+        .write();
+};
+
+// Generate random access token
+const generateAccessToken = () => {
+    return crypto.randomBytes(64).toString('hex');
+};
+
 server.post('/users/login', (req, res) => {
     const { user } = req.body;
-    const user_db = router.db.get('users').find({ user }).value();
+    const user_db = findUser(user);
     console.log('Received request:', req.body); // Log the request body
     if (user_db) {
-        // Generate an access token
-        const accessToken = crypto.randomBytes(64).toString('hex');
+        const accessToken = generateAccessToken();
 
-        // Update the user's access token in the database
-        router.db
-            .get('users')
-            .find({ id: user_db.id })
-            .assign({ accessToken })
-            .write();
+        updateUserAccessToken(user.id, accessToken);
 
         res.status(200).json({ 'accessToken': accessToken, 'id': user_db.id, 'email': user_db.user.email });
     } else {
         res.status(401).json({ error: 'Invalid credentials', requestPayload: req.body });
     }
+});
+
+server.post('/users/login-via', (req, res) => {
+    const { user } = req.body;
+    console.log('Received request:', req.body);
+
+    const user_db = findUser(user);
+
+    if (user_db) {
+        updateUserAccessToken(user_db.id, generateAccessToken());
+    } else {
+        const newUser = {
+            user,
+            accessToken: generateAccessToken(),
+            id: uuidv4(),
+        };
+        router.db.get('users').push(newUser).write();
+    }
+
+    const updatedUser = findUser(user);
+    res.status(200).json({ 'accessToken': updatedUser.accessToken, 'id': updatedUser.id, 'email': updatedUser.user.email });
 });
 
 server.put('/board/member/update', (req, res) => {

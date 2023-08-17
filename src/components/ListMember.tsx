@@ -29,7 +29,6 @@ const ListMember: React.FC<CardProps> = ({ close }) => {
                 const mem = {
                     user_id: user.id,
                     email: user.user.email,
-                    color: user.user.color,
                 };
                 listMember.push(mem);
             });

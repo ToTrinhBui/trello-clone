@@ -16,7 +16,6 @@ export interface Task {
 export interface Member {
     user_id: string,
     email: string,
-    color: string,
 }
 
 export interface Job {

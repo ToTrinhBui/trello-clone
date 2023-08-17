@@ -5,81 +5,114 @@ import FacebookLogin, { RenderProps } from 'react-facebook-login/dist/facebook-l
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/userSlice";
+import { useForm } from "react-hook-form"
 
 import '../styles/index.css';
 import '../styles/login.css';
 
+type FormValues = {
+    user: {
+        email: string,
+        password: string,
+    }
+}
 export default function Login() {
-    const [user, setUser] = useState({
-        email: "",
-        password: "",
-    });
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+    console.log(errors)
 
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
-    const [response, setResponse] = useState<Record<string, any>>({});
+    const [error, setError] = useState<string>();
+
+    const onSubmit = async (data: FormValues) => {
+        try {
+            const response = await axios.post('http://localhost:3001/users/login', data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            dispatch(login({
+                user: {
+                    id: response.data.id,
+                    email: response.data.email,
+                },
+                token: response.data.accessToken
+            }));
+
+            navigate(`/user/${response.data.id}/boards`);
+        } catch (error) {
+            console.error('Error during login:', error);
+            setError('Failed to login')
+        }
+    };
 
     const responseFacebook = (response: any) => {
         // Handle the response here
-        console.log(response);
+        if (response.name) {
+            loginVia(response.name)
+        } else {
+            setError('Failed to login')
+        }
     };
 
     const loginGoogle = useGoogleLogin({
-        onSuccess: tokenResponse => {
-            // console.log(tokenResponse);
-            setResponse(tokenResponse);
-            if (response.access_token) {
-                fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`, {
-                    headers: {
-                        Authorization: `Bearer ${response.access_token}`,
-                        Accept: 'application/json'
+        onSuccess: async (tokenResponse) => {
+            try {
+                if (tokenResponse.access_token) {
+                    const userInfoResponse = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenResponse.access_token}`, {
+                        headers: {
+                            Authorization: `Bearer ${tokenResponse.access_token}`,
+                            Accept: 'application/json'
+                        }
+                    });
+                    if (userInfoResponse.ok) {
+                        const userData = await userInfoResponse.json();
+                        console.log(userData.email);
+                        loginVia(userData.email);
+                    } else {
+                        console.log('Error retrieving user info:', userInfoResponse.statusText);
+                        setError('Failed to login')
                     }
-                })
-                    .then((res) => res.json())
-                    .then((data) => {
-                        console.log(data);
-                        // Handle the retrieved user information as needed
-                        navigate('/');
-                    })
-                    .catch((err) => console.log(err));
+                }
+            } catch (error) {
+                console.log('Error:', error);
             }
         },
         onError: (error) => console.log('Login Failed:', error)
     });
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        // Send login request to the server
-        axios.post('http://localhost:3001/users/login', {
-            user
-        })
-            .then((response) => {
-                console.log(response);
-                console.log(response.data.accessToken); // Access token received from the server
-                dispatch(login({
+    const loginVia = async (email: string) => {
+        try {
+            const response = await axios.post('http://localhost:3001/users/login-via',
+                {
                     user: {
-                        id: response.data.id,
-                        email: response.data.email,
-                    },
-                    token: response.data.accessToken
-                }))
-                navigate(`/user/${response.data.id}/boards`)
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    };
+                        email: email
+                    }
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setUser(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
+            dispatch(login({
+                user: {
+                    id: response.data.id,
+                    email: response.data.email,
+                },
+                token: response.data.accessToken
+            }));
+
+            navigate(`/user/${response.data.id}/boards`);
+        } catch (error) {
+            console.error('Error during login:', error);
+            setError('Failed to login')
+        }
+    }
 
     return (
         <div className="login">
@@ -89,13 +122,12 @@ export default function Login() {
             <div className="login-inner">
                 <div className="account-form">
                     <h1>Đăng nhập vào Trello</h1>
-                    <form id="login-form" onSubmit={handleSubmit}>
-                        <input required placeholder="Nhập email" type="text" value={user.email}
-                            onChange={handleChange} name="email" />
-                        <input required placeholder="Nhập mật khẩu" type="password" value={user.password}
-                            onChange={handleChange} name="password" />
+                    <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
+                        <input required placeholder="Nhập email" type="text" {...register("user.email")} />
+                        <input required placeholder="Nhập mật khẩu" type="password" {...register("user.password")} />
                         <button className="btn btn-account" type="submit">Tiếp tục</button>
                     </form>
+                    {error && <div className="error">{error}</div>}
                     <div className="login-method-separator">HOẶC</div>
 
                     <div className="oauth-button btn" onClick={() => loginGoogle()}>

@@ -64,7 +64,6 @@ const Charts = () => {
                     const memberWithEmail = {
                         ...member,
                         email: member_response.data?.[0].user.email,
-                        color: member_response.data?.[0].user.color,
                     };
                     return memberWithEmail;
                 } catch (error) {
