@@ -1,10 +1,15 @@
-const jsonServer = require('json-server');
+// const jsonServer = require('json-server');
+// const crypto = require('crypto');
+// const { v4: uuidv4 } = require('uuid');
+// const { wss, handleDataUpdate } = require('./websocket'); // Adjust the path as needed
+import jsonServer from 'json-server';
+import crypto from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
+import { wss, handleDataUpdate } from './websocket.js';
+
 const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
-const crypto = require('crypto');
-const { v4: uuidv4 } = require('uuid');
-const { wss, handleDataUpdate } = require('./websocket'); // Adjust the path as needed
 
 server.use(middlewares);
 server.use(jsonServer.bodyParser);

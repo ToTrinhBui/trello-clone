@@ -55,7 +55,7 @@
 }
 
 .home-inner {
-    padding: 30px 80px;
+    padding: 45px 20px 0px 120px;
     text-align: left;
     display: flex;
     align-items: center;
@@ -91,7 +91,7 @@
 }
 
 .home-inner img {
-    width: 500px;
+    width: 600px;
 }
 
 /* NotFound */

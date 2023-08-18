@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/userSlice";
 import { useTheme } from '../../theme/ThemeProvider'; 
-
+import { URL_API } from '../../api';
 import "../../styles/index.css";
 import "../../styles/kanban.css";
 
@@ -39,7 +39,7 @@ const AddBoard: React.FC<CardProps> = React.memo(({ trigger, close, backgrounds 
         event.preventDefault()
         if (name.length < 0) setName('Name board');
         try {
-            const response = await axios.post(`http://localhost:3001/boards`, {
+            const response = await axios.post(`${URL_API}/boards`, {
                 user_id: user_redux.id,
                 name: name,
                 background: choose,

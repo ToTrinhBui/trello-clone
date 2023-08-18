@@ -3,6 +3,7 @@ import { Member, Task } from '../../interface';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Avatar from 'react-avatar';
+import { URL_API } from '../../api';
 interface CardProps {
     trigger: boolean,
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -15,7 +16,7 @@ const MemberTask: React.FC<CardProps> = ({ trigger, close, members, item }) => {
 
     const editTask = async (members_task: string[]) => {
         try {
-            const response = await axios.put(`http://localhost:3001/task/edit`, {
+            const response = await axios.put(`${URL_API}/task/edit`, {
                 board_id: boardID,
                 task: {
                     id: item.id,

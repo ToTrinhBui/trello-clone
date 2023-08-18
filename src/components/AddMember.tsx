@@ -7,6 +7,7 @@ import { selectUser } from "../redux/userSlice";
 import { Member } from '../interface';
 import RemoveMember from './RemoveMember';
 import Avatar from 'react-avatar';
+import { URL_API } from "../api";
 interface AddMemberProps {
     members: Member[],
     owner: string,
@@ -79,7 +80,7 @@ const AddMember: React.FC<AddMemberProps> = ({ members, owner, memberFilter }) =
 
     const updateMembers = async (memberboards: Object[]) => {
         try {
-            const response = await axios.put(`http://localhost:3001/board/member/update`, {
+            const response = await axios.put(`${URL_API}/board/member/update`, {
                 board_id: boardID,
                 members: memberboards,
             });
@@ -94,7 +95,7 @@ const AddMember: React.FC<AddMemberProps> = ({ members, owner, memberFilter }) =
 
     const search = async (email: string) => {
         try {
-            const response = await axios.get(`http://localhost:3001/users?user.email=${email}`);
+            const response = await axios.get(`${URL_API}/users?user.email=${email}`);
             const membersUserIds = members.map((member) => member.user_id);
             membersUserIds.push(owner);
             const filteredList = response.data.filter((user: any) => !membersUserIds.includes(user.id));

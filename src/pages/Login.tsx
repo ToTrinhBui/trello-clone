@@ -6,7 +6,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/userSlice";
 import { useForm } from "react-hook-form"
-
+import { URL_API } from "../api";
 import '../styles/index.css';
 import '../styles/login.css';
 
@@ -28,7 +28,7 @@ export default function Login() {
 
     const onSubmit = async (data: FormValues) => {
         try {
-            const response = await axios.post('http://localhost:3001/users/login', data, {
+            const response = await axios.post(`${URL_API}/users/login`, data, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -86,7 +86,7 @@ export default function Login() {
 
     const loginVia = async (email: string) => {
         try {
-            const response = await axios.post('http://localhost:3001/users/login-via',
+            const response = await axios.post(`${URL_API}/users/login-via`,
                 {
                     user: {
                         email: email

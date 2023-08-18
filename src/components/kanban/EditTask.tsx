@@ -12,7 +12,7 @@ import MemberDialog from "./MemberDialog";
 import LabelDialog from "./LabelDialog";
 import DayDialog from "./DayDialog";
 import MoreOption from "../MoreOption";
-
+import { URL_API } from '../../api';
 interface EditTaskProps {
     children: React.ReactNode;
     item: Task;
@@ -93,7 +93,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
     const editTask = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:3001/task/edit`, {
+            const response = await axios.put(`${URL_API}/task/edit`, {
                 board_id: boardID,
                 task: {
                     id: item.id,
@@ -116,7 +116,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
 
     const deleteTask = async () => {
         try {
-            const response = await axios.delete(`http://localhost:3001/task/delete`, {
+            const response = await axios.delete(`${URL_API}/task/delete`, {
                 data: {
                     board_id: boardID,
                     taskId: item.id,
@@ -131,7 +131,7 @@ const EditTask: React.FC<EditTaskProps> = ({ children, item, members, status_tit
 
     const renameTask = async (name: string) => {
         try {
-            const response = await axios.put(`http://localhost:3001/task/edit`, {
+            const response = await axios.put(`${URL_API}/task/edit`, {
                 board_id: boardID,
                 task: {
                     id: item.id,

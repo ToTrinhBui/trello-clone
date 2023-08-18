@@ -5,7 +5,7 @@ import NavbarUser from "../components/NavbarUser";
 import Heading from "../components/Heading";
 import Board from "../components/kanban/Board";
 import Sidebar from "../components/Sidebar";
-
+import { URL_API } from "../api";
 import "../styles/index.css";
 import "../styles/kanban.css";
 import { Member, Task } from "../interface";
@@ -64,7 +64,7 @@ export default function Kanban() {
             const memberFilter: Member[] = response.members;
             const updatedMembers = await Promise.all(memberFilter.map(async (member) => {
                 try {
-                    const member_response = await axios.get(`http://localhost:3001/users?id=${member.user_id}`);
+                    const member_response = await axios.get(`${URL_API}/users?id=${member.user_id}`);
                     const memberWithEmail = {
                         ...member,
                         email: member_response.data?.[0].user.email,

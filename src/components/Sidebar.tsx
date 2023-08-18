@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../redux/userSlice";
 import axios from "axios";
 import ListMember from "./ListMember";
+import { URL_API } from "../api";
 
 interface Board {
     id: string,
@@ -32,7 +33,7 @@ export default function Sidebar({ style = {}, ...props }) {
 
     async function fetchBoards() {
         try {
-            const response = await axios.get(`http://localhost:3001/boards?user_id=${user_redux.id}`);
+            const response = await axios.get(`${URL_API}/boards?user_id=${user_redux.id}`);
             setData(response.data);
         } catch (error) {
             console.error(error);

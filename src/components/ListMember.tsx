@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/userSlice';
 import ReactDOM from 'react-dom';
 import { useTheme } from '../theme/ThemeProvider';
+import { URL_API } from "../api";
 
 interface CardProps {
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -22,7 +23,7 @@ const ListMember: React.FC<CardProps> = ({ close }) => {
 
     const getListUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/users');
+            const response = await axios.get(`${URL_API}/users`);
             const { data: userList } = response;
 
             const filteredList = userList.filter((user: any) => user.id !== user_redux.id);

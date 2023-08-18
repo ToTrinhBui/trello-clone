@@ -1,6 +1,7 @@
 {
   "name": "trello-clone",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@emotion/styled": "^11.11.0",

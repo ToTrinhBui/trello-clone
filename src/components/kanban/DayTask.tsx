@@ -4,7 +4,7 @@ import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Task } from '../../interface';
-
+import { URL_API } from '../../api';
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -34,7 +34,7 @@ const DayTask: React.FC<CardProps> = ({ trigger, close, item }) => {
     const editTask = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:3001/task/edit`, {
+            const response = await axios.put(`${URL_API}/task/edit`, {
                 board_id: boardID,
                 task: {
                     id: item.id,

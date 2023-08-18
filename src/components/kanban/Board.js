@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import axios from 'axios';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import TaskCard from './TaskCard';
-import AddTask from './AddTask';
+import TaskCard from './TaskCard.tsx';
+import AddTask from './AddTask.tsx';
 import { useParams } from 'react-router-dom';
-import AddColumn from './AddColumn';
-import EditColumn from './EditColumn';
-
+import AddColumn from './AddColumn.tsx';
+import EditColumn from './EditColumn.tsx';
+import { URL_API } from '../../api.js';
 const Container = styled.div`
   display: flex;
 `;
@@ -50,7 +50,7 @@ const Board = (props) => {
 
     const updateTaskStatus = async (taskId, newStatus, updatedColumns) => {
         try {
-            const response = await axios.put(`http://localhost:3001/task/update`, {
+            const response = await axios.put(`${URL_API}/task/update`, {
                 board_id: boardID,
                 task_id: taskId,
                 status: newStatus,

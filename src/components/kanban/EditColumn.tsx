@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import MoreOption from '../MoreOption';
 import { useParams } from 'react-router-dom';
+import { URL_API } from '../../api';
 interface CardProps {
     columnId: string,
     title: string
@@ -11,7 +12,7 @@ const EditColumn: React.FC<CardProps> = ({ columnId, title }) => {
 
     const deleteColumn = async () => {
         try {
-            const response = await axios.delete(`http://localhost:3001/status/delete`, {
+            const response = await axios.delete(`${URL_API}/status/delete`, {
                 data: {
                     board_id: boardID,
                     columnId: columnId,
@@ -26,7 +27,7 @@ const EditColumn: React.FC<CardProps> = ({ columnId, title }) => {
 
     const renameColumn = async (name: string) => {
         try {
-            const response = await axios.put(`http://localhost:3001/status/rename`, {
+            const response = await axios.put(`${URL_API}/status/rename`, {
                 board_id: boardID,
                 columnId: columnId,
                 name: name

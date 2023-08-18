@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { URL_API } from '../../api';
 
 const AddColumn = () => {
     const { boardID } = useParams<{ boardID?: string }>();
@@ -12,7 +13,7 @@ const AddColumn = () => {
 
     const addNewColumn = async () => {
         try {
-            const response = await axios.post(`http://localhost:3001/status/add`, {
+            const response = await axios.post(`${URL_API}/status/add`, {
                 board_id: boardID,
             });
             console.log('Column added successfully:', response.data);

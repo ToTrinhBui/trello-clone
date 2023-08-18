@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
-
+import { URL_API } from '../../api';
 import "../../styles/index.css";
 import "../../styles/kanban.css";
 import { Job, Task } from '../../interface';
@@ -31,7 +31,7 @@ const JobsTask: React.FC<CardProps> = ({ trigger, close, item }) => {
             };
             const newJobs = Object.assign(updatedJob, item.jobs);
             setJob({ name: "", done: 0 });
-            const response = await axios.put(`http://localhost:3001/task/edit`, {
+            const response = await axios.put(`${URL_API}/task/edit`, {
                 board_id: boardID,
                 task: {
                     id: item.id,

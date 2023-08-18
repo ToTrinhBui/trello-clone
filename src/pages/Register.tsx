@@ -4,10 +4,11 @@ import { useGoogleLogin } from '@react-oauth/google';
 import FacebookLogin, { RenderProps } from 'react-facebook-login/dist/facebook-login-render-props';
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import { URL_API } from "../api";
 import '../styles/index.css';
 import '../styles/login.css';
-
+import { useDispatch } from "react-redux";
+import { login } from "../redux/userSlice";
 type FormValues = {
     user: {
         email: string,
@@ -20,11 +21,13 @@ export default function Register() {
 
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
     const [error, setError] = useState<string>();
 
     const onSubmit = async (data: FormValues) => {
         try {
-            await axios.post('http://localhost:3001/users',
+            await axios.post(`${URL_API}/users`,
                 {
                     user: data.user,
                     accessToken: ""
@@ -43,7 +46,11 @@ export default function Register() {
 
     const responseFacebook = (response: any) => {
         // Handle the response here
-        console.log(response);
+        if (response.name) {
+            loginVia(response.name)
+        } else {
+            setError('Failed')
+        }
     };
 
     const loginGoogle = useGoogleLogin({
@@ -58,11 +65,11 @@ export default function Register() {
                     });
                     if (userInfoResponse.ok) {
                         const userData = await userInfoResponse.json();
-                        console.log(userData);
-                        // Handle the retrieved user information as needed
-                        navigate('/');
+                        console.log(userData.email);
+                        loginVia(userData.email);
                     } else {
                         console.log('Error retrieving user info:', userInfoResponse.statusText);
+                        setError('Failed')
                     }
                 }
             } catch (error) {
@@ -71,6 +78,36 @@ export default function Register() {
         },
         onError: (error) => console.log('Login Failed:', error)
     });
+
+    const loginVia = async (email: string) => {
+        try {
+            const response = await axios.post(`${URL_API}/users/login-via`,
+                {
+                    user: {
+                        email: email
+                    }
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            dispatch(login({
+                user: {
+                    id: response.data.id,
+                    email: response.data.email,
+                },
+                token: response.data.accessToken
+            }));
+
+            navigate(`/user/${response.data.id}/boards`);
+        } catch (error) {
+            console.error('Error during login:', error);
+            setError('Failed')
+        }
+    }
 
     return (
         <div className="login">

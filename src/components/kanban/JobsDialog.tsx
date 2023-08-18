@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Job, Task } from '../../interface';
 import JobsTask from './JobsTask';
+import { URL_API } from '../../api';
 interface CardProps {
     item: Task;
 }
@@ -36,7 +37,7 @@ const JobsDialog: React.FC<CardProps> = ({ item }) => {
 
     const editTask = async (jobs: { [key: string]: Job }) => {
         try {
-            const response = await axios.put(`http://localhost:3001/task/edit`, {
+            const response = await axios.put(`${URL_API}/task/edit`, {
                 board_id: boardID,
                 task: {
                     id: item.id,

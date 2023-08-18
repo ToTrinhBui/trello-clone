@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../redux/userSlice";
 import axios from 'axios';
 import Avatar from 'react-avatar';
-
+import { URL_API } from "../api";
 import AddMember from './AddMember';
 import { Member } from '../interface';
 import MoreOption from './MoreOption';
@@ -31,7 +31,7 @@ const Heading: React.FC<HeadingProps> = ({ members, nameBoard, ownerBoard }) => 
 
     const deleteBoard = async () => {
         try {
-            const response = await axios.delete(`http://localhost:3001/boards/${boardID}`);
+            const response = await axios.delete(`${URL_API}/boards/${boardID}`);
             const responseData = response.data;
             console.log('deleted successfully:', responseData);
             navigate(`/user/${user_redux.id}/boards`);
@@ -42,7 +42,7 @@ const Heading: React.FC<HeadingProps> = ({ members, nameBoard, ownerBoard }) => 
 
     const renameBoard = async (name: string) => {
         try {
-            const response = await axios.put(`http://localhost:3001/board/rename`, {
+            const response = await axios.put(`${URL_API}/board/rename`, {
                 board_id: boardID,
                 name: name
             });

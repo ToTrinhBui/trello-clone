@@ -2,6 +2,7 @@ import React from 'react';
 import { Label, Task } from '../../interface';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { URL_API } from '../../api';
 interface CardProps {
     trigger: boolean,
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -13,7 +14,7 @@ const LabelTask: React.FC<CardProps> = ({ trigger, close, item }) => {
 
     const editTask = async (labels: { [key: string]: Label }) => {
         try {
-            const response = await axios.put(`http://localhost:3001/task/edit`, {
+            const response = await axios.put(`${URL_API}/task/edit`, {
                 board_id: boardID,
                 task: {
                     id: item.id,

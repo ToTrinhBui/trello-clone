@@ -1,8 +1,12 @@
-const http = require('http');
-const WebSocket = require('ws');
-const axios = require('axios');
+// const http = require('http');
+// const WebSocket = require('ws');
+// const axios = require('axios');
+import { createServer } from 'http';
+import WebSocket from 'ws';
+import axios from 'axios';
+import { URL_API } from './src/api.js';
 
-const server = http.createServer((req, res) => {
+const server = createServer((req, res) => {
     // ...
 });
 
@@ -10,7 +14,7 @@ const wss = new WebSocket.Server({ server });
 
 async function handleDataUpdate(wss, board_id) {
     try {
-        const response = await axios.get(`http://localhost:3001/boards/${board_id}`);
+        const response = await axios.get(`${URL_API}/boards/${board_id}`);
         const responseData = response.data;
 
         // Broadcast the fetched data to all connected clients
@@ -23,7 +27,6 @@ async function handleDataUpdate(wss, board_id) {
         console.error('Error fetching data using REST API:', error);
     }
 }
-
 
 wss.on('connection', (ws) => {
     console.log('Client connected');
@@ -46,4 +49,4 @@ server.listen(8080, () => {
     console.log('Server is listening on port 8080');
 });
 
-module.exports = { wss, handleDataUpdate }; // Export the WebSocket server and function
+export { wss, handleDataUpdate };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Dialog from "@mui/material/Dialog";
-
+import { URL_API } from '../../api';
 interface AddTaskTableProps {
     id: string,
     columns: Columns
@@ -52,7 +52,7 @@ const AddTaskTable: React.FC<AddTaskTableProps> = ({ id, columns }) => {
 
     const addNewTask = async (taskName: string, DueDate: string, statusID: string) => {
         try {
-            const response = await axios.post(`http://localhost:3001/task/add`, {
+            const response = await axios.post(`${URL_API}/task/add`, {
                 board_id: boardID,
                 Task: taskName,
                 Due_Date: DueDate,

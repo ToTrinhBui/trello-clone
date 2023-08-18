@@ -10,7 +10,7 @@ import { selectUser } from "../redux/userSlice";
 import NotFound from "./NotFound";
 import { Member, Task } from "../interface";
 import Loading from "../components/Loading";
-
+import { URL_API } from "../api";
 import "../styles/index.css";
 import "../styles/charts.css";
 
@@ -60,7 +60,7 @@ const Charts = () => {
             const memberFilter: Member[] = response.members;
             const updatedMembers = await Promise.all(memberFilter.map(async (member) => {
                 try {
-                    const member_response = await axios.get(`http://localhost:3001/users?id=${member.user_id}`);
+                    const member_response = await axios.get(`${URL_API}/users?id=${member.user_id}`);
                     const memberWithEmail = {
                         ...member,
                         email: member_response.data?.[0].user.email,
