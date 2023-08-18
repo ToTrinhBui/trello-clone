@@ -4,12 +4,12 @@
     content: '';
     height: 1px;
     width: 100%;
-    background-color: hsla(218, 54%, 19.6%, 0.16);
+    background-color: rgb(161 161 163 / 26%);
     margin: 32px 0px;
 }
 
 .setting {
-    color: #172b4d;
+    color: var(--nav-color, #172b4d);
 }
 
 .setting-inner {
@@ -34,7 +34,7 @@ h3 {
 }
 
 .setting .setting-content {
-    border-top: 1px solid #091E4224;
+    border-top: 1px solid rgb(161 161 163 / 26%);
     padding: 8px 4px;
     font-size: 14px;
     font-weight: 400;

@@ -5,6 +5,7 @@ import { Member } from '../interface';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/userSlice';
 import ReactDOM from 'react-dom';
+import { useTheme } from '../theme/ThemeProvider';
 
 interface CardProps {
     close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -12,6 +13,8 @@ interface CardProps {
 const ListMember: React.FC<CardProps> = ({ close }) => {
     const [members, setMembers] = useState<Member[]>();
     const user_redux = useSelector(selectUser).user;
+
+    const { theme } = useTheme();
 
     useEffect(() => {
         getListUsers();
@@ -40,7 +43,7 @@ const ListMember: React.FC<CardProps> = ({ close }) => {
     };
 
     return ReactDOM.createPortal(
-        <div className='overlay-list-member'>
+        <div className='overlay-list-member' id={theme}>
             <div className='card-box' style={{width: '225px', maxHeight: '300px', overflowX: 'auto'}}>
                 <div className='title-card'>
                     <h4 style={{ width: '90%', textAlign: 'center' }}>Thành viên của Trello</h4>

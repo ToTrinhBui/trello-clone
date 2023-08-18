@@ -1,0 +1,35 @@
+#light {
+    /* Navbar */
+    --nav-backgroundColor: #fff;
+    --nav-color: #44546f;
+    --filter-logo: brightness(0) saturate(100%) invert(30%) sepia(53%) saturate(323%) hue-rotate(179deg) brightness(91%) contrast(88%);
+    --svg-fill: #626f86;
+    /* Sidebar */
+    --sidebackgroundColor: #fff;
+    --side-color: #172B4D;
+    --color: #626f86;
+}
+
+#dark {
+    --background: #1D2125;
+    /* Navbar */
+    --nav-backgroundColor: #1D2125;
+    --nav-color: #B6C2CF;
+    --filter-logo: brightness(0) saturate(100%) invert(66%) sepia(20%) saturate(225%) hue-rotate(170deg) brightness(101%) contrast(85%) !important;
+    --svg-fill: #DEE4EA;
+    --input-background: #22272B;
+    --input-border: #A6C5E229;
+    --input-color: #8C9BAB;
+    /* Sidebar */
+    --sidebackgroundColor: #1D2125;
+    --side-inner-background: hsla(206, 13.7%, 10%, 0.9);
+    --side-color: #9FADBC;
+    --color: #9FADBC;
+    --text-logo: #1D2125;
+    /* Boards */
+    --card-background: #A1BDD914;
+    --card-hover: #A6C5E229;
+    /* card */
+    --card-box-background: #282E33;
+    --card-box-shadow: inset 0px 0px 0px 1px #BCD6F01F, 0px 8px 12px #0304045C, 0px 0px 1px #03040480;
+}

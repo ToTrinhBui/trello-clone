@@ -76,15 +76,14 @@ button {
 .navbar-user {
   transition: 300ms;
   border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: hsla(218, 54%, 19.6%, 0.16);
+  border-bottom: 0.5px solid rgb(161 161 163 / 26%);
   box-sizing: border-box;
   display: flex;
   align-items: center;
   overflow: hidden;
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
-  background-color: hsla(0, 0%, 27%, 0.521);
+  background-color: var(--nav-backgroundColor, hsla(0, 0%, 27%, 0.521));
   max-height: 48px;
   padding: 8px;
   color: var(--nav-color, #FFFFFF);
@@ -196,10 +195,9 @@ button {
   border-radius: 5px;
   font-size: 14px;
   line-height: 20px;
-  border: 1.5px solid #e6e6e6;
+  border: 1.5px solid var(--input-border, #e6e6e6);
   box-shadow: none;
-  color: #ffffff;
-  background-color: var(--ds-background-input-hovered, #f7f8f9);
+  background-color: var(--input-background, #f7f8f9);
 }
 
 .navbar-user .right .search svg {
@@ -218,7 +216,8 @@ button {
   transition: revert;
   border-width: 1px;
   box-shadow: none;
-  background-color: var(--ds-background-input-hovered, #f7f8f9);
+  background-color: var(--input-background, #f7f8f9);
+  color: var(--input-color, #44546f);
 }
 
 .avatar {
@@ -275,8 +274,8 @@ button {
   border-right: 0.5px solid rgb(161 161 163 / 26%);
   height: calc(100vh - 48px);
   width: 259px;
-  background-color: #00000077;
-  color: #FFFFFF;
+  background-color: var(--sidebackgroundColor, #00000077);
+  color: var(--side-color, #FFFFFF);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
@@ -299,7 +298,7 @@ button {
 
 .sidebar .title h1 {
   font-size: 20px;
-  color: #FFFFFF;
+  color: var(--text-logo, #FFFFFF);
 }
 
 .sidebar .part,
@@ -319,6 +318,7 @@ button {
 .sidebar h5 {
   font-weight: 600;
   margin: 8px 8px 8px 15px;
+  padding: 0;
 }
 
 .sidebar p,
@@ -327,19 +327,23 @@ button {
 }
 
 .sidebar .option {
-  color: var(--color, #FFFFFF);
-}
-
-.sidebar .option {
   display: flex;
   align-items: center;
   padding: 8px 8px 8px 15px;
-  gap: 12px;
+  gap: 8px;
+  color: var(--color, #FFFFFF);
 }
 
 .sidebar .option:hover {
   /* background: hsla(0, 0%, 100%, 0.16); */
   background-color: rgba(151, 151, 151, 0.3);
+}
+
+.sidebar .option .mini-background {
+  height: 20px;
+  width: 24px;
+  border-radius: 3px;
+  background-size: cover;
 }
 
 .sidebar .option svg {
@@ -350,11 +354,12 @@ button {
 
 .sidebar .tables {
   overflow-x: auto;
-  max-height: calc(100% - 230px);
+  max-height: calc(100% - 215px);
 }
 
 .sidebar .sidebar-inner {
   height: 100%;
+  background-color: var(--side-inner-background);
 }
 
 /* Heading */
@@ -697,10 +702,10 @@ button {
 .card-logout {
   position: absolute;
   width: 230px;
-  background: #FFFFFF;
+  background: var(--card-box-background, #FFFFFF);
   border-radius: 8px;
-  box-shadow: 0px 8px 12px #091E4226, 0px 0px 1px #091E424F;
-  color: #172B4D;
+  box-shadow: var(--card-box-shadow, 0px 8px 12px #091E4226, 0px 0px 1px #091E424F);
+  color: var(--nav-color, #172B4D);
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -739,7 +744,7 @@ button {
 }
 
 .card-logout .logout:hover {
-  background-color: #f1f2f4;
+  background-color: #c5c5c542;
 }
 
 /* Loading */
@@ -813,6 +818,43 @@ button {
   top: 170px;
 }
 
+/* Theme */
+.theme {
+  top: 55px;
+  right: 320px;
+}
+
+.mode {
+  display: flex;
+  align-items: center;
+  padding: 8px 22px;
+  gap: 12px
+}
+
+.mode img {
+  margin-left: 8px;
+  width: 64px;
+  height: 48px;
+  border-radius: 8px;
+  box-shadow: 0px 1px 1px #091e4240, 0px 0px 1px #091e424f;
+}
+
+.tick {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  border: 2px solid lightgray;
+}
+
+#isActive {
+  background-color: #87b9ff47;
+  color: #579DFF;
+}
+
+#isActive-btn {
+  background-color: #0c66e4;
+}
+
 @media only screen and (max-width: 800px) {
 
   /* NavbarUser */
@@ -847,8 +889,12 @@ button {
     padding: 4px 4px 4px 8px;
   }
 
+  .sidebar .option .mini-background {
+    display: none;
+  }
+
   .sidebar .tables {
-    max-height: calc(100% - 200px);
+    max-height: calc(100% - 180px);
   }
 
   /* ListMember */

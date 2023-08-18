@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/userSlice";
+import { useTheme } from '../../theme/ThemeProvider'; 
 
 import "../../styles/index.css";
 import "../../styles/kanban.css";
@@ -20,6 +21,7 @@ const AddBoard: React.FC<CardProps> = React.memo(({ trigger, close, backgrounds 
     const user_redux = useSelector(selectUser).user;
     const [name, setName] = useState<string>('');
     const navigate = useNavigate();
+    const { theme } = useTheme();
 
     const getRandom = (): string => {
         const keys = Object.keys(backgrounds);
@@ -62,7 +64,7 @@ const AddBoard: React.FC<CardProps> = React.memo(({ trigger, close, backgrounds 
 
     if (trigger) {
         return (
-            <div className='overlay-add-board'>
+            <div className='overlay-add-board' id={theme}>
                 <div className='card-add-board'>
                     <div className='title-card'>
                         <h4 style={{ width: '90%', textAlign: 'center' }}>Thêm bảng</h4>

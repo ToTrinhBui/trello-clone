@@ -8,6 +8,7 @@ import ListMember from "./ListMember";
 interface Board {
     id: string,
     name: string,
+    background: string,
 }
 
 export default function Sidebar({ style = {}, ...props }) {
@@ -75,7 +76,10 @@ export default function Sidebar({ style = {}, ...props }) {
                 <div className="tables">
                     <h5>Các bảng của bạn</h5>
                     {data.map((item) => (
-                        <div onClick={handleCardClick(item.id)} className="option btn" key={item.id}><p>{item.name}</p></div>
+                        <div onClick={handleCardClick(item.id)} className="option btn" key={item.id}>
+                            <div className="mini-background" style={{ 'backgroundImage': `url(${item.background}&q=80&w=400)` }}></div>
+                            <p>{item.name}</p>
+                        </div>
                     ))}
                 </div>
             </div>

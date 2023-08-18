@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../redux/userSlice";
 import NotFound from "./NotFound";
 import { useLocation } from "react-router-dom";
+import { useTheme } from "../theme/ThemeProvider";
 
 interface Board {
   id: string,
@@ -21,18 +22,7 @@ interface Background {
   [key: string]: string
 }
 const Search = () => {
-  const sidebarStyles: React.CSSProperties & { "--color": string } = {
-    backgroundColor: "#fff",
-    color: '#172B4D',
-    "--color": "#626f86",
-  };
-
-  const navbarStyles: React.CSSProperties & { "--nav-color": string; "--filter-logo": string; "--svg-fill": string } = {
-    backgroundColor: "#fff",
-    "--nav-color": "#44546f",
-    "--filter-logo": 'brightness(0) saturate(100%) invert(30%) sepia(53%) saturate(323%) hue-rotate(179deg) brightness(91%) contrast(88%)',
-    "--svg-fill": '#626f86',
-  };
+  const { theme } = useTheme();
   
   const [data, setData] = useState<Board[]>([]);
   const [backgrounds, setBacgrounds] = useState<Background>({});
@@ -63,10 +53,10 @@ const Search = () => {
   if (user_redux) {
     return (
       <>
-        <div>
-          <NavbarUser style={navbarStyles} />
+        <div id={theme}>
+          <NavbarUser />
           <div className="flex">
-            <Sidebar style={sidebarStyles} />
+            <Sidebar />
             <div className="dashboard">
               <div className="dashboard-inner">
                 <Title />
