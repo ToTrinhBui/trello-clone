@@ -1,2 +1,2 @@
 // export const URL_API = 'http://localhost:3001';
-export const URL_API = 'https://my-json-server.typicode.com/ToTrinhBui/trello-clone';
+export const URL_API = 'https://trello-clone-beige.vercel.app/';

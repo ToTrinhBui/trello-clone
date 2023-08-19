@@ -26,7 +26,6 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // Update the theme in localStorage whenever it changes
     useEffect(() => {
         localStorage.setItem('theme', theme);
-        console.log(theme)
     }, [theme]);
 
     return (
