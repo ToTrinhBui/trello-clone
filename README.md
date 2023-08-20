@@ -1,46 +1,59 @@
-# Getting Started with Create React App
+# Trello Clone Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a Trello clone project built using React for the frontend and json-server for the backend. The project based on some of the core features of Trello, a popular project management tool.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Multiple login options: account, Google, and Facebook.
+- Create, edit, and delete boards.
+- Add, edit, and delete lists within boards.
+- Manage tasks/cards within lists.
+- Drag and drop functionality to rearrange tasks and lists.
+- Light and dark mode for personalized user experience.
+- Share boards with team members for collaborative work.
+- Real-time updates using WebSocket to keep boards synchronized across users.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To run this project on your local machine, follow these steps:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+To run, ensure that you have the following software installed on your system:
+    
+> Node.js (version compatible with React 18)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
 
-### `npm run build`
+1. Clone the repository:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   git clone https://github.com/your-username/trello-clone.git
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install the project dependencies:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   npm install
+   ```
 
-### `npm run eject`
+### Running the Application
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Start the JSON server for the backend:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   node server.js
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+   The `db.json` file contains sample data for the backend.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+2. In a new terminal window, start the frontend:
 
-## Learn More
+   ```bash
+    npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   This will launch the frontend application in your default web browser.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Note:** This project is developed for learning purposes.
+
