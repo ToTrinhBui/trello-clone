@@ -13,7 +13,7 @@
       "user": {
         "email": "totriinh@gmail.com"
       },
-      "accessToken": "6a36155f96cd6ef3d6324e8a052cfac60fc9148d9ba1bb4d46a4d36845002153d3ed2597932eec2fb7c83296bc53c0a61be1de35b4b18b588bebb8d05679ee0f",
+      "accessToken": "f89a5c7a36f72b9b9e91ee9fabf18240b849af002fb353e647bb385d2434368254e7d23e970ae6d013bff1f125cb5d22cc6e44294491bf53151b4590f138d152",
       "id": "0769306c-7564-4fba-94ef-68fcf9b2cefd"
     }
   ],
@@ -36,6 +36,9 @@
       "members": [
         {
           "user_id": "1"
+        },
+        {
+          "user_id": "0769306c-7564-4fba-94ef-68fcf9b2cefd"
         }
       ],
       "columns": {
@@ -55,7 +58,10 @@
           "Task": "Websocket ",
           "Due_Date": "2023-08-12",
           "status": "45d6ac5e-013a-4928-89b1-16eb79884732",
-          "members_task": [],
+          "members_task": [
+            "1",
+            "0769306c-7564-4fba-94ef-68fcf9b2cefd"
+          ],
           "jobs": {
             "1be612ca-a2b0-4008-86b7-c17ad6d9cdc1": {
               "name": "build server",
@@ -93,6 +99,62 @@
               "color": "#579dff",
               "title": "",
               "check": 1
+            }
+          }
+        },
+        {
+          "id": "dc341313-8072-44ba-910c-2f64c7250a71",
+          "Task": "Kanban",
+          "Due_Date": "2023-08-03",
+          "status": "cafa59ee-c0f5-4f63-974e-4d867dbc22dc",
+          "members_task": [
+            "1"
+          ],
+          "jobs": {
+            "2be48175-d19b-4d5f-b1a8-146b7262cb97": {
+              "name": "responsive",
+              "done": 0
+            },
+            "1d3efccc-991b-4873-8f31-7d82406f14e6": {
+              "name": "connect API",
+              "done": 0
+            },
+            "7720c4b1-0e80-4de3-b27e-feecfc028c17": {
+              "name": "build UI",
+              "done": 1
+            }
+          },
+          "description": "",
+          "labels": {
+            "1": {
+              "color": "#4bce97",
+              "title": "",
+              "check": 0
+            },
+            "2": {
+              "color": "#e2b203",
+              "title": "",
+              "check": 0
+            },
+            "3": {
+              "color": "#FAA53D",
+              "title": "",
+              "check": 0
+            },
+            "4": {
+              "color": "#f87462",
+              "title": "",
+              "check": 0
+            },
+            "5": {
+              "color": "#9F8FEF",
+              "title": "",
+              "check": 0
+            },
+            "6": {
+              "color": "#579dff",
+              "title": "",
+              "check": 0
             }
           }
         }

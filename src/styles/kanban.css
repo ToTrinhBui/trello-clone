@@ -452,9 +452,14 @@ h5 {
     background: #091e420f;
 }
 
+.job-content:hover .job-remove {
+    visibility: visible;
+}
+
 .job-remove {
-    height: 20px;
-    width: 20px;
+    visibility: hidden;
+    height: 19px;
+    width: 19px;
     display: flex;
     justify-content: center;
     align-items: center;
