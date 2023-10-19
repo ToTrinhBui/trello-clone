@@ -225,10 +225,10 @@ button {
   width: 35px;
   height: 35px;
   line-height: 24px;
-  background-image: url(https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/c080abc7f45703f2f7b91e88d2e41202/50.png);
+  /* background-image: url(https://trello-members.s3.amazonaws.com/64a23b00afb58bcc432fbd06/c080abc7f45703f2f7b91e88d2e41202/50.png);
   background-size: 100% auto;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 
 .navbar-user .avatar {
@@ -449,9 +449,11 @@ button {
   align-items: center;
 }
 
-.heading .owner {
-  display: flex;
-  align-items: center;
+.owner {
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  background-color: #ffffff;
 }
 
 .heading .member-outer {

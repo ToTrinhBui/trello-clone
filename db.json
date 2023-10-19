@@ -13,7 +13,7 @@
       "user": {
         "email": "totriinh@gmail.com"
       },
-      "accessToken": "f89a5c7a36f72b9b9e91ee9fabf18240b849af002fb353e647bb385d2434368254e7d23e970ae6d013bff1f125cb5d22cc6e44294491bf53151b4590f138d152",
+      "accessToken": "ca7d18dce7d1399ba7d0bca9a473a53b636e447ce556b8946255fe79479b7732479ac1466fe189d8e11ecacc374aa214a7b18f890e63f27488c219abf3b427a0",
       "id": "0769306c-7564-4fba-94ef-68fcf9b2cefd"
     }
   ],
@@ -159,6 +159,23 @@
           }
         }
       ]
+    },
+    {
+      "user_id": "0769306c-7564-4fba-94ef-68fcf9b2cefd",
+      "name": "bang 1",
+      "background": "https://images.unsplash.com/photo-1688232542797-c3e762c7e3c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDY2fDB8MXxjb2xsZWN0aW9ufDUzfDMxNzA5OXx8fHx8Mnx8MTY5MDg3MDY2N3w&ixlib=rb-4.0.3",
+      "columns": {
+        "c51f7926-8729-42b7-8e96-baf8d325c6a7": {
+          "title": "New column"
+        }
+      },
+      "tasks": [],
+      "members": [
+        {
+          "user_id": "0769306c-7564-4fba-94ef-68fcf9b2cefd"
+        }
+      ],
+      "id": "6IQEoj4"
     }
   ]
 }
